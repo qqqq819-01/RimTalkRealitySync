@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+    <RTRS_Category_Name>Reality Sync Variables</RTRS_Category_Name>
+
+    <RTRS_Desc_Time>Current real-world time (HH:mm)</RTRS_Desc_Time>
+    <RTRS_Desc_Date>Current real-world date (yyyy-MM-dd)</RTRS_Desc_Date>
+    <RTRS_Desc_LastSave>Real-world time of the last game save</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>Time elapsed since the last game save</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>Current real-world weather condition</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>Current real-world temperature</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>Current real-world humidity percentage</RTRS_Desc_Humidity>
+    <RTRS_Desc_Location>Real-world geographical location (City)</RTRS_Desc_Location>
+    <RTRS_Desc_Source>Data source of the current weather</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>Current traditional solar term or season simulation</RTRS_Desc_SolarTerm>
+
+    <RTRS_SettingsTitle>Reality Sync Settings</RTRS_SettingsTitle>
+    <RTRS_WeatherApiTitle>Weather Data Source (API)</RTRS_WeatherApiTitle>
+    <RTRS_ApiNone>None (Disable real weather, use seasonal simulation)</RTRS_ApiNone>
+    <RTRS_ApiHeWeather>HeWeather (QWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+    
+    <RTRS_CityLabel>Real-world City Name:</RTRS_CityLabel>
+    <RTRS_CityTooltip>Enter Pinyin or English, e.g., Beijing, London, NewYork</RTRS_CityTooltip>
+    
+    <RTRS_ApiKeyLabel>API Key:</RTRS_ApiKeyLabel>
+    
+    <RTRS_UseCelsius>Use Celsius</RTRS_UseCelsius>
+    <RTRS_UseCelsiusTooltip>Uncheck this to use Fahrenheit instead.</RTRS_UseCelsiusTooltip>
+    
+    <RTRS_UpdateInterval>Background Update Interval: {0} minutes</RTRS_UpdateInterval>
+    
+    <RTRS_DevTitle>Developer Options</RTRS_DevTitle>
+    <RTRS_DebugMode>Enable Debug Logging</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>Print detailed logs to the developer console for asynchronous weather updates and variable registrations.</RTRS_DebugModeTooltip>
+
+    <RTRS_TestAPI_Button>Test API Connection</RTRS_TestAPI_Button>
+    <RTRS_TestAPI_Testing>Testing network connection, please wait...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>Cannot test: Please select a valid Weather API source above.</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>Cannot test: API Key cannot be empty. Please enter your key.</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>Connection Successful! (Ensure there are no errors in the debug log)</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>Connection Failed! Please open the developer console (Debug Log) for details.</RTRS_TestAPI_Fail>
+
+</LanguageData>

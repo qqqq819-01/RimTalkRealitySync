@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+    <RTRS_Category_Name>현실 정보 동기화 (Reality Sync)</RTRS_Category_Name>
+
+    <RTRS_Desc_Time>현재 현실 시간 (HH:mm)</RTRS_Desc_Time>
+    <RTRS_Desc_Date>현재 현실 날짜 (yyyy-MM-dd)</RTRS_Desc_Date>
+    <RTRS_Desc_LastSave>마지막 저장의 현실 시간</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>마지막 저장 후 경과된 현실 시간</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>현실 날씨 상태</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>현실 온도</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>현실 습도 퍼센트</RTRS_Desc_Humidity>
+    <RTRS_Desc_Location>현실 지리적 위치 (도시)</RTRS_Desc_Location>
+    <RTRS_Desc_Source>날씨 데이터 출처</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>현재 절기 또는 계절 (시뮬레이션)</RTRS_Desc_SolarTerm>
+
+    <RTRS_SettingsTitle>현실 정보 동기화 설정 (Reality Sync)</RTRS_SettingsTitle>
+    <RTRS_WeatherApiTitle>날씨 데이터 출처 (API)</RTRS_WeatherApiTitle>
+    <RTRS_ApiNone>없음 (현실 날씨 비활성화, 계절 시뮬레이션 사용)</RTRS_ApiNone>
+    <RTRS_ApiHeWeather>HeWeather (QWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+    
+    <RTRS_CityLabel>현실 도시 이름:</RTRS_CityLabel>
+    <RTRS_CityTooltip>병음이나 영문으로 입력하세요 (예: Seoul, Tokyo, NewYork)</RTRS_CityTooltip>
+    
+    <RTRS_ApiKeyLabel>API 키 (Key):</RTRS_ApiKeyLabel>
+    
+    <RTRS_UseCelsius>섭씨(Celsius) 사용</RTRS_UseCelsius>
+    <RTRS_UseCelsiusTooltip>화씨를 사용하려면 선택을 취소하세요.</RTRS_UseCelsiusTooltip>
+    
+    <RTRS_UpdateInterval>백그라운드 업데이트 주기: {0}분</RTRS_UpdateInterval>
+    
+    <RTRS_DevTitle>개발자 옵션</RTRS_DevTitle>
+    <RTRS_DebugMode>디버그 로그 활성화</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>날씨 비동기 업데이트 및 변수 등록에 대한 상세 로그를 개발자 콘솔에 출력합니다.</RTRS_DebugModeTooltip>
+
+    <RTRS_TestAPI_Button>API 연결 테스트</RTRS_TestAPI_Button>
+    <RTRS_TestAPI_Testing>네트워크 연결을 테스트 중입니다. 잠시만 기다려주세요...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>테스트 불가: 위에서 유효한 날씨 API 출처를 선택하세요.</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>테스트 불가: API 키가 비어있을 수 없습니다. 키를 입력하세요.</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>연결 성공! (디버그 로그에 오류가 없는지 확인하세요)</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>연결 실패! 자세한 내용은 개발자 콘솔(디버그 로그)을 열어 확인하세요.</RTRS_TestAPI_Fail>
+
+</LanguageData>

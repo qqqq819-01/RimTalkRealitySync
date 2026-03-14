@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+    <RTRS_Category_Name>现实信息同步 (Reality Sync)</RTRS_Category_Name>
+
+    <RTRS_Desc_Time>当前现实时间 (HH:mm)</RTRS_Desc_Time>
+    <RTRS_Desc_Date>当前现实日期 (yyyy-MM-dd)</RTRS_Desc_Date>
+    <RTRS_Desc_LastSave>上次存档的具体现实时间</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>距离上次存档现实中经过了多久</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>现实世界天气状况</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>现实世界温度</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>现实世界湿度百分比</RTRS_Desc_Humidity>
+    <RTRS_Desc_Location>现实世界的地理位置 (城市)</RTRS_Desc_Location>
+    <RTRS_Desc_Source>现实天气数据的获取来源</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>现实世界当前的节气或季节</RTRS_Desc_SolarTerm>
+
+    <RTRS_SettingsTitle>现实信息同步设置 (Reality Sync)</RTRS_SettingsTitle>
+    <RTRS_WeatherApiTitle>天气数据源 (Weather API)</RTRS_WeatherApiTitle>
+    <RTRS_ApiNone>无 (禁用现实天气, 使用节气模拟)</RTRS_ApiNone>
+    <RTRS_ApiHeWeather>和风天气 (HeWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+    <RTRS_CityLabel>现实城市名称:</RTRS_CityLabel>
+    <RTRS_CityTooltip>请输入拼音或英文，例如 Beijing, Shanghai</RTRS_CityTooltip>
+    <RTRS_ApiKeyLabel>API 密钥 (Key):</RTRS_ApiKeyLabel>
+    <RTRS_UseCelsius>使用摄氏度 (Celsius)</RTRS_UseCelsius>
+    <RTRS_UseCelsiusTooltip>取消勾选将使用华氏度</RTRS_UseCelsiusTooltip>
+    <RTRS_UpdateInterval>后台更新频率: {0} 分钟</RTRS_UpdateInterval>
+    <RTRS_DevTitle>开发者选项 (Developer)</RTRS_DevTitle>
+    <RTRS_DebugMode>启用调试日志 (Debug Mode)</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>在开发者控制台打印天气异步更新和变量注册的详细日志</RTRS_DebugModeTooltip>
+    
+    <RTRS_TestAPI_Button>测试 API 连接</RTRS_TestAPI_Button>
+    <RTRS_TestAPI_Testing>正在测试网络连接，请稍候...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>无法测试：请先在上方选择一个有效的天气 API 数据源。</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>无法测试：API 密钥不能为空，请输入密钥。</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>连接成功！(请确保你的控制台没有报错)</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>连接失败！请打开开发者控制台(Debug Log)查看详细报错原因。</RTRS_TestAPI_Fail>
+
+</LanguageData>

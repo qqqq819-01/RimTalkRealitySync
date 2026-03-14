@@ -1,0 +1,8 @@
+# Visual Studio 临时文件
+.vs/
+*.user
+*.suo
+
+# 编译过程文件
+Source/**/obj/
+Source/**/bin/
