@@ -11,29 +11,39 @@
     <RTRS_Desc_Temp>現實世界溫度</RTRS_Desc_Temp>
     <RTRS_Desc_Humidity>現實世界濕度百分比</RTRS_Desc_Humidity>
     <RTRS_Desc_Location>現實世界的地理位置 (城市)</RTRS_Desc_Location>
-    <RTRS_Desc_Source>現實天氣資料的取得來源</RTRS_Desc_Source>
+    <RTRS_Desc_Source>現實天氣數據的獲取來源</RTRS_Desc_Source>
     <RTRS_Desc_SolarTerm>現實世界目前的節氣或季節</RTRS_Desc_SolarTerm>
 
     <RTRS_SettingsTitle>現實資訊同步設定 (Reality Sync)</RTRS_SettingsTitle>
-    <RTRS_WeatherApiTitle>天氣資料來源 (Weather API)</RTRS_WeatherApiTitle>
+    <RTRS_WeatherApiTitle>天氣數據源 (Weather API)</RTRS_WeatherApiTitle>
     <RTRS_ApiNone>無 (停用現實天氣, 使用節氣模擬)</RTRS_ApiNone>
     <RTRS_ApiHeWeather>和風天氣 (HeWeather)</RTRS_ApiHeWeather>
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+
     <RTRS_CityLabel>現實城市名稱:</RTRS_CityLabel>
-    <RTRS_CityTooltip>請輸入拼音或英文，例如 Taipei, Beijing, London</RTRS_CityTooltip>
+    <RTRS_CityTooltip>請輸入純中文、拼音或英文，例如 廣州, Beijing。\n\n防報錯提示：\n僅有和風天氣可使用純中文，因為和風天氣的特殊性建議在這裡直接輸入城市的「純數字 ID」（例如廣州是 101280101），這能 100% 避免因城市檢索導致的 404 報錯！</RTRS_CityTooltip>
     <RTRS_ApiKeyLabel>API 金鑰 (Key):</RTRS_ApiKeyLabel>
+    
+    <RTRS_OpenWeatherKeyTip>請前往 OpenWeather 官網獲取天氣專屬 API Key。\n\n⚠️ 警告：千萬不要把 RimTalk 大語言模型（如 OpenAI 等）的對話 API Key 填到這裡！兩者是不通用的！</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>請前往【和風天氣控制台】獲取天氣專屬的 API Key。\n\n⚠️ 警告：千萬不要把 RimTalk 大語言模型（如 OpenAI 等）的對話 API Key 填到這裡！兩者是不通用的！</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>API 專屬域名 (Host):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>請在和風天氣控制台的「設定」頁面查看系統分配給你的專屬 API Host（例如 pw6xxx.qweatherapi.com）。</RTRS_HeWeatherHostTip>
+
     <RTRS_UseCelsius>使用攝氏度 (Celsius)</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>取消勾選將使用華氏度</RTRS_UseCelsiusTooltip>
-    <RTRS_UpdateInterval>背景更新頻率: {0} 分鐘</RTRS_UpdateInterval>
+    <RTRS_UpdateInterval>後台更新頻率: {0} 分鐘</RTRS_UpdateInterval>
+    
     <RTRS_DevTitle>開發者選項 (Developer)</RTRS_DevTitle>
-    <RTRS_DebugMode>啟用偵錯記錄 (Debug Mode)</RTRS_DebugMode>
-    <RTRS_DebugModeTooltip>在開發者控制台列印天氣非同步更新與變數註冊的詳細記錄</RTRS_DebugModeTooltip>
-
-    <RTRS_TestAPI_Button>測試 API 連線</RTRS_TestAPI_Button>
-    <RTRS_TestAPI_Testing>正在測試網路連線，請稍候...</RTRS_TestAPI_Testing>
-    <RTRS_TestAPI_None>無法測試：請先在上方選擇一個有效的天氣 API 資料來源。</RTRS_TestAPI_None>
-    <RTRS_TestAPI_EmptyKey>無法測試：API 金鑰不能為空，請輸入金鑰。</RTRS_TestAPI_EmptyKey>
-    <RTRS_TestAPI_Success>連線成功！(請確保你的控制台沒有報錯)</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>連線失敗！請開啟開發者控制台(Debug Log)查看詳細報錯原因。</RTRS_TestAPI_Fail>
+    <RTRS_DebugMode>啟用偵錯日誌 (Debug Mode)</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>在開發者控制台列印天氣非同步更新和變數註冊的詳細日誌</RTRS_DebugModeTooltip>
+    
+    <RTRS_TestAPI_Button>測試 API 連接</RTRS_TestAPI_Button>
+    <RTRS_TestAPI_Testing>正在發報測試網路連接，請稍候...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>無法測試：請先在上方選擇一個有效的天氣 API 數據源。</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>無法測試：API 金鑰不能為空，請先貼上你的專屬金鑰。</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>連線成功！</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>連接失敗！請打開開發者控制台 (紅字警報) 查看伺服器返回的詳細死因。</RTRS_TestAPI_Fail>
+    
+    <RTRS_Error_EmptyHost>連接中止：和風天氣的 API Host (專屬域名) 不能為空！請在 Mod 設定中填入你的專屬域名。</RTRS_Error_EmptyHost>
 
 </LanguageData>

@@ -100,10 +100,34 @@ namespace RimTalkRealitySync
 
                 listing.Gap(5f);
 
-                // API Key Input Field
+                // API Key Input Field - Dynamically switch the bound variable based on selected provider
                 Rect keyRect = listing.GetRect(24f);
                 Widgets.Label(keyRect.LeftPart(0.3f), "RTRS_ApiKeyLabel".Translate());
-                Settings.WeatherApiKey = Widgets.TextField(keyRect.RightPart(0.7f), Settings.WeatherApiKey);
+
+                if (Settings.WeatherApiProvider == "openweathermap")
+                {
+                    Settings.OpenWeatherApiKey = Widgets.TextField(keyRect.RightPart(0.7f), Settings.OpenWeatherApiKey);
+
+                    // Localization placeholder for OpenWeather API Key warning
+                    TooltipHandler.TipRegion(keyRect, "RTRS_OpenWeatherKeyTip".Translate());
+                }
+                else if (Settings.WeatherApiProvider == "heweather")
+                {
+                    Settings.HeWeatherApiKey = Widgets.TextField(keyRect.RightPart(0.7f), Settings.HeWeatherApiKey);
+
+                    // Localization placeholder for HeWeather API Key warning
+                    TooltipHandler.TipRegion(keyRect, "RTRS_HeWeatherKeyTip".Translate());
+
+                    listing.Gap(5f);
+
+                    // Add API Host input field explicitly for QWeather dedicated hosts
+                    Rect hostRect = listing.GetRect(24f);
+                    Widgets.Label(hostRect.LeftPart(0.3f), "RTRS_ApiHostLabel".Translate());
+                    Settings.HeWeatherApiHost = Widgets.TextField(hostRect.RightPart(0.7f), Settings.HeWeatherApiHost);
+
+                    // Localization placeholder for HeWeather API Host instruction
+                    TooltipHandler.TipRegion(hostRect, "RTRS_HeWeatherHostTip".Translate());
+                }
 
                 listing.Gap(5f);
 
@@ -130,15 +154,20 @@ namespace RimTalkRealitySync
                     {
                         Messages.Message("RTRS_TestAPI_None".Translate(), MessageTypeDefOf.RejectInput, false);
                     }
-                    else if (string.IsNullOrWhiteSpace(Settings.WeatherApiKey))
-                    {
-                        Messages.Message("RTRS_TestAPI_EmptyKey".Translate(), MessageTypeDefOf.RejectInput, false);
-                    }
                     else
                     {
-                        // Notify user testing has started, then trigger the synchronous fetch
-                        Messages.Message("RTRS_TestAPI_Testing".Translate(), MessageTypeDefOf.NeutralEvent, false);
-                        RealWorldProvider.TestApiConnectionSync();
+                        // Check the dynamically selected key
+                        string currentKey = Settings.WeatherApiProvider == "openweathermap" ? Settings.OpenWeatherApiKey : Settings.HeWeatherApiKey;
+                        if (string.IsNullOrWhiteSpace(currentKey))
+                        {
+                            Messages.Message("RTRS_TestAPI_EmptyKey".Translate(), MessageTypeDefOf.RejectInput, false);
+                        }
+                        else
+                        {
+                            // Notify user testing has started, then trigger the synchronous fetch
+                            Messages.Message("RTRS_TestAPI_Testing".Translate(), MessageTypeDefOf.NeutralEvent, false);
+                            RealWorldProvider.TestApiConnectionSync();
+                        }
                     }
                 }
             }

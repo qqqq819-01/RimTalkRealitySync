@@ -5,40 +5,44 @@
 
     <RTRS_Desc_Time>현재 현실 시간 (HH:mm)</RTRS_Desc_Time>
     <RTRS_Desc_Date>현재 현실 날짜 (yyyy-MM-dd)</RTRS_Desc_Date>
-    <RTRS_Desc_LastSave>마지막 저장의 현실 시간</RTRS_Desc_LastSave>
-    <RTRS_Desc_SaveDiff>마지막 저장 후 경과된 현실 시간</RTRS_Desc_SaveDiff>
-    <RTRS_Desc_Weather>현실 날씨 상태</RTRS_Desc_Weather>
-    <RTRS_Desc_Temp>현실 온도</RTRS_Desc_Temp>
-    <RTRS_Desc_Humidity>현실 습도 퍼센트</RTRS_Desc_Humidity>
-    <RTRS_Desc_Location>현실 지리적 위치 (도시)</RTRS_Desc_Location>
-    <RTRS_Desc_Source>날씨 데이터 출처</RTRS_Desc_Source>
-    <RTRS_Desc_SolarTerm>현재 절기 또는 계절 (시뮬레이션)</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_LastSave>마지막 게임 저장의 현실 시간</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>마지막 저장 이후 경과된 현실 시간</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>현재 현실 세계 날씨 상태</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>현재 현실 세계 온도</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>현재 현실 세계 습도(%)</RTRS_Desc_Humidity>
+    <RTRS_Desc_Location>현실 세계의 지리적 위치 (도시)</RTRS_Desc_Location>
+    <RTRS_Desc_Source>현재 날씨 데이터 출처</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>현재 절기 또는 계절 시뮬레이션</RTRS_Desc_SolarTerm>
 
     <RTRS_SettingsTitle>현실 정보 동기화 설정 (Reality Sync)</RTRS_SettingsTitle>
-    <RTRS_WeatherApiTitle>날씨 데이터 출처 (API)</RTRS_WeatherApiTitle>
+    <RTRS_WeatherApiTitle>날씨 데이터 출처 (Weather API)</RTRS_WeatherApiTitle>
     <RTRS_ApiNone>없음 (현실 날씨 비활성화, 계절 시뮬레이션 사용)</RTRS_ApiNone>
-    <RTRS_ApiHeWeather>HeWeather (QWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiHeWeather>QWeather (화풍날씨)</RTRS_ApiHeWeather>
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
-    
+
     <RTRS_CityLabel>현실 도시 이름:</RTRS_CityLabel>
-    <RTRS_CityTooltip>병음이나 영문으로 입력하세요 (예: Seoul, Tokyo, NewYork)</RTRS_CityTooltip>
-    
+    <RTRS_CityTooltip>병음이나 영문으로 입력하세요 (예: Beijing, London, Seoul).</RTRS_CityTooltip>
     <RTRS_ApiKeyLabel>API 키 (Key):</RTRS_ApiKeyLabel>
     
-    <RTRS_UseCelsius>섭씨(Celsius) 사용</RTRS_UseCelsius>
+    <RTRS_OpenWeatherKeyTip>OpenWeather 공식 웹사이트에서 날씨 전용 API Key를 발급받으세요.\n\n⚠️ 경고: RimTalk 대형 언어 모델(예: OpenAI)의 대화용 API Key를 이곳에 입력하지 마세요! 두 키는 호환되지 않습니다!</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>QWeather 콘솔에서 날씨 전용 API Key를 발급받으세요.\n\n⚠️ 경고: RimTalk 대형 언어 모델(예: OpenAI)의 대화용 API Key를 이곳에 입력하지 마세요! 두 키는 호환되지 않습니다!</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>전용 API 호스트 (Host):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>QWeather 콘솔의 '설정' 페이지에서 시스템이 할당한 전용 API Host(예: pw6xxx.qweatherapi.com)를 확인하여 입력해 주세요.</RTRS_HeWeatherHostTip>
+
+    <RTRS_UseCelsius>섭씨 사용 (Celsius)</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>화씨를 사용하려면 선택을 취소하세요.</RTRS_UseCelsiusTooltip>
-    
     <RTRS_UpdateInterval>백그라운드 업데이트 주기: {0}분</RTRS_UpdateInterval>
     
-    <RTRS_DevTitle>개발자 옵션</RTRS_DevTitle>
-    <RTRS_DebugMode>디버그 로그 활성화</RTRS_DebugMode>
-    <RTRS_DebugModeTooltip>날씨 비동기 업데이트 및 변수 등록에 대한 상세 로그를 개발자 콘솔에 출력합니다.</RTRS_DebugModeTooltip>
-
+    <RTRS_DevTitle>개발자 옵션 (Developer)</RTRS_DevTitle>
+    <RTRS_DebugMode>디버그 로깅 활성화 (Debug Mode)</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>비동기 날씨 업데이트 및 변수 등록에 대한 자세한 로그를 개발자 콘솔에 출력합니다.</RTRS_DebugModeTooltip>
+    
     <RTRS_TestAPI_Button>API 연결 테스트</RTRS_TestAPI_Button>
-    <RTRS_TestAPI_Testing>네트워크 연결을 테스트 중입니다. 잠시만 기다려주세요...</RTRS_TestAPI_Testing>
-    <RTRS_TestAPI_None>테스트 불가: 위에서 유효한 날씨 API 출처를 선택하세요.</RTRS_TestAPI_None>
-    <RTRS_TestAPI_EmptyKey>테스트 불가: API 키가 비어있을 수 없습니다. 키를 입력하세요.</RTRS_TestAPI_EmptyKey>
-    <RTRS_TestAPI_Success>연결 성공! (디버그 로그에 오류가 없는지 확인하세요)</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>연결 실패! 자세한 내용은 개발자 콘솔(디버그 로그)을 열어 확인하세요.</RTRS_TestAPI_Fail>
-
+    <RTRS_TestAPI_Testing>네트워크 연결 테스트 중입니다. 잠시만 기다려주세요...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>테스트 불가: 위에서 유효한 날씨 API 데이터 출처를 먼저 선택하세요.</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>테스트 불가: API 키는 비워둘 수 없습니다. 먼저 전용 키를 붙여넣으세요.</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>연결 성공!</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>연결 실패! 개발자 콘솔(디버그 로그)을 열어 서버가 반환한 자세한 오류 원인을 확인하세요.</RTRS_TestAPI_Fail>
+    
+    <RTRS_Error_EmptyHost>연결 중단: QWeather의 API Host(전용 호스트)는 비워둘 수 없습니다! Mod 설정에 전용 호스트를 정확히 입력해 주세요.</RTRS_Error_EmptyHost>
 </LanguageData>

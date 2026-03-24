@@ -21,10 +21,15 @@
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
     
     <RTRS_CityLabel>Real-world City Name:</RTRS_CityLabel>
-    <RTRS_CityTooltip>Enter Pinyin or English, e.g., Beijing, London, NewYork</RTRS_CityTooltip>
+    <RTRS_CityTooltip>Enter Pinyin or English, e.g., Beijing, London, NewYork.</RTRS_CityTooltip>
     
     <RTRS_ApiKeyLabel>API Key:</RTRS_ApiKeyLabel>
     
+    <RTRS_OpenWeatherKeyTip>Please get your Weather API Key from the official OpenWeather website.\n\n⚠️ WARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>Please get your Weather API Key from the official QWeather Console.\n\n⚠️ WARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>Dedicated API Host (QWeather):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>Please check your QWeather Console -> Settings for your dedicated API Host (e.g., pw6xxx.qweatherapi.com).</RTRS_HeWeatherHostTip>
+
     <RTRS_UseCelsius>Use Celsius</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>Uncheck this to use Fahrenheit instead.</RTRS_UseCelsiusTooltip>
     
@@ -38,7 +43,9 @@
     <RTRS_TestAPI_Testing>Testing network connection, please wait...</RTRS_TestAPI_Testing>
     <RTRS_TestAPI_None>Cannot test: Please select a valid Weather API source above.</RTRS_TestAPI_None>
     <RTRS_TestAPI_EmptyKey>Cannot test: API Key cannot be empty. Please enter your key.</RTRS_TestAPI_EmptyKey>
-    <RTRS_TestAPI_Success>Connection Successful! (Ensure there are no errors in the debug log)</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>Connection Failed! Please open the developer console (Debug Log) for details.</RTRS_TestAPI_Fail>
+    <RTRS_TestAPI_Success>Connection Successful!</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>Connection Failed! Please open the developer console (Debug Log) for details on the server response.</RTRS_TestAPI_Fail>
+    
+    <RTRS_Error_EmptyHost>Connection Aborted: QWeather's API Host cannot be empty! Please enter your dedicated host in the Mod Settings.</RTRS_Error_EmptyHost>
 
 </LanguageData>

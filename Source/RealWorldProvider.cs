@@ -34,6 +34,55 @@ namespace RimTalkRealitySync
         }
 
         // ==========================================
+        // Utility: GZip Enabled WebClient
+        // ==========================================
+        /// <summary>
+        /// A custom WebClient that automatically handles GZip compression.
+        /// Essential because QWeather v7 strictly forces GZip responses!
+        /// </summary>
+        private class GZipWebClient : WebClient
+        {
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                HttpWebRequest request = base.GetWebRequest(address) as HttpWebRequest;
+                if (request != null)
+                {
+                    request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                    request.Timeout = 10000; // 10 seconds timeout to prevent UI freezing
+                }
+                return request;
+            }
+        }
+
+        // ==========================================
+        // Utility: WebException Detail Extractor
+        // ==========================================
+        /// <summary>
+        /// Safely extracts the actual JSON error message returned by the server on a 404/401 response.
+        /// </summary>
+        private static string GetWebExceptionMessage(WebException wex)
+        {
+            if (wex.Response != null)
+            {
+                try
+                {
+                    using (var stream = wex.Response.GetResponseStream())
+                    {
+                        if (stream != null)
+                        {
+                            using (var reader = new StreamReader(stream))
+                            {
+                                return reader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+                catch { /* Ignore stream reading errors */ }
+            }
+            return "No additional details available.";
+        }
+
+        // ==========================================
         // 1. Time & Date API
         // ==========================================
         public static string GetRealTime() => DateTime.Now.ToString("HH:mm");
@@ -91,13 +140,12 @@ namespace RimTalkRealitySync
                 return;
             }
 
-            if (_isFetchingWeather) return; // Prevent multiple simultaneous requests
+            if (_isFetchingWeather) return;
 
             if ((DateTime.Now - _lastWeatherUpdateTime).TotalMinutes >= settings.UpdateIntervalMinutes)
             {
                 _isFetchingWeather = true;
 
-                // Fetch weather asynchronously to prevent game freezing!
                 Task.Run(() =>
                 {
                     try
@@ -121,32 +169,104 @@ namespace RimTalkRealitySync
 
         private static void FetchWeatherFromApiSync(RealitySyncSettings settings)
         {
-            string url = "";
-            string city = Uri.EscapeDataString(settings.CustomCity);
+            // Enforce TLS 1.2 for modern web APIs to prevent SecureChannelFailure on RimWorld's Mono engine
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             if (settings.WeatherApiProvider == "openweathermap")
             {
-                url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={settings.WeatherApiKey}&units=metric&lang=en";
+                string city = Uri.EscapeDataString(settings.CustomCity);
+                string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={settings.OpenWeatherApiKey}&units=metric&lang=en";
+
+                using (WebClient client = new GZipWebClient())
+                {
+                    client.Encoding = Encoding.UTF8;
+                    client.Headers.Add("User-Agent", "RimTalkRealitySync/1.0");
+
+                    try
+                    {
+                        string json = client.DownloadString(url);
+                        ParseWeatherJson(json, settings.WeatherApiProvider, settings.CustomCity);
+                    }
+                    catch (WebException wex)
+                    {
+                        string detail = GetWebExceptionMessage(wex);
+                        throw new Exception($"OpenWeather API Error: {wex.Message} | Detail: {detail}");
+                    }
+                }
             }
             else if (settings.WeatherApiProvider == "heweather")
             {
-                url = $"https://devapi.qweather.com/v7/weather/now?location={city}&key={settings.WeatherApiKey}&lang=en";
-            }
+                string locationId = "";
+                string host = settings.HeWeatherApiHost.Replace("https://", "").Replace("http://", "").TrimEnd('/');
 
-            if (string.IsNullOrEmpty(url)) return;
+                // Prevent routing errors by enforcing the user to input an API Host
+                if (string.IsNullOrWhiteSpace(host))
+                {
+                    throw new Exception("RTRS_Error_EmptyHost".Translate());
+                }
 
-            using (WebClient client = new WebClient())
-            {
-                client.Encoding = Encoding.UTF8;
-                client.Headers.Add("User-Agent", "RimTalkRealitySync/1.0");
-                string json = client.DownloadString(url);
-                ParseWeatherJson(json, settings.WeatherApiProvider, settings.CustomCity);
+                // Smart Feature: If user entered purely numeric ID (e.g. 101280101), skip GeoAPI completely!
+                if (int.TryParse(settings.CustomCity, out _))
+                {
+                    locationId = settings.CustomCity;
+                }
+                else
+                {
+                    string cityParam = Uri.EscapeDataString(settings.CustomCity);
+
+                    // THE ULTIMATE ROUTING FIX FOR QWEATHER ARCHITECTURE:
+                    // Since we removed free tier support, all GeoAPI queries must directly hit the user's dedicated host with the '/geo/' prefix.
+                    string geoUrl = $"https://{host}/geo/v2/city/lookup?location={cityParam}";
+
+                    using (WebClient geoClient = new GZipWebClient())
+                    {
+                        geoClient.Encoding = Encoding.UTF8;
+                        geoClient.Headers.Add("User-Agent", "RimTalkRealitySync/1.0");
+                        geoClient.Headers.Add("X-QW-Api-Key", settings.HeWeatherApiKey);
+
+                        try
+                        {
+                            string geoJson = geoClient.DownloadString(geoUrl);
+                            locationId = ExtractJsonString(geoJson, "id");
+
+                            if (locationId == "Unknown" || string.IsNullOrEmpty(locationId))
+                            {
+                                throw new Exception($"HeWeather GeoAPI failed to find the Location ID for '{settings.CustomCity}'. Please check the city name.");
+                            }
+                        }
+                        catch (WebException wex)
+                        {
+                            string detail = GetWebExceptionMessage(wex);
+                            throw new Exception($"HeWeather GeoAPI Error [{geoUrl}]: {wex.Message} | Server Response: {detail}");
+                        }
+                    }
+                }
+
+                // Weather API: Use the selected host and put API Key in Header (X-QW-Api-Key)
+                string url = $"https://{host}/v7/weather/now?location={locationId}&lang=en";
+
+                using (WebClient client = new GZipWebClient())
+                {
+                    client.Encoding = Encoding.UTF8;
+                    client.Headers.Add("User-Agent", "RimTalkRealitySync/1.0");
+                    client.Headers.Add("X-QW-Api-Key", settings.HeWeatherApiKey);
+
+                    try
+                    {
+                        string json = client.DownloadString(url);
+                        ParseWeatherJson(json, settings.WeatherApiProvider, settings.CustomCity);
+                    }
+                    catch (WebException wex)
+                    {
+                        string detail = GetWebExceptionMessage(wex);
+                        throw new Exception($"HeWeather Data API Error [{url}]: {wex.Message} | Server Response: {detail}");
+                    }
+                }
             }
         }
 
         private static void ParseWeatherJson(string json, string provider, string defaultLocation)
         {
-            // A simple string manipulation parser to avoid heavy JSON libraries dependencies
             _cachedWeather.Location = defaultLocation;
             _cachedWeather.Source = provider;
 
@@ -154,15 +274,15 @@ namespace RimTalkRealitySync
             {
                 if (provider == "openweathermap")
                 {
-                    _cachedWeather.TemperatureC = ExtractFloat(json, "\"temp\":");
-                    _cachedWeather.Humidity = (int)ExtractFloat(json, "\"humidity\":");
-                    _cachedWeather.Condition = ExtractString(json, "\"description\":\"", "\"");
+                    _cachedWeather.TemperatureC = ExtractJsonFloat(json, "temp");
+                    _cachedWeather.Humidity = (int)ExtractJsonFloat(json, "humidity");
+                    _cachedWeather.Condition = ExtractJsonString(json, "description");
                 }
                 else if (provider == "heweather")
                 {
-                    _cachedWeather.TemperatureC = ExtractFloat(json, "\"temp\":\"");
-                    _cachedWeather.Humidity = (int)ExtractFloat(json, "\"humidity\":\"");
-                    _cachedWeather.Condition = ExtractString(json, "\"text\":\"", "\"");
+                    _cachedWeather.TemperatureC = ExtractJsonFloat(json, "temp");
+                    _cachedWeather.Humidity = (int)ExtractJsonFloat(json, "humidity");
+                    _cachedWeather.Condition = ExtractJsonString(json, "text");
                 }
 
                 if (RimTalkRealitySyncMod.Settings.DebugMode)
@@ -174,54 +294,72 @@ namespace RimTalkRealitySync
             }
         }
 
-        // --- Simple JSON extractors ---
-        private static float ExtractFloat(string json, string key)
+        // --- Robust JSON extractors to handle unpredictable spacing and formatting ---
+
+        private static float ExtractJsonFloat(string json, string key)
         {
-            int idx = json.IndexOf(key);
+            string searchKey = "\"" + key + "\"";
+            int idx = json.IndexOf(searchKey);
             if (idx == -1) return 0f;
-            idx += key.Length;
-            int endIdx = json.IndexOfAny(new char[] { ',', '}', '"' }, idx);
-            if (endIdx == -1) return 0f;
-            string val = json.Substring(idx, endIdx - idx).Trim('"', ' ');
-            float.TryParse(val, out float result);
-            return result;
+
+            idx = json.IndexOf(":", idx + searchKey.Length);
+            if (idx == -1) return 0f;
+
+            idx++;
+            while (idx < json.Length && (char.IsWhiteSpace(json[idx]) || json[idx] == '"'))
+            {
+                idx++;
+            }
+
+            int endIdx = idx;
+            while (endIdx < json.Length && (char.IsDigit(json[endIdx]) || json[endIdx] == '.' || json[endIdx] == '-'))
+            {
+                endIdx++;
+            }
+
+            if (endIdx > idx)
+            {
+                string val = json.Substring(idx, endIdx - idx);
+                float.TryParse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out float result);
+                return result;
+            }
+            return 0f;
         }
 
-        private static string ExtractString(string json, string key, string endDelimiter)
+        private static string ExtractJsonString(string json, string key)
         {
-            int idx = json.IndexOf(key);
+            string searchKey = "\"" + key + "\"";
+            int idx = json.IndexOf(searchKey);
             if (idx == -1) return "Unknown";
-            idx += key.Length;
-            int endIdx = json.IndexOf(endDelimiter, idx);
+
+            idx = json.IndexOf(":", idx + searchKey.Length);
+            if (idx == -1) return "Unknown";
+
+            idx = json.IndexOf("\"", idx);
+            if (idx == -1) return "Unknown";
+
+            idx++;
+            int endIdx = json.IndexOf("\"", idx);
             if (endIdx == -1) return "Unknown";
+
             return json.Substring(idx, endIdx - idx);
         }
 
         // ==========================================
         // 3.5 API Testing (Added for UI Button)
         // ==========================================
-        /// <summary>
-        /// Manually triggers a synchronous API fetch to test the connection and settings.
-        /// Called from the mod settings menu. 
-        /// It runs synchronously because RimWorld UI messages must be called on the main thread.
-        /// </summary>
         public static void TestApiConnectionSync()
         {
             var settings = RimTalkRealitySyncMod.Settings;
 
             try
             {
-                // Force a manual synchronous fetch
                 FetchWeatherFromApiSync(settings);
 
-                // Fetch the formatted temperature (respecting Celsius/Fahrenheit settings)
                 string currentTemp = GetRealTemperature();
-                string condition = _cachedWeather.Condition; // 获取天气描述
+                string condition = _cachedWeather.Condition;
 
-                // Connection successful, show a positive message with the actual fetched data
-                // Combine the translated success message with the actual temperature and condition
                 string successMsg = $"{"RTRS_TestAPI_Success".Translate()} [{condition}, {currentTemp}]";
-
                 Messages.Message(successMsg, MessageTypeDefOf.PositiveEvent, false);
             }
             catch (Exception ex)
@@ -229,7 +367,6 @@ namespace RimTalkRealitySync
                 if (settings.DebugMode)
                     Log.Error($"[RimTalk Reality Sync] API Test Failed: {ex.Message}");
 
-                // Connection failed, show a negative message
                 Messages.Message("RTRS_TestAPI_Fail".Translate(), MessageTypeDefOf.NegativeEvent, false);
             }
         }
@@ -250,7 +387,6 @@ namespace RimTalkRealitySync
                 Location = RimTalkRealitySyncMod.Settings.CustomCity
             };
 
-            // Extremely simplified seasonal simulation
             if (month >= 3 && month <= 5) { data.Condition = "Spring Breeze"; data.TemperatureC = 15f; data.Humidity = 60; }
             else if (month >= 6 && month <= 8) { data.Condition = "Summer Heat"; data.TemperatureC = 30f; data.Humidity = 70; }
             else if (month >= 9 && month <= 11) { data.Condition = "Autumn Cool"; data.TemperatureC = 18f; data.Humidity = 50; }

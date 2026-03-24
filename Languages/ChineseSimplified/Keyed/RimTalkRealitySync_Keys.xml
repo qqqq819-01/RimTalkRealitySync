@@ -19,21 +19,31 @@
     <RTRS_ApiNone>无 (禁用现实天气, 使用节气模拟)</RTRS_ApiNone>
     <RTRS_ApiHeWeather>和风天气 (HeWeather)</RTRS_ApiHeWeather>
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+
     <RTRS_CityLabel>现实城市名称:</RTRS_CityLabel>
-    <RTRS_CityTooltip>请输入拼音或英文，例如 Beijing, Shanghai</RTRS_CityTooltip>
+    <RTRS_CityTooltip>请输入纯中文、拼音或英文，例如 广州, Beijing。\n\n防报错提示：\n仅有和风天气可使用纯中文，因为和风天气的特殊性建议在这里直接输入城市的“纯数字 ID”（例如广州是 101280101），这能 100% 避免因城市检索导致的 404 报错！</RTRS_CityTooltip>
     <RTRS_ApiKeyLabel>API 密钥 (Key):</RTRS_ApiKeyLabel>
+    
+    <RTRS_OpenWeatherKeyTip>请前往 OpenWeather 官网获取天气专属 API Key。\n\n⚠️ 警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>请前往【和风天气控制台】获取天气专属的 API Key。\n\n⚠️ 警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>API 专属域名 (Host):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>请在和风天气控制台的“设置”页面查看系统分配给你的专属 API Host（例如 pw6xxx.qweatherapi.com）。</RTRS_HeWeatherHostTip>
+
     <RTRS_UseCelsius>使用摄氏度 (Celsius)</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>取消勾选将使用华氏度</RTRS_UseCelsiusTooltip>
     <RTRS_UpdateInterval>后台更新频率: {0} 分钟</RTRS_UpdateInterval>
+    
     <RTRS_DevTitle>开发者选项 (Developer)</RTRS_DevTitle>
     <RTRS_DebugMode>启用调试日志 (Debug Mode)</RTRS_DebugMode>
     <RTRS_DebugModeTooltip>在开发者控制台打印天气异步更新和变量注册的详细日志</RTRS_DebugModeTooltip>
     
     <RTRS_TestAPI_Button>测试 API 连接</RTRS_TestAPI_Button>
-    <RTRS_TestAPI_Testing>正在测试网络连接，请稍候...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_Testing>正在发报测试网络连接，请稍候...</RTRS_TestAPI_Testing>
     <RTRS_TestAPI_None>无法测试：请先在上方选择一个有效的天气 API 数据源。</RTRS_TestAPI_None>
-    <RTRS_TestAPI_EmptyKey>无法测试：API 密钥不能为空，请输入密钥。</RTRS_TestAPI_EmptyKey>
-    <RTRS_TestAPI_Success>连接成功！(请确保你的控制台没有报错)</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>连接失败！请打开开发者控制台(Debug Log)查看详细报错原因。</RTRS_TestAPI_Fail>
+    <RTRS_TestAPI_EmptyKey>无法测试：API 密钥不能为空，请先粘贴你的专属密钥。</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>连线成功！</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>连接失败！请打开开发者控制台 (红字警报) 查看服务器返回的详细死因。</RTRS_TestAPI_Fail>
+    
+    <RTRS_Error_EmptyHost>连接中止：和风天气的 API Host (专属域名) 不能为空！请在 Mod 设置中填入你的专属域名。</RTRS_Error_EmptyHost>
 
 </LanguageData>
