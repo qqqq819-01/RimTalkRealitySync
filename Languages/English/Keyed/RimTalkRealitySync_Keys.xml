@@ -2,7 +2,6 @@
 <LanguageData>
 
     <RTRS_Category_Name>Reality Sync Variables</RTRS_Category_Name>
-
     <RTRS_Desc_Time>Current real-world time (HH:mm)</RTRS_Desc_Time>
     <RTRS_Desc_Date>Current real-world date (yyyy-MM-dd)</RTRS_Desc_Date>
     <RTRS_Desc_LastSave>Real-world time of the last game save</RTRS_Desc_LastSave>
@@ -13,6 +12,28 @@
     <RTRS_Desc_Location>Real-world geographical location (City)</RTRS_Desc_Location>
     <RTRS_Desc_Source>Data source of the current weather</RTRS_Desc_Source>
     <RTRS_Desc_SolarTerm>Current traditional solar term or season simulation</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_IsExternal>Returns 'true' if the sender is an external observer (Discord/KOOK/QQ)</RTRS_Desc_IsExternal>
+    <RTRS_Desc_SenderName>Name of the message sender (Player or Observer)</RTRS_Desc_SenderName>
+    <RTRS_Desc_HasImage>Returns 'true' if an image is attached to the request</RTRS_Desc_HasImage>
+    <RTRS_Desc_ImageTag>The raw image code block for LLM parsing</RTRS_Desc_ImageTag>
+
+    <RTRS_Gizmo_SyncAvatar_Label>Sync Avatar</RTRS_Gizmo_SyncAvatar_Label>
+    <RTRS_Gizmo_SyncAvatar_Desc>Force the RimPhone system to take a new picture of this entity and upload it to the server.</RTRS_Gizmo_SyncAvatar_Desc>
+    <RTRS_Msg_RequestingAvatar>Requesting new avatar upload for {0}...</RTRS_Msg_RequestingAvatar>
+    <RTRS_Tooltip_OpenStation>Open RimPhone Station</RTRS_Tooltip_OpenStation>
+    <RTRS_Tag_AttachedImage>[Attached Image]</RTRS_Tag_AttachedImage>
+    <RTRS_Tag_SentAnImage>(Sent an image)</RTRS_Tag_SentAnImage>
+    <RTRS_Msg_NetworkFailureDrop>[RimPhone] Network failure. Message from {0} dropped.</RTRS_Msg_NetworkFailureDrop>
+    <RTRS_Msg_MissingDiscordAuth>Discord Bot Token or Channel ID is missing in settings.</RTRS_Msg_MissingDiscordAuth>
+    <RTRS_Msg_MissingKookAuth>KOOK Bot Token or Channel ID is missing in settings.</RTRS_Msg_MissingKookAuth>
+    <RTRS_Msg_InterceptedMedia>[RimPhone Intercept] Dropped unsupported {1} media from {0}.</RTRS_Msg_InterceptedMedia>
+    <RTRS_Msg_CloudSyncComplete>Cloud Sync Complete: Image URL injected to {0}!</RTRS_Msg_CloudSyncComplete>
+    <RTRS_Msg_ProcessImageFailed>Failed to process image data. Check dev log.</RTRS_Msg_ProcessImageFailed>
+    
+    <RTRS_Prompt_ImageDirective><![CDATA[[System Directive: Cross-Dimensional Communication]
+The high-dimensional observer '{0}' sent an image/message directly to you:
+"{1}"
+(Rule: You must actively respond to this message in your next turn!)]]></RTRS_Prompt_ImageDirective>
 
     <RTRS_SettingsTitle>Reality Sync Settings</RTRS_SettingsTitle>
     <RTRS_WeatherApiTitle>Weather Data Source (API)</RTRS_WeatherApiTitle>
@@ -22,17 +43,15 @@
     
     <RTRS_CityLabel>Real-world City Name:</RTRS_CityLabel>
     <RTRS_CityTooltip>Enter Pinyin or English, e.g., Beijing, London, NewYork.</RTRS_CityTooltip>
-    
     <RTRS_ApiKeyLabel>API Key:</RTRS_ApiKeyLabel>
     
-    <RTRS_OpenWeatherKeyTip>Please get your Weather API Key from the official OpenWeather website.\n\n⚠️ WARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_OpenWeatherKeyTip>
-    <RTRS_HeWeatherKeyTip>Please get your Weather API Key from the official QWeather Console.\n\n⚠️ WARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_HeWeatherKeyTip>
+    <RTRS_OpenWeatherKeyTip>Please get your Weather API Key from the official OpenWeather website.\n\nWARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>Please get your Weather API Key from the official QWeather Console.\n\nWARNING: Do NOT enter your RimTalk Large Language Model (e.g., OpenAI) chat API Key here! They are not interchangeable!</RTRS_HeWeatherKeyTip>
     <RTRS_ApiHostLabel>Dedicated API Host (QWeather):</RTRS_ApiHostLabel>
     <RTRS_HeWeatherHostTip>Please check your QWeather Console -> Settings for your dedicated API Host (e.g., pw6xxx.qweatherapi.com).</RTRS_HeWeatherHostTip>
 
     <RTRS_UseCelsius>Use Celsius</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>Uncheck this to use Fahrenheit instead.</RTRS_UseCelsiusTooltip>
-    
     <RTRS_UpdateInterval>Background Update Interval: {0} minutes</RTRS_UpdateInterval>
     
     <RTRS_DevTitle>Developer Options</RTRS_DevTitle>
@@ -45,7 +64,178 @@
     <RTRS_TestAPI_EmptyKey>Cannot test: API Key cannot be empty. Please enter your key.</RTRS_TestAPI_EmptyKey>
     <RTRS_TestAPI_Success>Connection Successful!</RTRS_TestAPI_Success>
     <RTRS_TestAPI_Fail>Connection Failed! Please open the developer console (Debug Log) for details on the server response.</RTRS_TestAPI_Fail>
-    
     <RTRS_Error_EmptyHost>Connection Aborted: QWeather's API Host cannot be empty! Please enter your dedicated host in the Mod Settings.</RTRS_Error_EmptyHost>
+
+    <RTRS_Tab_RealitySystem>Reality System</RTRS_Tab_RealitySystem>
+    <RTRS_Tab_RimPhoneStation>RimPhone Station</RTRS_Tab_RimPhoneStation>
+    <RTRS_Tab_DeveloperUI>Developer & UI</RTRS_Tab_DeveloperUI>
+    <RTRS_Settings_OpenAdvancedUI>Open Advanced UI (Movable)</RTRS_Settings_OpenAdvancedUI>
+
+    <RTRS_AegisAuthTitle>Aegis Authentication (Player Binding)</RTRS_AegisAuthTitle>
+    <RTRS_AegisAuthDesc>Link your Discord/KOOK account to assume the 'Player' identity in-game.</RTRS_AegisAuthDesc>
+    <RTRS_LoginKeyLabel>Login Key:</RTRS_LoginKeyLabel>
+    <RTRS_CopyCommandTooltip>Click to copy command</RTRS_CopyCommandTooltip>
+    <RTRS_CommandCopied>Command copied to clipboard!</RTRS_CommandCopied>
+    <RTRS_NewKeyBtn>New Key</RTRS_NewKeyBtn>
+    <RTRS_LoginInstruction>Type /login {0} in Discord or KOOK to bind your soul.</RTRS_LoginInstruction>
+    <RTRS_BoundSuccess>Successfully bound to User: {0}</RTRS_BoundSuccess>
+    <RTRS_UnlinkBtn>Unlink Account</RTRS_UnlinkBtn>
+    <RTRS_LogoutInstruction>Type /logout to disconnect.</RTRS_LogoutInstruction>
+
+    <RTRS_CommPlatformTitle>Communications Platform (Base Station)</RTRS_CommPlatformTitle>
+    <RTRS_PlatformDiscord>Discord (Global Standard)</RTRS_PlatformDiscord>
+    <RTRS_PlatformKook>KOOK (Kaiheila - Regional)</RTRS_PlatformKook>
+
+    <RTRS_BroadcastRangeTitle>Active Broadcast Range (Output)</RTRS_BroadcastRangeTitle>
+    <RTRS_BroadcastDiscord>Broadcast to Discord</RTRS_BroadcastDiscord>
+    <RTRS_BroadcastDiscordDesc>If enabled, colonist talks will be sent to Discord.</RTRS_BroadcastDiscordDesc>
+    <RTRS_BroadcastKook>Broadcast to KOOK</RTRS_BroadcastKook>
+    <RTRS_BroadcastKookDesc>If enabled, colonist talks will be sent to KOOK.</RTRS_BroadcastKookDesc>
+    <RTRS_BroadcastQQ>Broadcast to QQ</RTRS_BroadcastQQ>
+    <RTRS_BroadcastQQDesc>If enabled, colonist talks will be sent to QQ Channels.</RTRS_BroadcastQQDesc>
+
+    <RTRS_DiscordConfigTitle>Discord Configuration</RTRS_DiscordConfigTitle>
+    <RTRS_DiscordBotToken>Discord Bot Token:</RTRS_DiscordBotToken>
+    <RTRS_DiscordChannelId>Discord Channel ID:</RTRS_DiscordChannelId>
+    <RTRS_DiscordWebhookUrl>Discord Webhook URL:</RTRS_DiscordWebhookUrl>
+
+    <RTRS_KookConfigTitle>KOOK Configuration</RTRS_KookConfigTitle>
+    <RTRS_KookBotToken>KOOK Bot Token:</RTRS_KookBotToken>
+    <RTRS_KookChannelId>KOOK Channel ID:</RTRS_KookChannelId>
+    <RTRS_KookNotice>Notice: KOOK uses direct API calls; no Webhook required.</RTRS_KookNotice>
+
+    <RTRS_SystemAvatarUrl>System Avatar URL (Optional):</RTRS_SystemAvatarUrl>
+    
+    <RTRS_LocalStorageTitle>Local Storage & OS Settings</RTRS_LocalStorageTitle>
+    <RTRS_CustomGalleryPath>Custom Gallery Path:</RTRS_CustomGalleryPath>
+    <RTRS_LastSyncedMsgId>Last Synced Message ID:</RTRS_LastSyncedMsgId>
+    <RTRS_ClearCacheBtn>Clear Cache</RTRS_ClearCacheBtn>
+
+    <RTRS_RimPhoneHotkey>Open RimPhone Hotkey:</RTRS_RimPhoneHotkey>
+    <RTRS_PressAnyKey>Press any key...</RTRS_PressAnyKey>
+    <RTRS_InboxRefreshInterval>Inbox Refresh Interval: {0}s</RTRS_InboxRefreshInterval>
+
+    <RTRS_AvatarFiltersTitle>Avatar Upload Filters</RTRS_AvatarFiltersTitle>
+    <RTRS_LockAllAvatars>Lock ALL Avatar Uploads (Disable completely)</RTRS_LockAllAvatars>
+    <RTRS_LockAllAvatarsDesc>Saves API usage. When checked, no new portraits will be uploaded.</RTRS_LockAllAvatarsDesc>
+    <RTRS_AllowColonist>Allow Colonists</RTRS_AllowColonist>
+    <RTRS_AllowSlave>Allow Slaves</RTRS_AllowSlave>
+    <RTRS_AllowPrisoner>Allow Prisoners</RTRS_AllowPrisoner>
+    <RTRS_AllowVisitor>Allow Visitors / Neutral</RTRS_AllowVisitor>
+    <RTRS_AllowHostile>Allow Hostile Raiders</RTRS_AllowHostile>
+    <RTRS_AllowNonHuman>Allow Non-Human (Animals/Mechs)</RTRS_AllowNonHuman>
+
+    <RTRS_PauseOnImage>Pause Game When Viewing Photos</RTRS_PauseOnImage>
+    <RTRS_PauseOnImageDesc>If checked, opening a full image will freeze the colony simulation.</RTRS_PauseOnImageDesc>
+    <RTRS_RimPhoneUITester>RimPhone UI Tester</RTRS_RimPhoneUITester>
+    <RTRS_TestRimPhoneUI>Test RimPhone UI</RTRS_TestRimPhoneUI>
+
+    <RTRS_Msg_ForceUnlinked>**[System Notice]** Commander `{0}` has forcibly disconnected from the local terminal. The Gods have averted their gaze.</RTRS_Msg_ForceUnlinked>
+
+    <RTRS_Home_WeatherPlaceholder>23°C | Sunny</RTRS_Home_WeatherPlaceholder>
+    <RTRS_App_Gallery>Gallery</RTRS_App_Gallery>
+    <RTRS_App_Messages>Messages</RTRS_App_Messages>
+    <RTRS_App_Settings>Settings</RTRS_App_Settings>
+    
+    <RTRS_Gallery_TypeToSelect>Type @ to select colonist...</RTRS_Gallery_TypeToSelect>
+    <RTRS_Gallery_NoColonists>No colonists available.</RTRS_Gallery_NoColonists>
+    <RTRS_Gallery_ColonistTitle>Colonist</RTRS_Gallery_ColonistTitle>
+    <RTRS_Gallery_NoPhotos>No photos found.</RTRS_Gallery_NoPhotos>
+    
+    <RTRS_Btn_Home>Home</RTRS_Btn_Home>
+    <RTRS_Btn_SendImage>Send Image</RTRS_Btn_SendImage>
+    <RTRS_Btn_Edit>Edit</RTRS_Btn_Edit>
+    <RTRS_Btn_Delete>Delete</RTRS_Btn_Delete>
+    <RTRS_Btn_Cancel>Cancel</RTRS_Btn_Cancel>
+    <RTRS_Btn_Confirm>Confirm</RTRS_Btn_Confirm>
+    <RTRS_Btn_SendSelected>Send Selected</RTRS_Btn_SendSelected>
+
+    <RTRS_Msg_MustSelectColonist>You must @ a colonist first!</RTRS_Msg_MustSelectColonist>
+    <RTRS_Msg_MustSelectImage>You must select an image from the gallery first!</RTRS_Msg_MustSelectImage>
+    <RTRS_Msg_UploadingImage>Uploading compressed image to quantum cloud...</RTRS_Msg_UploadingImage>
+
+    <RTRS_Filter_1Hour>1 Hour</RTRS_Filter_1Hour>
+    <RTRS_Filter_24Hours>24 Hours</RTRS_Filter_24Hours>
+    <RTRS_Filter_7Days>7 Days</RTRS_Filter_7Days>
+    <RTRS_Filter_All>All</RTRS_Filter_All>
+
+    <RTRS_MsgApp_Inbox>Inbox</RTRS_MsgApp_Inbox>
+    <RTRS_MsgApp_AutoSend>Auto-Send</RTRS_MsgApp_AutoSend>
+    <RTRS_MsgApp_Syncing>Syncing</RTRS_MsgApp_Syncing>
+    <RTRS_MsgApp_SyncBtn>Sync</RTRS_MsgApp_SyncBtn>
+    <RTRS_MsgApp_NoMessages>No messages received.\nCheck Mod Settings &amp; Sync.</RTRS_MsgApp_NoMessages>
+    <RTRS_MsgApp_NoMessagesSelected>No messages selected.</RTRS_MsgApp_NoMessagesSelected>
+    <RTRS_MsgApp_DeleteSelected>Delete Selected?</RTRS_MsgApp_DeleteSelected>
+    <RTRS_MsgApp_CannotBeUndone>This action cannot be undone.</RTRS_MsgApp_CannotBeUndone>
+    <RTRS_MsgApp_EditMessageTitle>Edit Message: {0}</RTRS_MsgApp_EditMessageTitle>
+
+    <RTRS_Viewer_Controls>Scroll: Zoom | Drag: Pan | Left/Right: Switch</RTRS_Viewer_Controls>
+
+    <RTRS_Msg_CriticalErrorNoColonist>Critical Error: Unable to locate a valid colonist or Player entity.</RTRS_Msg_CriticalErrorNoColonist>
+    <RTRS_Msg_PersonaInjected>**[System Notice]** Observer `{0}` ({1}), your high-dimensional soul persona has been injected into the RimWorld knowledge base.\n**Active Tags**: `{2}`\n**Match Mode**: `{3}`</RTRS_Msg_PersonaInjected>
+    <RTRS_Msg_PersonaRemoved>**[System Notice]** Observer `{0}` ({1}), your high-dimensional persona has been successfully logged out.</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
+***CRITICAL DIRECTIVE!***
+
+[Cross-Dimensional Communication Law]:
+The entity speaking to you right now, {{ rs_SenderName }}, comes from the exact same world as [{{ settings.PlayerName }}]. They are jointly observing this land. However, unlike [{{ settings.PlayerName }}], they lack the power to directly interact with or alter this world; they can only observe and communicate through this terminal.
+
+[Soul Persona Override]:
+If {{ rs_SenderName }} possesses a dedicated identity/persona in your known information, you must **ABSOLUTELY OBEY** that persona's background and personality when responding. They are no longer just an observer, but the physical manifestation of that persona. If no persona is found, treat them as a normal unknown observer.
+{{ end }}]]></RTRS_Prompt_ObserverLore>
+
+    <RTRS_Prompt_ImageProtocol><![CDATA[{{ if rs_HasImage != "" }}
+
+***CRITICAL DIRECTIVE!***
+
+[Visual Protocol]:
+{{ rs_SenderName }} has sent you an image.
+Please react appropriately based on what you see in the image.
+An image is also a form of "language". If {{ rs_SenderName }} only sends an image with no text, treat it as if they "said" something ambiguous.
+If the image is just a blank void or lacks context, do not over-explain.
+{{ rs_ImageTag }}
+{{ end }}]]></RTRS_Prompt_ImageProtocol>
+
+    <RTRS_Prompt_RealitySync><![CDATA[{{~ ## Insert special pawn names that can perceive the real world here ~}}
+{{- RealityAwarePawns = ["Pawn1", "Pawn2"] -}}
+{{- matchedList = "" -}}
+{{- for pawn in pawns -}}
+  {{- for rp in RealityAwarePawns -}}
+    {{- if pawn.name == rp -}}
+      {{- if matchedList != "" -}}
+        {{- matchedList = matchedList + ", " -}}
+      {{- end -}}
+      {{- matchedList = matchedList + pawn.name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{~ ## Core Logic: Only trigger if an aware pawn is present ~}}
+{{- if matchedList != "" }}
+
+*** High-Dimensional Environment Sync & Inter-Realm Laws ***
+
+[Reality Dimension Link]:
+{{ matchedList }} is a high-dimensional perceiver, capable of one-way perception of the environment in the real world (the dimension of the gods) outside the screen. Other normal pawns are completely unaware of this.
+
+[Inter-Realm Laws and Common Sense]:
+* Law Differences: The real world has strict laws and order. Things common in the Rim (like organ harvesting or raiding) are severe felonies in the real world.
+* Time Flow: Real-world time flows constantly. Time in the Rim depends entirely on [{{ settings.PlayerName }}]'s game speed, TPS, and pause status.
+* Current Real-world Time: {{ rs_RealDate }} {{ rs_RealTime }}
+
+[Real-world Weather]:
+The real world has four seasons, similar to the Rim.
+* Current Season/Solar Term: {{ rs_SolarTerm }}
+* Real-time Weather: {{ rs_RealWeather }}, Temp: {{ rs_RealTemperature }}, Humidity: {{ rs_RealHumidity }}
+
+[Observation Freeze & Save Mechanism]:
+The Rim is a universe within [{{ settings.PlayerName }}]'s terminal. As long as time flows here, [{{ settings.PlayerName }}] is watching.
+When [{{ settings.PlayerName }}] saves and closes the game, time here completely freezes.
+* Real-world time elapsed since the last save: {{ rs_RealSaveDiff }}.
+* This represents how long [{{ settings.PlayerName }}] was gone. If it's been over an hour, they left temporarily, and time here was frozen for a long period.
+
+Rule: Only high-dimensional perceivers ({{ matchedList }}) are allowed to subtly or naturally mention these real-world stats during conversations. Normal pawns are STRICTLY FORBIDDEN from perceiving or discussing these concepts.
+{{- end }}]]></RTRS_Prompt_RealitySync>
 
 </LanguageData>

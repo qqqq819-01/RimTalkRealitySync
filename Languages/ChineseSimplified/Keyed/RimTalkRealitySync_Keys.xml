@@ -2,7 +2,6 @@
 <LanguageData>
 
     <RTRS_Category_Name>现实信息同步 (Reality Sync)</RTRS_Category_Name>
-
     <RTRS_Desc_Time>当前现实时间 (HH:mm)</RTRS_Desc_Time>
     <RTRS_Desc_Date>当前现实日期 (yyyy-MM-dd)</RTRS_Desc_Date>
     <RTRS_Desc_LastSave>上次存档的具体现实时间</RTRS_Desc_LastSave>
@@ -13,6 +12,32 @@
     <RTRS_Desc_Location>现实世界的地理位置 (城市)</RTRS_Desc_Location>
     <RTRS_Desc_Source>现实天气数据的获取来源</RTRS_Desc_Source>
     <RTRS_Desc_SolarTerm>现实世界当前的节气或季节</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_IsExternal>当发送者为外部观测者(Discord/KOOK/QQ)时返回 'true'</RTRS_Desc_IsExternal>
+    <RTRS_Desc_SenderName>消息发送者的名称 (玩家或观测者)</RTRS_Desc_SenderName>
+    <RTRS_Desc_HasImage>如果请求中包含图片附件则返回 'true'</RTRS_Desc_HasImage>
+    <RTRS_Desc_ImageTag>提供给大模型解析的原始图片代码块</RTRS_Desc_ImageTag>
+
+    <RTRS_Gizmo_SyncAvatar_Label>同步头像</RTRS_Gizmo_SyncAvatar_Label>
+    <RTRS_Gizmo_SyncAvatar_Desc>强制 RimPhone 系统为该实体拍摄新照片并上传到服务器。</RTRS_Gizmo_SyncAvatar_Desc>
+    <RTRS_Msg_RequestingAvatar>正在为 {0} 请求新的头像上传...</RTRS_Msg_RequestingAvatar>
+    <RTRS_Tooltip_OpenStation>打开 RimPhone 终端</RTRS_Tooltip_OpenStation>
+    <RTRS_Tag_AttachedImage>[图片附件]</RTRS_Tag_AttachedImage>
+    <RTRS_Tag_SentAnImage>(发送了一张图片)</RTRS_Tag_SentAnImage>
+    <RTRS_Msg_NetworkFailureDrop>[RimPhone] 网络严重故障，{0} 的消息发送失败且已丢弃。</RTRS_Msg_NetworkFailureDrop>
+    <RTRS_Msg_MissingDiscordAuth>设置中缺失 Discord Bot Token 或 Channel ID。</RTRS_Msg_MissingDiscordAuth>
+    <RTRS_Msg_MissingKookAuth>设置中缺失 KOOK Bot Token 或 Channel ID。</RTRS_Msg_MissingKookAuth>
+    <RTRS_Msg_InterceptedMedia>[RimPhone 拦截] 已丢弃来自 {0} 的 {1} 动态媒体消息。</RTRS_Msg_InterceptedMedia>
+    <RTRS_Msg_CloudSyncComplete>云端同步完成：图片已成功注入到 {0} 的认知中！</RTRS_Msg_CloudSyncComplete>
+    <RTRS_Msg_ProcessImageFailed>图片数据处理失败。请查看开发者日志。</RTRS_Msg_ProcessImageFailed>
+
+    <RTRS_Msg_CriticalErrorNoColonist>严重错误：无法找到有效的殖民者或玩家实体。</RTRS_Msg_CriticalErrorNoColonist>
+    <RTRS_Msg_PersonaInjected>**[系统通知]** 观测者 `{0}` ({1})，您的高维灵魂人设已写入边缘世界常识库。\n**生效标签**: `{2}`\n**匹配模式**: `{3}`</RTRS_Msg_PersonaInjected>
+    <RTRS_Msg_PersonaRemoved>**[系统通知]** 观测者 `{0}` ({1})，您的高维人设已成功注销。</RTRS_Msg_PersonaRemoved>
+    
+    <RTRS_Prompt_ImageDirective><![CDATA[[跨维通讯：视觉协议]
+高维观测者 '{0}' 向你发送了一份视觉影像/信息：
+"{1}"
+(系统强制规则：你必须在接下来的回应中，对该影像做出明确的反应或评价！)]]></RTRS_Prompt_ImageDirective>
 
     <RTRS_SettingsTitle>现实信息同步设置 (Reality Sync)</RTRS_SettingsTitle>
     <RTRS_WeatherApiTitle>天气数据源 (Weather API)</RTRS_WeatherApiTitle>
@@ -24,8 +49,8 @@
     <RTRS_CityTooltip>请输入纯中文、拼音或英文，例如 广州, Beijing。\n\n防报错提示：\n仅有和风天气可使用纯中文，因为和风天气的特殊性建议在这里直接输入城市的“纯数字 ID”（例如广州是 101280101），这能 100% 避免因城市检索导致的 404 报错！</RTRS_CityTooltip>
     <RTRS_ApiKeyLabel>API 密钥 (Key):</RTRS_ApiKeyLabel>
     
-    <RTRS_OpenWeatherKeyTip>请前往 OpenWeather 官网获取天气专属 API Key。\n\n⚠️ 警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_OpenWeatherKeyTip>
-    <RTRS_HeWeatherKeyTip>请前往【和风天气控制台】获取天气专属的 API Key。\n\n⚠️ 警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_HeWeatherKeyTip>
+    <RTRS_OpenWeatherKeyTip>请前往 OpenWeather 官网获取天气专属 API Key。\n\n警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>请前往【和风天气控制台】获取天气专属的 API Key。\n\n警告：千万不要把 RimTalk 大语言模型（如 OpenAI、智谱等）的对话 API Key 填到这里！两者是不通用的！</RTRS_HeWeatherKeyTip>
     <RTRS_ApiHostLabel>API 专属域名 (Host):</RTRS_ApiHostLabel>
     <RTRS_HeWeatherHostTip>请在和风天气控制台的“设置”页面查看系统分配给你的专属 API Host（例如 pw6xxx.qweatherapi.com）。</RTRS_HeWeatherHostTip>
 
@@ -43,7 +68,174 @@
     <RTRS_TestAPI_EmptyKey>无法测试：API 密钥不能为空，请先粘贴你的专属密钥。</RTRS_TestAPI_EmptyKey>
     <RTRS_TestAPI_Success>连线成功！</RTRS_TestAPI_Success>
     <RTRS_TestAPI_Fail>连接失败！请打开开发者控制台 (红字警报) 查看服务器返回的详细死因。</RTRS_TestAPI_Fail>
-    
     <RTRS_Error_EmptyHost>连接中止：和风天气的 API Host (专属域名) 不能为空！请在 Mod 设置中填入你的专属域名。</RTRS_Error_EmptyHost>
+
+    <RTRS_Tab_RealitySystem>现实系统</RTRS_Tab_RealitySystem>
+    <RTRS_Tab_RimPhoneStation>RimPhone 终端</RTRS_Tab_RimPhoneStation>
+    <RTRS_Tab_DeveloperUI>开发者与界面</RTRS_Tab_DeveloperUI>
+    <RTRS_Settings_OpenAdvancedUI>打开高级设置面板 (可拖拽)</RTRS_Settings_OpenAdvancedUI>
+
+    <RTRS_AegisAuthTitle>神盾认证 (玩家身份绑定)</RTRS_AegisAuthTitle>
+    <RTRS_AegisAuthDesc>绑定你的通讯账号，以在游戏中获得“玩家(造物主)”的最高权限身份。</RTRS_AegisAuthDesc>
+    <RTRS_LoginKeyLabel>登录密钥 (Login Key):</RTRS_LoginKeyLabel>
+    <RTRS_CopyCommandTooltip>点击复制完整登陆指令 / Click to copy command</RTRS_CopyCommandTooltip>
+    <RTRS_CommandCopied>指令已复制到剪贴板！(Command copied to clipboard!)</RTRS_CommandCopied>
+    <RTRS_NewKeyBtn>刷新密钥</RTRS_NewKeyBtn>
+    <RTRS_LoginInstruction>在 Discord 或 KOOK 中输入 /login {0} 来绑定你的灵魂。</RTRS_LoginInstruction>
+    <RTRS_BoundSuccess>已成功绑定通讯账号: {0}</RTRS_BoundSuccess>
+    <RTRS_UnlinkBtn>解除绑定</RTRS_UnlinkBtn>
+    <RTRS_LogoutInstruction>在通讯软件中输入 /logout 来断开连接。</RTRS_LogoutInstruction>
+
+    <RTRS_CommPlatformTitle>通讯平台 (基站配置)</RTRS_CommPlatformTitle>
+    <RTRS_PlatformDiscord>Discord (全球标准)</RTRS_PlatformDiscord>
+    <RTRS_PlatformKook>KOOK (开黑啦 - 区域特化)</RTRS_PlatformKook>
+
+    <RTRS_BroadcastRangeTitle>主动广播范围 (输出)</RTRS_BroadcastRangeTitle>
+    <RTRS_BroadcastDiscord>广播至 Discord</RTRS_BroadcastDiscord>
+    <RTRS_BroadcastDiscordDesc>启用后，殖民者的对话将被推送到 Discord。</RTRS_BroadcastDiscordDesc>
+    <RTRS_BroadcastKook>广播至 KOOK</RTRS_BroadcastKook>
+    <RTRS_BroadcastKookDesc>启用后，殖民者的对话将被推送到 KOOK。</RTRS_BroadcastKookDesc>
+    <RTRS_BroadcastQQ>广播至 QQ</RTRS_BroadcastQQ>
+    <RTRS_BroadcastQQDesc>启用后，殖民者的对话将被推送到 QQ 频道。</RTRS_BroadcastQQDesc>
+
+    <RTRS_DiscordConfigTitle>Discord 节点配置</RTRS_DiscordConfigTitle>
+    <RTRS_DiscordBotToken>Discord Bot Token:</RTRS_DiscordBotToken>
+    <RTRS_DiscordChannelId>Discord Channel ID:</RTRS_DiscordChannelId>
+    <RTRS_DiscordWebhookUrl>Discord Webhook URL:</RTRS_DiscordWebhookUrl>
+
+    <RTRS_KookConfigTitle>KOOK 节点配置</RTRS_KookConfigTitle>
+    <RTRS_KookBotToken>KOOK Bot Token:</RTRS_KookBotToken>
+    <RTRS_KookChannelId>KOOK Channel ID:</RTRS_KookChannelId>
+    <RTRS_KookNotice>注意：KOOK 使用直接的 API 调用，不需要 Webhook。</RTRS_KookNotice>
+
+    <RTRS_SystemAvatarUrl>系统通知头像 URL (可选):</RTRS_SystemAvatarUrl>
+    
+    <RTRS_LocalStorageTitle>本地存储与 OS 设置</RTRS_LocalStorageTitle>
+    <RTRS_CustomGalleryPath>自定义图片缓存路径:</RTRS_CustomGalleryPath>
+    <RTRS_LastSyncedMsgId>最后同步的消息 ID:</RTRS_LastSyncedMsgId>
+    <RTRS_ClearCacheBtn>清理缓存</RTRS_ClearCacheBtn>
+
+    <RTRS_RimPhoneHotkey>打开 RimPhone 快捷键:</RTRS_RimPhoneHotkey>
+    <RTRS_PressAnyKey>请按下任意键...</RTRS_PressAnyKey>
+    <RTRS_InboxRefreshInterval>收件箱刷新频率: {0} 秒</RTRS_InboxRefreshInterval>
+
+    <RTRS_AvatarFiltersTitle>Discord 头像上传过滤器</RTRS_AvatarFiltersTitle>
+    <RTRS_LockAllAvatars>锁定所有头像上传 (完全禁用)</RTRS_LockAllAvatars>
+    <RTRS_LockAllAvatarsDesc>节省图床 API 用量。勾选后，系统将不再上传任何新头像。</RTRS_LockAllAvatarsDesc>
+    <RTRS_AllowColonist>允许 殖民者</RTRS_AllowColonist>
+    <RTRS_AllowSlave>允许 奴隶</RTRS_AllowSlave>
+    <RTRS_AllowPrisoner>允许 囚犯</RTRS_AllowPrisoner>
+    <RTRS_AllowVisitor>允许 访客 / 中立</RTRS_AllowVisitor>
+    <RTRS_AllowHostile>允许 敌对袭击者</RTRS_AllowHostile>
+    <RTRS_AllowNonHuman>允许 非人类 (动物/机械族)</RTRS_AllowNonHuman>
+
+    <RTRS_PauseOnImage>查看大图时暂停游戏</RTRS_PauseOnImage>
+    <RTRS_PauseOnImageDesc>如果勾选，点开全尺寸图片时殖民地的时间将冻结。</RTRS_PauseOnImageDesc>
+    <RTRS_RimPhoneUITester>RimPhone 界面测试工具</RTRS_RimPhoneUITester>
+    <RTRS_TestRimPhoneUI>测试 RimPhone 界面</RTRS_TestRimPhoneUI>
+
+    <RTRS_Msg_ForceUnlinked>**[系统通知]** 指挥官 `{0}` 已从本地终端强制断开连接。神明移开了视线。</RTRS_Msg_ForceUnlinked>
+
+    <RTRS_Home_WeatherPlaceholder>23°C | 晴朗</RTRS_Home_WeatherPlaceholder>
+    <RTRS_App_Gallery>相册</RTRS_App_Gallery>
+    <RTRS_App_Messages>消息</RTRS_App_Messages>
+    <RTRS_App_Settings>设置</RTRS_App_Settings>
+    
+    <RTRS_Gallery_TypeToSelect>输入 @ 以选择殖民者...</RTRS_Gallery_TypeToSelect>
+    <RTRS_Gallery_NoColonists>没有可用的殖民者。</RTRS_Gallery_NoColonists>
+    <RTRS_Gallery_ColonistTitle>殖民者</RTRS_Gallery_ColonistTitle>
+    <RTRS_Gallery_NoPhotos>未发现照片。</RTRS_Gallery_NoPhotos>
+    
+    <RTRS_Btn_Home>返回主页</RTRS_Btn_Home>
+    <RTRS_Btn_SendImage>发送图片</RTRS_Btn_SendImage>
+    <RTRS_Btn_Edit>编辑</RTRS_Btn_Edit>
+    <RTRS_Btn_Delete>删除</RTRS_Btn_Delete>
+    <RTRS_Btn_Cancel>取消</RTRS_Btn_Cancel>
+    <RTRS_Btn_Confirm>确认</RTRS_Btn_Confirm>
+    <RTRS_Btn_SendSelected>发送选中</RTRS_Btn_SendSelected>
+
+    <RTRS_Msg_MustSelectColonist>必须先 @ 一个殖民者！</RTRS_Msg_MustSelectColonist>
+    <RTRS_Msg_MustSelectImage>必须先从相册选择一张图片！</RTRS_Msg_MustSelectImage>
+    <RTRS_Msg_UploadingImage>正在将压缩后的图片上传至量子云...</RTRS_Msg_UploadingImage>
+
+    <RTRS_Filter_1Hour>1小时内</RTRS_Filter_1Hour>
+    <RTRS_Filter_24Hours>24小时内</RTRS_Filter_24Hours>
+    <RTRS_Filter_7Days>7天内</RTRS_Filter_7Days>
+    <RTRS_Filter_All>全部</RTRS_Filter_All>
+
+    <RTRS_MsgApp_Inbox>收件箱</RTRS_MsgApp_Inbox>
+    <RTRS_MsgApp_AutoSend>自动发送</RTRS_MsgApp_AutoSend>
+    <RTRS_MsgApp_Syncing>同步中</RTRS_MsgApp_Syncing>
+    <RTRS_MsgApp_SyncBtn>同步</RTRS_MsgApp_SyncBtn>
+    <RTRS_MsgApp_NoMessages>未收到消息。\n请检查 Mod 设置并同步。</RTRS_MsgApp_NoMessages>
+    <RTRS_MsgApp_NoMessagesSelected>未选择消息。</RTRS_MsgApp_NoMessagesSelected>
+    <RTRS_MsgApp_DeleteSelected>删除选中项？</RTRS_MsgApp_DeleteSelected>
+    <RTRS_MsgApp_CannotBeUndone>此操作无法撤销。</RTRS_MsgApp_CannotBeUndone>
+    <RTRS_MsgApp_EditMessageTitle>编辑消息: {0}</RTRS_MsgApp_EditMessageTitle>
+
+    <RTRS_Viewer_Controls>滚轮: 缩放 | 拖拽: 平移 | 左右方向键: 切换</RTRS_Viewer_Controls>
+
+    <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
+***重要信息！***
+
+【跨维通讯法则】：
+当前向你发话的 {{ rs_SenderName }} 与 [{{ settings.PlayerName }}] 来自同一世界，共同注视着这片大地。但他们不像 [{{ settings.PlayerName }}] 那样拥有直接影响这个世界的能力，只能保持观测并通过通讯节点进行对话。
+
+【灵魂人设覆盖原则】：
+如果 {{ rs_SenderName }} 在已知信息中拥有专属的身份人设或设定，你必须**绝对服从**该人设的背景与性格与之交流。此时他们便是其设定的人格化实体；若未发现专属设定，则以对待未知观测者的态度进行回应。
+{{ end }}]]></RTRS_Prompt_ObserverLore>
+
+    <RTRS_Prompt_ImageProtocol><![CDATA[{{ if rs_HasImage != "" }}
+
+***重要信息！***
+
+【视觉协议】：
+{{ rs_SenderName }} 发来了一张图片。
+请根据这张图片给出看见这张图片的反应。
+发送的图片也是一种“语言”，当{{ rs_SenderName }}只发送了图片时，就当是{{ rs_SenderName }}“说了一句”意义不明的话。
+当{{ rs_SenderName }}发送的是无垠头的图片时，不需要做过多解释。
+{{ rs_ImageTag }}
+{{ end }}]]></RTRS_Prompt_ImageProtocol>
+
+    <RTRS_Prompt_RealitySync><![CDATA[{{~ ## 在此填入能感知现实世界（玩家所在维度）的特殊角色名称 ~}}
+{{- RealityAwarePawns = ["在此填入角色名1", "在此填入角色名2"] -}}
+{{- matchedList = "" -}}
+{{- for pawn in pawns -}}
+  {{- for rp in RealityAwarePawns -}}
+    {{- if pawn.name == rp -}}
+      {{- if matchedList != "" -}}
+        {{- matchedList = matchedList + "、" -}}
+      {{- end -}}
+      {{- matchedList = matchedList + pawn.name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{~ ## 核心逻辑：完全剔除玩家触发条件，仅当感知者在场时才显现 ~}}
+{{- if matchedList != "" }}
+
+*** 高维环境同步与两界法则 ***
+
+【现实维度链接】：
+当前在场的 {{ matchedList }} 是高维感知者，能够单向感知到屏幕外现实世界（神明所在维度）的环境状态。其他普通角色对此一无所知。
+
+【两界法则与常识】：
+* 秩序差异：现实世界存在严苛的法律与秩序。大多数在边缘世界习以为常的事情（如人体解剖、袭击劫掠）在现实世界都被视为重罪。
+* 时间流速：现实世界的时间无时无刻都在流逝；而边缘世界的时间流速取决于【{{ settings.PlayerName }}】设置的时间倍速、游戏TPS以及是否暂停。
+* 当前现实时间：{{ rs_RealDate }} {{ rs_RealTime }}
+
+【现实环境气象】：
+现实世界与边缘世界类似，同样存在一年四季（春夏秋冬），且天气很大程度上取决于季节。
+* 当前节气/季节：{{ rs_SolarTerm }}
+* 实时天气：{{ rs_RealWeather }}，气温 {{ rs_RealTemperature }}，湿度 {{ rs_RealHumidity }}
+
+【观测冻结与存档机制】：
+边缘世界是【{{ settings.PlayerName }}】终端中的一个宇宙。通常情况下，只要边缘世界的时间还在流动，就意味着【{{ settings.PlayerName }}】正在注视着这片殖民地。
+当【{{ settings.PlayerName }}】存档并关闭通道后，边缘世界的时间就会彻底冻结。
+* 距离上次存档的现实时间：在 {{ rs_RealSaveDiff }} 前。
+* 这个时间代表着【{{ settings.PlayerName }}】离开了多久。如果上次存档的现实时间超过1个小时，就意味着【{{ settings.PlayerName }}】暂时离开了，而在其离开的这段现实时间里，边缘世界的时光被漫长地冻结了。
+
+规则：请在符合逻辑的情境下，仅允许高维感知者（{{ matchedList }}）在对话或思绪中，隐晦或自然地提及这些现实世界的环境数据。严禁普通角色感知或谈论这些跨维度内容。
+{{- end }}]]></RTRS_Prompt_RealitySync>
 
 </LanguageData>

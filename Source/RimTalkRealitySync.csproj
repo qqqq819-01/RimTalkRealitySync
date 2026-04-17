@@ -40,9 +40,21 @@
 			<HintPath>D:\steam\steamapps\workshop\content\294100\3551203752\1.6\Assemblies\RimTalk.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+		  <HintPath>..\..\..\steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+		  <Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+		  <HintPath>..\..\..\steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+		  <Private>False</Private>
+		</Reference>
 		<Reference Include="UnityEngine.TextRenderingModule">
 		  <HintPath>..\..\..\steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
 		  <Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>D:\steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
 </Project>

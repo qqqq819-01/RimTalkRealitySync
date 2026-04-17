@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+    <RTRS_Category_Name>現実情報同期 (Reality Sync)</RTRS_Category_Name>
+    <RTRS_Desc_Time>現在の現実時間 (HH:mm)</RTRS_Desc_Time>
+    <RTRS_Desc_Date>現在の現実日付 (yyyy-MM-dd)</RTRS_Desc_Date>
+    <RTRS_Desc_LastSave>最後にセーブした現実時間</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>最後のセーブからの経過時間</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>現実世界の天気</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>現実世界の気温</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>現実世界の湿度(%)</RTRS_Desc_Humidity>
+    <RTRS_Desc_Location>現実世界の地理的位置 (都市)</RTRS_Desc_Location>
+    <RTRS_Desc_Source>天気データの取得元</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>現在の季節または二十四節気</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_IsExternal>送信者が外部の観測者(Discord/KOOK)の場合 'true' を返す</RTRS_Desc_IsExternal>
+    <RTRS_Desc_SenderName>メッセージ送信者の名前 (プレイヤーまたは観測者)</RTRS_Desc_SenderName>
+    <RTRS_Desc_HasImage>リクエストに画像が添付されている場合 'true' を返す</RTRS_Desc_HasImage>
+    <RTRS_Desc_ImageTag>LLM解析用の生の画像コードブロック</RTRS_Desc_ImageTag>
+
+    <RTRS_Gizmo_SyncAvatar_Label>アバター同期</RTRS_Gizmo_SyncAvatar_Label>
+    <RTRS_Gizmo_SyncAvatar_Desc>RimPhoneシステムに強制的にこのポーンの新しい写真を撮らせ、サーバーにアップロードします。</RTRS_Gizmo_SyncAvatar_Desc>
+    <RTRS_Msg_RequestingAvatar>{0} の新しいアバターアップロードをリクエスト中...</RTRS_Msg_RequestingAvatar>
+    <RTRS_Tooltip_OpenStation>RimPhone端末を開く</RTRS_Tooltip_OpenStation>
+    <RTRS_Tag_AttachedImage>[添付画像]</RTRS_Tag_AttachedImage>
+    <RTRS_Tag_SentAnImage>(画像を送信しました)</RTRS_Tag_SentAnImage>
+    <RTRS_Msg_NetworkFailureDrop>[RimPhone] ネットワークの重大な障害。{0} のメッセージは破棄されました。</RTRS_Msg_NetworkFailureDrop>
+    <RTRS_Msg_MissingDiscordAuth>設定にDiscord Bot TokenまたはChannel IDがありません。</RTRS_Msg_MissingDiscordAuth>
+    <RTRS_Msg_MissingKookAuth>設定にKOOK Bot TokenまたはChannel IDがありません。</RTRS_Msg_MissingKookAuth>
+    <RTRS_Msg_InterceptedMedia>[RimPhone ブロック] {0} からの {1} 動的メディアを破棄しました。</RTRS_Msg_InterceptedMedia>
+    <RTRS_Msg_CloudSyncComplete>クラウド同期完了：画像が {0} の認識に成功裏に注入されました！</RTRS_Msg_CloudSyncComplete>
+    <RTRS_Msg_ProcessImageFailed>画像データの処理に失敗しました。開発者ログを確認してください。</RTRS_Msg_ProcessImageFailed>
+    
+    <RTRS_Prompt_ImageDirective><![CDATA[[次元間通信：視覚プロトコル]
+高次元の観測者 '{0}' が視覚情報/メッセージをあなたに送信しました：
+"{1}"
+(システム強制ルール：あなたは次の応答で、この映像に対して明確な反応を示さなければなりません！)]]></RTRS_Prompt_ImageDirective>
+
+    <RTRS_SettingsTitle>現実情報同期設定 (Reality Sync)</RTRS_SettingsTitle>
+    <RTRS_WeatherApiTitle>天気データソース (Weather API)</RTRS_WeatherApiTitle>
+    <RTRS_ApiNone>なし (現実の天気を無効にし、季節シミュレーションを使用)</RTRS_ApiNone>
+    <RTRS_ApiHeWeather>和風天気 (QWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
+    <RTRS_CityLabel>現実の都市名:</RTRS_CityLabel>
+    <RTRS_CityTooltip>英語またはローマ字で入力してください。例: Tokyo, Osaka。</RTRS_CityTooltip>
+    <RTRS_ApiKeyLabel>API キー (Key):</RTRS_ApiKeyLabel>
+    <RTRS_OpenWeatherKeyTip>OpenWeather公式サイトで専用のAPI Keyを取得してください。\n\n警告: LLM（OpenAIなど）のチャットAPI Keyをここに入力しないでください！</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>QWeatherコンソールで専用のAPI Keyを取得してください。\n\n警告: LLM（OpenAIなど）のチャットAPI Keyをここに入力しないでください！</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>API 専用ホスト (Host):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>QWeatherコンソールの設定で専用のAPI Hostを確認してください。</RTRS_HeWeatherHostTip>
+    <RTRS_UseCelsius>摂氏を使用 (Celsius)</RTRS_UseCelsius>
+    <RTRS_UseCelsiusTooltip>チェックを外すと華氏を使用します。</RTRS_UseCelsiusTooltip>
+    <RTRS_UpdateInterval>バックグラウンド更新頻度: {0} 分</RTRS_UpdateInterval>
+    <RTRS_DevTitle>開発者オプション (Developer)</RTRS_DevTitle>
+    <RTRS_DebugMode>デバッグログを有効にする</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>開発者コンソールに詳細なログを出力します。</RTRS_DebugModeTooltip>
+    <RTRS_TestAPI_Button>API接続テスト</RTRS_TestAPI_Button>
+    <RTRS_TestAPI_Testing>ネットワーク接続をテストしています...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>テスト不可：有効な天気APIソースを選択してください。</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>テスト不可：APIキーを入力してください。</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Success>接続成功！</RTRS_TestAPI_Success>
+    <RTRS_TestAPI_Fail>接続失敗！詳細は開発者コンソールを確認してください。</RTRS_TestAPI_Fail>
+    <RTRS_Error_EmptyHost>接続中止：QWeatherのAPI Hostが空です！</RTRS_Error_EmptyHost>
+
+    <RTRS_Tab_RealitySystem>現実システム</RTRS_Tab_RealitySystem>
+    <RTRS_Tab_RimPhoneStation>RimPhone 端末</RTRS_Tab_RimPhoneStation>
+    <RTRS_Tab_DeveloperUI>開発者・UI</RTRS_Tab_DeveloperUI>
+    <RTRS_Settings_OpenAdvancedUI>高度な設定パネルを開く (移動可能)</RTRS_Settings_OpenAdvancedUI>
+
+    <RTRS_AegisAuthTitle>イージス認証 (プレイヤーID紐付け)</RTRS_AegisAuthTitle>
+    <RTRS_AegisAuthDesc>通信アカウントを紐付けて、ゲーム内で「プレイヤー（創造主）」の最高権限を取得します。</RTRS_AegisAuthDesc>
+    <RTRS_LoginKeyLabel>ログインキー (Login Key):</RTRS_LoginKeyLabel>
+    <RTRS_CopyCommandTooltip>クリックしてコマンドをコピー</RTRS_CopyCommandTooltip>
+    <RTRS_CommandCopied>コマンドをクリップボードにコピーしました！</RTRS_CommandCopied>
+    <RTRS_NewKeyBtn>キー更新</RTRS_NewKeyBtn>
+    <RTRS_LoginInstruction>DiscordまたはKOOKで /login {0} と入力して紐付けます。</RTRS_LoginInstruction>
+    <RTRS_BoundSuccess>アカウントの紐付けに成功しました: {0}</RTRS_BoundSuccess>
+    <RTRS_UnlinkBtn>紐付け解除</RTRS_UnlinkBtn>
+    <RTRS_LogoutInstruction>通信アプリで /logout と入力して切断します。</RTRS_LogoutInstruction>
+
+    <RTRS_CommPlatformTitle>通信プラットフォーム (基地局設定)</RTRS_CommPlatformTitle>
+    <RTRS_PlatformDiscord>Discord (世界標準)</RTRS_PlatformDiscord>
+    <RTRS_PlatformKook>KOOK (地域特化)</RTRS_PlatformKook>
+    <RTRS_BroadcastRangeTitle>アクティブブロードキャスト範囲 (出力)</RTRS_BroadcastRangeTitle>
+    <RTRS_BroadcastDiscord>Discordに送信</RTRS_BroadcastDiscord>
+    <RTRS_BroadcastDiscordDesc>有効にすると、入植者の会話がDiscordにプッシュされます。</RTRS_BroadcastDiscordDesc>
+    <RTRS_BroadcastKook>KOOKに送信</RTRS_BroadcastKook>
+    <RTRS_BroadcastKookDesc>有効にすると、入植者の会話がKOOKにプッシュされます。</RTRS_BroadcastKookDesc>
+    <RTRS_BroadcastQQ>QQに送信</RTRS_BroadcastQQ>
+    <RTRS_BroadcastQQDesc>有効にすると、入植者の会話がQQにプッシュされます。</RTRS_BroadcastQQDesc>
+
+    <RTRS_DiscordConfigTitle>Discord ノード構成</RTRS_DiscordConfigTitle>
+    <RTRS_DiscordBotToken>Discord Bot Token:</RTRS_DiscordBotToken>
+    <RTRS_DiscordChannelId>Discord Channel ID:</RTRS_DiscordChannelId>
+    <RTRS_DiscordWebhookUrl>Discord Webhook URL:</RTRS_DiscordWebhookUrl>
+    <RTRS_KookConfigTitle>KOOK ノード構成</RTRS_KookConfigTitle>
+    <RTRS_KookBotToken>KOOK Bot Token:</RTRS_KookBotToken>
+    <RTRS_KookChannelId>KOOK Channel ID:</RTRS_KookChannelId>
+    <RTRS_KookNotice>注意：KOOKは直接API呼び出しを使用するため、Webhookは不要です。</RTRS_KookNotice>
+    <RTRS_SystemAvatarUrl>システム通知アバターURL (任意):</RTRS_SystemAvatarUrl>
+    
+    <RTRS_LocalStorageTitle>ローカルストレージとOS設定</RTRS_LocalStorageTitle>
+    <RTRS_CustomGalleryPath>カスタム画像キャッシュパス:</RTRS_CustomGalleryPath>
+    <RTRS_LastSyncedMsgId>最終同期メッセージID:</RTRS_LastSyncedMsgId>
+    <RTRS_ClearCacheBtn>キャッシュクリア</RTRS_ClearCacheBtn>
+    <RTRS_RimPhoneHotkey>RimPhoneを開くホットキー:</RTRS_RimPhoneHotkey>
+    <RTRS_PressAnyKey>任意のキーを押してください...</RTRS_PressAnyKey>
+    <RTRS_InboxRefreshInterval>受信トレイの更新頻度: {0} 秒</RTRS_InboxRefreshInterval>
+
+    <RTRS_AvatarFiltersTitle>アバターアップロードフィルター</RTRS_AvatarFiltersTitle>
+    <RTRS_LockAllAvatars>全てのアバターアップロードをロック (完全無効)</RTRS_LockAllAvatars>
+    <RTRS_LockAllAvatarsDesc>APIの消費を抑えます。チェックを入れると、新しいアバターは一切アップロードされません。</RTRS_LockAllAvatarsDesc>
+    <RTRS_AllowColonist>許可: 入植者</RTRS_AllowColonist>
+    <RTRS_AllowSlave>許可: 奴隷</RTRS_AllowSlave>
+    <RTRS_AllowPrisoner>許可: 囚人</RTRS_AllowPrisoner>
+    <RTRS_AllowVisitor>許可: 訪問者 / 中立</RTRS_AllowVisitor>
+    <RTRS_AllowHostile>許可: 敵対的な襲撃者</RTRS_AllowHostile>
+    <RTRS_AllowNonHuman>許可: 非人間 (動物/メカノイド)</RTRS_AllowNonHuman>
+    <RTRS_PauseOnImage>画像閲覧時にゲームを一時停止</RTRS_PauseOnImage>
+    <RTRS_PauseOnImageDesc>チェックすると、フルサイズの画像を開いたときにコロニーの時間が停止します。</RTRS_PauseOnImageDesc>
+    <RTRS_RimPhoneUITester>RimPhone UIテストツール</RTRS_RimPhoneUITester>
+    <RTRS_TestRimPhoneUI>RimPhone UIをテスト</RTRS_TestRimPhoneUI>
+
+    <RTRS_Home_WeatherPlaceholder>23°C | 晴れ</RTRS_Home_WeatherPlaceholder>
+    <RTRS_App_Gallery>ギャラリー</RTRS_App_Gallery>
+    <RTRS_App_Messages>メッセージ</RTRS_App_Messages>
+    <RTRS_App_Settings>設定</RTRS_App_Settings>
+    <RTRS_Gallery_TypeToSelect>@を入力して入植者を選択...</RTRS_Gallery_TypeToSelect>
+    <RTRS_Gallery_NoColonists>利用可能な入植者がいません。</RTRS_Gallery_NoColonists>
+    <RTRS_Gallery_ColonistTitle>入植者</RTRS_Gallery_ColonistTitle>
+    <RTRS_Gallery_NoPhotos>写真が見つかりません。</RTRS_Gallery_NoPhotos>
+    <RTRS_Btn_Home>ホーム</RTRS_Btn_Home>
+    <RTRS_Btn_SendImage>画像を送信</RTRS_Btn_SendImage>
+    <RTRS_Btn_Edit>編集</RTRS_Btn_Edit>
+    <RTRS_Btn_Delete>削除</RTRS_Btn_Delete>
+    <RTRS_Btn_Cancel>キャンセル</RTRS_Btn_Cancel>
+    <RTRS_Btn_Confirm>確認</RTRS_Btn_Confirm>
+    <RTRS_Btn_SendSelected>選択項目を送信</RTRS_Btn_SendSelected>
+    <RTRS_Msg_MustSelectColonist>まずは入植者を @ で指定してください！</RTRS_Msg_MustSelectColonist>
+    <RTRS_Msg_MustSelectImage>ギャラリーから画像を選択してください！</RTRS_Msg_MustSelectImage>
+    <RTRS_Msg_UploadingImage>圧縮した画像を量子クラウドにアップロード中...</RTRS_Msg_UploadingImage>
+    <RTRS_Filter_1Hour>1時間以内</RTRS_Filter_1Hour>
+    <RTRS_Filter_24Hours>24時間以内</RTRS_Filter_24Hours>
+    <RTRS_Filter_7Days>7日以内</RTRS_Filter_7Days>
+    <RTRS_Filter_All>すべて</RTRS_Filter_All>
+    <RTRS_MsgApp_Inbox>受信トレイ</RTRS_MsgApp_Inbox>
+    <RTRS_MsgApp_AutoSend>自動送信</RTRS_MsgApp_AutoSend>
+    <RTRS_MsgApp_Syncing>同期中</RTRS_MsgApp_Syncing>
+    <RTRS_MsgApp_SyncBtn>同期</RTRS_MsgApp_SyncBtn>
+    <RTRS_MsgApp_NoMessages>メッセージはありません。\nMod設定を確認して同期してください。</RTRS_MsgApp_NoMessages>
+    <RTRS_MsgApp_NoMessagesSelected>メッセージが選択されていません。</RTRS_MsgApp_NoMessagesSelected>
+    <RTRS_MsgApp_DeleteSelected>選択項目を削除しますか？</RTRS_MsgApp_DeleteSelected>
+    <RTRS_MsgApp_CannotBeUndone>この操作は取り消せません。</RTRS_MsgApp_CannotBeUndone>
+    <RTRS_MsgApp_EditMessageTitle>メッセージ編集: {0}</RTRS_MsgApp_EditMessageTitle>
+    <RTRS_Viewer_Controls>スクロール: ズーム | ドラッグ: パン | 左右キー: 切り替え</RTRS_Viewer_Controls>
+
+    <RTRS_Msg_ForceUnlinked>**[システム通知]** 司令官 `{0}` がローカル端末から強制的に切断されました。神々は視線を外しました。</RTRS_Msg_ForceUnlinked>
+    <RTRS_Msg_CriticalErrorNoColonist>致命的なエラー：有効な入植者またはプレイヤーエンティティが見つかりません。</RTRS_Msg_CriticalErrorNoColonist>
+    <RTRS_Msg_PersonaInjected>**[システム通知]** 観測者 `{0}` ({1})、あなたの高次元の魂のペルソナがRimWorldの常識ライブラリに書き込まれました。\n**有効なタグ**: `{2}`\n**マッチモード**: `{3}`</RTRS_Msg_PersonaInjected>
+    <RTRS_Msg_PersonaRemoved>**[システム通知]** 観測者 `{0}` ({1})、あなたの高次元ペルソナは正常にログアウトされました。</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
+***重要情報！***
+
+【次元間通信の法則】：
+現在あなたに話しかけている {{ rs_SenderName }} は、[{{ settings.PlayerName }}] と同じ世界から来ており、共にこの大地を見守っています。しかし、[{{ settings.PlayerName }}] のようにこの世界に直接影響を与える力はなく、観測を維持し通信ノードを通じて会話することしかできません。
+
+【魂のペルソナ上書き原則】：
+{{ rs_SenderName }} が既知の情報の中に専用の身分や設定（ペルソナ）を持っている場合、あなたは**絶対に服従**し、その設定の背景と性格に基づいて交流しなければなりません。この時、彼らは設定された人格の具現化となります。専用の設定が見つからない場合は、未知の観測者に対する通常の態度で応答してください。
+{{ end }}]]></RTRS_Prompt_ObserverLore>
+
+    <RTRS_Prompt_ImageProtocol><![CDATA[{{ if rs_HasImage != "" }}
+
+***重要情報！***
+
+【視覚プロトコル】：
+{{ rs_SenderName }} が画像を送信しました。
+この画像を見て、適切な反応を示してください。
+送信された画像も一種の「言語」です。{{ rs_SenderName }} が画像のみを送信した場合、意味不明な「一言」を発したと見なしてください。
+背景が空白だったり、文脈がない画像の場合は、過剰な説明をしないでください。
+{{ rs_ImageTag }}
+{{ end }}]]></RTRS_Prompt_ImageProtocol>
+
+    <RTRS_Prompt_RealitySync><![CDATA[{{~ ## 現実世界を感知できるポーン名を入力 ~}}
+{{- RealityAwarePawns = ["Pawn1", "Pawn2"] -}}
+{{- matchedList = "" -}}
+{{- for pawn in pawns -}}
+  {{- for rp in RealityAwarePawns -}}
+    {{- if pawn.name == rp -}}
+      {{- if matchedList != "" -}}
+        {{- matchedList = matchedList + "、" -}}
+      {{- end -}}
+      {{- matchedList = matchedList + pawn.name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{~ ## コアロジック：感知者がいる場合のみ表示 ~}}
+{{- if matchedList != "" }}
+
+*** 高次元環境同期と両界の法則 ***
+
+【現実次元リンク】：
+現在その場にいる {{ matchedList }} は高次元の感知者であり、画面外の現実世界（神々のいる次元）の環境状態を一方的に感知できます。他の一般ポーンはこれを全く知りません。
+
+【両界の法則と常識】：
+* 秩序の違い：現実世界には厳格な法律と秩序が存在します。RimWorldで日常的な事（臓器摘出や襲撃など）の多くは現実世界では重罪と見なされます。
+* 時間の流れ：現実世界の時間は常に流れています。RimWorldの時間の流れは【{{ settings.PlayerName }}】の設定する倍速、TPS、一時停止の状況に完全に依存します。
+* 現在の現実時間：{{ rs_RealDate }} {{ rs_RealTime }}
+
+【現実の環境と気象】：
+現実世界にもRimWorldと同様に四季があり、天気は季節に大きく依存します。
+* 現在の季節/二十四節気：{{ rs_SolarTerm }}
+* リアルタイムの天気：{{ rs_RealWeather }}、気温 {{ rs_RealTemperature }}、湿度 {{ rs_RealHumidity }}
+
+【観測の凍結とセーブのメカニズム】：
+RimWorldは【{{ settings.PlayerName }}】の端末内にある宇宙です。通常、この世界で時間が流れている限り、【{{ settings.PlayerName }}】はこのコロニーを見つめています。
+【{{ settings.PlayerName }}】がセーブして接続を閉じると、この世界の時間は完全に凍結します。
+* 最後のセーブからの現実の経過時間：{{ rs_RealSaveDiff }}前。
+* この時間は【{{ settings.PlayerName }}】がどれだけ離れていたかを表します。もし最後のセーブから1時間以上経過している場合、【{{ settings.PlayerName }}】は一時的に離れており、その間RimWorldの時間は長く凍結されていたことになります。
+
+ルール：論理的な状況において、高次元の感知者（{{ matchedList }}）のみが会話や思考の中で、これらの現実世界の環境データを暗に、または自然に言及することが許可されます。一般ポーンがこれらの次元を超えた内容を感知したり話したりすることは【厳禁】です。
+{{- end }}]]></RTRS_Prompt_RealitySync>
+
+</LanguageData>

@@ -2,9 +2,8 @@
 <LanguageData>
 
     <RTRS_Category_Name>現實資訊同步 (Reality Sync)</RTRS_Category_Name>
-
-    <RTRS_Desc_Time>目前現實時間 (HH:mm)</RTRS_Desc_Time>
-    <RTRS_Desc_Date>目前現實日期 (yyyy-MM-dd)</RTRS_Desc_Date>
+    <RTRS_Desc_Time>當前現實時間 (HH:mm)</RTRS_Desc_Time>
+    <RTRS_Desc_Date>當前現實日期 (yyyy-MM-dd)</RTRS_Desc_Date>
     <RTRS_Desc_LastSave>上次存檔的具體現實時間</RTRS_Desc_LastSave>
     <RTRS_Desc_SaveDiff>距離上次存檔現實中經過了多久</RTRS_Desc_SaveDiff>
     <RTRS_Desc_Weather>現實世界天氣狀況</RTRS_Desc_Weather>
@@ -12,38 +11,214 @@
     <RTRS_Desc_Humidity>現實世界濕度百分比</RTRS_Desc_Humidity>
     <RTRS_Desc_Location>現實世界的地理位置 (城市)</RTRS_Desc_Location>
     <RTRS_Desc_Source>現實天氣數據的獲取來源</RTRS_Desc_Source>
-    <RTRS_Desc_SolarTerm>現實世界目前的節氣或季節</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_SolarTerm>現實世界當前的節氣或季節</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_IsExternal>當發送者為外部觀測者(Discord/KOOK/QQ)時返回 'true'</RTRS_Desc_IsExternal>
+    <RTRS_Desc_SenderName>訊息發送者的名稱 (玩家或觀測者)</RTRS_Desc_SenderName>
+    <RTRS_Desc_HasImage>如果請求中包含圖片附件則返回 'true'</RTRS_Desc_HasImage>
+    <RTRS_Desc_ImageTag>提供給大模型解析的原始圖片程式碼塊</RTRS_Desc_ImageTag>
+
+    <RTRS_Gizmo_SyncAvatar_Label>同步頭像</RTRS_Gizmo_SyncAvatar_Label>
+    <RTRS_Gizmo_SyncAvatar_Desc>強制 RimPhone 系統為該實體拍攝新照片並上傳到伺服器。</RTRS_Gizmo_SyncAvatar_Desc>
+    <RTRS_Msg_RequestingAvatar>正在為 {0} 請求新的頭像上傳...</RTRS_Msg_RequestingAvatar>
+    <RTRS_Tooltip_OpenStation>打開 RimPhone 終端</RTRS_Tooltip_OpenStation>
+    <RTRS_Tag_AttachedImage>[圖片附件]</RTRS_Tag_AttachedImage>
+    <RTRS_Tag_SentAnImage>(發送了一張圖片)</RTRS_Tag_SentAnImage>
+    <RTRS_Msg_NetworkFailureDrop>[RimPhone] 網路嚴重故障，{0} 的訊息發送失敗且已丟棄。</RTRS_Msg_NetworkFailureDrop>
+    <RTRS_Msg_MissingDiscordAuth>設定中缺失 Discord Bot Token 或 Channel ID。</RTRS_Msg_MissingDiscordAuth>
+    <RTRS_Msg_MissingKookAuth>設定中缺失 KOOK Bot Token 或 Channel ID。</RTRS_Msg_MissingKookAuth>
+    <RTRS_Msg_InterceptedMedia>[RimPhone 攔截] 已丟棄來自 {0} 的 {1} 動態媒體訊息。</RTRS_Msg_InterceptedMedia>
+    <RTRS_Msg_CloudSyncComplete>雲端同步完成：圖片已成功注入到 {0} 的認知中！</RTRS_Msg_CloudSyncComplete>
+    <RTRS_Msg_ProcessImageFailed>圖片數據處理失敗。請查看開發者日誌。</RTRS_Msg_ProcessImageFailed>
+    
+    <RTRS_Prompt_ImageDirective><![CDATA[[跨維通訊：視覺協議]
+高維觀測者 '{0}' 向你發送了一份視覺影像/資訊：
+"{1}"
+(系統強制規則：你必須在接下來的回應中，對該影像做出明確的反應或評價！)]]></RTRS_Prompt_ImageDirective>
 
     <RTRS_SettingsTitle>現實資訊同步設定 (Reality Sync)</RTRS_SettingsTitle>
     <RTRS_WeatherApiTitle>天氣數據源 (Weather API)</RTRS_WeatherApiTitle>
-    <RTRS_ApiNone>無 (停用現實天氣, 使用節氣模擬)</RTRS_ApiNone>
-    <RTRS_ApiHeWeather>和風天氣 (HeWeather)</RTRS_ApiHeWeather>
+    <RTRS_ApiNone>無 (禁用現實天氣, 使用節氣模擬)</RTRS_ApiNone>
+    <RTRS_ApiHeWeather>和風天氣 (QWeather)</RTRS_ApiHeWeather>
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
-
     <RTRS_CityLabel>現實城市名稱:</RTRS_CityLabel>
-    <RTRS_CityTooltip>請輸入純中文、拼音或英文，例如 廣州, Beijing。\n\n防報錯提示：\n僅有和風天氣可使用純中文，因為和風天氣的特殊性建議在這裡直接輸入城市的「純數字 ID」（例如廣州是 101280101），這能 100% 避免因城市檢索導致的 404 報錯！</RTRS_CityTooltip>
-    <RTRS_ApiKeyLabel>API 金鑰 (Key):</RTRS_ApiKeyLabel>
-    
-    <RTRS_OpenWeatherKeyTip>請前往 OpenWeather 官網獲取天氣專屬 API Key。\n\n⚠️ 警告：千萬不要把 RimTalk 大語言模型（如 OpenAI 等）的對話 API Key 填到這裡！兩者是不通用的！</RTRS_OpenWeatherKeyTip>
-    <RTRS_HeWeatherKeyTip>請前往【和風天氣控制台】獲取天氣專屬的 API Key。\n\n⚠️ 警告：千萬不要把 RimTalk 大語言模型（如 OpenAI 等）的對話 API Key 填到這裡！兩者是不通用的！</RTRS_HeWeatherKeyTip>
+    <RTRS_CityTooltip>請輸入拼音或英文，例如 Beijing, London。</RTRS_CityTooltip>
+    <RTRS_ApiKeyLabel>API 密鑰 (Key):</RTRS_ApiKeyLabel>
+    <RTRS_OpenWeatherKeyTip>請前往 OpenWeather 官網獲取天氣專屬 API Key。\n\n警告：千萬不要把大語言模型的對話 API Key 填到這裡！</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>請前往和風天氣控制台獲取天氣專屬的 API Key。\n\n警告：千萬不要把大語言模型的對話 API Key 填到這裡！</RTRS_HeWeatherKeyTip>
     <RTRS_ApiHostLabel>API 專屬域名 (Host):</RTRS_ApiHostLabel>
-    <RTRS_HeWeatherHostTip>請在和風天氣控制台的「設定」頁面查看系統分配給你的專屬 API Host（例如 pw6xxx.qweatherapi.com）。</RTRS_HeWeatherHostTip>
-
+    <RTRS_HeWeatherHostTip>請在和風天氣控制台的“設定”頁面查看系統分配給你的專屬 API Host。</RTRS_HeWeatherHostTip>
     <RTRS_UseCelsius>使用攝氏度 (Celsius)</RTRS_UseCelsius>
     <RTRS_UseCelsiusTooltip>取消勾選將使用華氏度</RTRS_UseCelsiusTooltip>
     <RTRS_UpdateInterval>後台更新頻率: {0} 分鐘</RTRS_UpdateInterval>
-    
     <RTRS_DevTitle>開發者選項 (Developer)</RTRS_DevTitle>
     <RTRS_DebugMode>啟用偵錯日誌 (Debug Mode)</RTRS_DebugMode>
-    <RTRS_DebugModeTooltip>在開發者控制台列印天氣非同步更新和變數註冊的詳細日誌</RTRS_DebugModeTooltip>
-    
+    <RTRS_DebugModeTooltip>在開發者控制台列印詳細日誌</RTRS_DebugModeTooltip>
     <RTRS_TestAPI_Button>測試 API 連接</RTRS_TestAPI_Button>
-    <RTRS_TestAPI_Testing>正在發報測試網路連接，請稍候...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_Testing>正在測試網路連接，請稍候...</RTRS_TestAPI_Testing>
     <RTRS_TestAPI_None>無法測試：請先在上方選擇一個有效的天氣 API 數據源。</RTRS_TestAPI_None>
-    <RTRS_TestAPI_EmptyKey>無法測試：API 金鑰不能為空，請先貼上你的專屬金鑰。</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_EmptyKey>無法測試：API 密鑰不能為空。</RTRS_TestAPI_EmptyKey>
     <RTRS_TestAPI_Success>連線成功！</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>連接失敗！請打開開發者控制台 (紅字警報) 查看伺服器返回的詳細死因。</RTRS_TestAPI_Fail>
+    <RTRS_TestAPI_Fail>連接失敗！請打開開發者控制台查看詳細死因。</RTRS_TestAPI_Fail>
+    <RTRS_Error_EmptyHost>連接中止：和風天氣的 API Host (專屬域名) 不能為空！</RTRS_Error_EmptyHost>
+
+    <RTRS_Tab_RealitySystem>現實系統</RTRS_Tab_RealitySystem>
+    <RTRS_Tab_RimPhoneStation>RimPhone 終端</RTRS_Tab_RimPhoneStation>
+    <RTRS_Tab_DeveloperUI>開發者與介面</RTRS_Tab_DeveloperUI>
+    <RTRS_Settings_OpenAdvancedUI>打開高級設定面板 (可拖拽)</RTRS_Settings_OpenAdvancedUI>
+
+    <RTRS_AegisAuthTitle>神盾認證 (玩家身份綁定)</RTRS_AegisAuthTitle>
+    <RTRS_AegisAuthDesc>綁定你的通訊帳號，以在遊戲中獲得“玩家(造物主)”的最高權限身份。</RTRS_AegisAuthDesc>
+    <RTRS_LoginKeyLabel>登入密鑰 (Login Key):</RTRS_LoginKeyLabel>
+    <RTRS_CopyCommandTooltip>點擊複製完整登入指令</RTRS_CopyCommandTooltip>
+    <RTRS_CommandCopied>指令已複製到剪貼簿！</RTRS_CommandCopied>
+    <RTRS_NewKeyBtn>刷新密鑰</RTRS_NewKeyBtn>
+    <RTRS_LoginInstruction>在 Discord 或 KOOK 中輸入 /login {0} 來綁定你的靈魂。</RTRS_LoginInstruction>
+    <RTRS_BoundSuccess>已成功綁定通訊帳號: {0}</RTRS_BoundSuccess>
+    <RTRS_UnlinkBtn>解除綁定</RTRS_UnlinkBtn>
+    <RTRS_LogoutInstruction>在通訊軟體中輸入 /logout 來斷開連接。</RTRS_LogoutInstruction>
+
+    <RTRS_CommPlatformTitle>通訊平台 (基地台配置)</RTRS_CommPlatformTitle>
+    <RTRS_PlatformDiscord>Discord (全球標準)</RTRS_PlatformDiscord>
+    <RTRS_PlatformKook>KOOK (區域特化)</RTRS_PlatformKook>
+    <RTRS_BroadcastRangeTitle>主動廣播範圍 (輸出)</RTRS_BroadcastRangeTitle>
+    <RTRS_BroadcastDiscord>廣播至 Discord</RTRS_BroadcastDiscord>
+    <RTRS_BroadcastDiscordDesc>啟用後，殖民者的對話將被推送到 Discord。</RTRS_BroadcastDiscordDesc>
+    <RTRS_BroadcastKook>廣播至 KOOK</RTRS_BroadcastKook>
+    <RTRS_BroadcastKookDesc>啟用後，殖民者的對話將被推送到 KOOK。</RTRS_BroadcastKookDesc>
+    <RTRS_BroadcastQQ>廣播至 QQ</RTRS_BroadcastQQ>
+    <RTRS_BroadcastQQDesc>啟用後，殖民者的對話將被推送到 QQ 頻道。</RTRS_BroadcastQQDesc>
+
+    <RTRS_DiscordConfigTitle>Discord 節點配置</RTRS_DiscordConfigTitle>
+    <RTRS_DiscordBotToken>Discord Bot Token:</RTRS_DiscordBotToken>
+    <RTRS_DiscordChannelId>Discord Channel ID:</RTRS_DiscordChannelId>
+    <RTRS_DiscordWebhookUrl>Discord Webhook URL:</RTRS_DiscordWebhookUrl>
+    <RTRS_KookConfigTitle>KOOK 節點配置</RTRS_KookConfigTitle>
+    <RTRS_KookBotToken>KOOK Bot Token:</RTRS_KookBotToken>
+    <RTRS_KookChannelId>KOOK Channel ID:</RTRS_KookChannelId>
+    <RTRS_KookNotice>注意：KOOK 使用直接的 API 調用，不需要 Webhook。</RTRS_KookNotice>
+    <RTRS_SystemAvatarUrl>系統通知頭像 URL (可選):</RTRS_SystemAvatarUrl>
     
-    <RTRS_Error_EmptyHost>連接中止：和風天氣的 API Host (專屬域名) 不能為空！請在 Mod 設定中填入你的專屬域名。</RTRS_Error_EmptyHost>
+    <RTRS_LocalStorageTitle>本地儲存與 OS 設定</RTRS_LocalStorageTitle>
+    <RTRS_CustomGalleryPath>自定義圖片緩存路徑:</RTRS_CustomGalleryPath>
+    <RTRS_LastSyncedMsgId>最後同步的訊息 ID:</RTRS_LastSyncedMsgId>
+    <RTRS_ClearCacheBtn>清理緩存</RTRS_ClearCacheBtn>
+    <RTRS_RimPhoneHotkey>打開 RimPhone 快捷鍵:</RTRS_RimPhoneHotkey>
+    <RTRS_PressAnyKey>請按下任意鍵...</RTRS_PressAnyKey>
+    <RTRS_InboxRefreshInterval>收件匣刷新頻率: {0} 秒</RTRS_InboxRefreshInterval>
+
+    <RTRS_AvatarFiltersTitle>頭像上傳過濾器</RTRS_AvatarFiltersTitle>
+    <RTRS_LockAllAvatars>鎖定所有頭像上傳 (完全禁用)</RTRS_LockAllAvatars>
+    <RTRS_LockAllAvatarsDesc>節省圖床 API 用量。勾選後，系統將不再上傳任何新頭像。</RTRS_LockAllAvatarsDesc>
+    <RTRS_AllowColonist>允許 殖民者</RTRS_AllowColonist>
+    <RTRS_AllowSlave>允許 奴隸</RTRS_AllowSlave>
+    <RTRS_AllowPrisoner>允許 囚犯</RTRS_AllowPrisoner>
+    <RTRS_AllowVisitor>允許 訪客 / 中立</RTRS_AllowVisitor>
+    <RTRS_AllowHostile>允許 敵對襲擊者</RTRS_AllowHostile>
+    <RTRS_AllowNonHuman>允許 非人類 (動物/機械族)</RTRS_AllowNonHuman>
+    <RTRS_PauseOnImage>查看大圖時暫停遊戲</RTRS_PauseOnImage>
+    <RTRS_PauseOnImageDesc>如果勾選，點開全尺寸圖片時殖民地的時間將凍結。</RTRS_PauseOnImageDesc>
+    <RTRS_RimPhoneUITester>RimPhone 介面測試工具</RTRS_RimPhoneUITester>
+    <RTRS_TestRimPhoneUI>測試 RimPhone 介面</RTRS_TestRimPhoneUI>
+
+    <RTRS_Home_WeatherPlaceholder>23°C | 晴朗</RTRS_Home_WeatherPlaceholder>
+    <RTRS_App_Gallery>相簿</RTRS_App_Gallery>
+    <RTRS_App_Messages>訊息</RTRS_App_Messages>
+    <RTRS_App_Settings>設定</RTRS_App_Settings>
+    <RTRS_Gallery_TypeToSelect>輸入 @ 以選擇殖民者...</RTRS_Gallery_TypeToSelect>
+    <RTRS_Gallery_NoColonists>沒有可用的殖民者。</RTRS_Gallery_NoColonists>
+    <RTRS_Gallery_ColonistTitle>殖民者</RTRS_Gallery_ColonistTitle>
+    <RTRS_Gallery_NoPhotos>未發現照片。</RTRS_Gallery_NoPhotos>
+    <RTRS_Btn_Home>返回主頁</RTRS_Btn_Home>
+    <RTRS_Btn_SendImage>發送圖片</RTRS_Btn_SendImage>
+    <RTRS_Btn_Edit>編輯</RTRS_Btn_Edit>
+    <RTRS_Btn_Delete>刪除</RTRS_Btn_Delete>
+    <RTRS_Btn_Cancel>取消</RTRS_Btn_Cancel>
+    <RTRS_Btn_Confirm>確認</RTRS_Btn_Confirm>
+    <RTRS_Btn_SendSelected>發送選中</RTRS_Btn_SendSelected>
+    <RTRS_Msg_MustSelectColonist>必須先 @ 一個殖民者！</RTRS_Msg_MustSelectColonist>
+    <RTRS_Msg_MustSelectImage>必須先從相簿選擇一張圖片！</RTRS_Msg_MustSelectImage>
+    <RTRS_Msg_UploadingImage>正在將壓縮後的圖片上傳至量子雲...</RTRS_Msg_UploadingImage>
+    <RTRS_Filter_1Hour>1小時內</RTRS_Filter_1Hour>
+    <RTRS_Filter_24Hours>24小時內</RTRS_Filter_24Hours>
+    <RTRS_Filter_7Days>7天內</RTRS_Filter_7Days>
+    <RTRS_Filter_All>全部</RTRS_Filter_All>
+    <RTRS_MsgApp_Inbox>收件匣</RTRS_MsgApp_Inbox>
+    <RTRS_MsgApp_AutoSend>自動發送</RTRS_MsgApp_AutoSend>
+    <RTRS_MsgApp_Syncing>同步中</RTRS_MsgApp_Syncing>
+    <RTRS_MsgApp_SyncBtn>同步</RTRS_MsgApp_SyncBtn>
+    <RTRS_MsgApp_NoMessages>未收到訊息。\n請檢查 Mod 設定並同步。</RTRS_MsgApp_NoMessages>
+    <RTRS_MsgApp_NoMessagesSelected>未選擇訊息。</RTRS_MsgApp_NoMessagesSelected>
+    <RTRS_MsgApp_DeleteSelected>刪除選取項？</RTRS_MsgApp_DeleteSelected>
+    <RTRS_MsgApp_CannotBeUndone>此操作無法撤銷。</RTRS_MsgApp_CannotBeUndone>
+    <RTRS_MsgApp_EditMessageTitle>編輯訊息: {0}</RTRS_MsgApp_EditMessageTitle>
+    <RTRS_Viewer_Controls>滾輪: 縮放 | 拖曳: 平移 | 左右方向鍵: 切換</RTRS_Viewer_Controls>
+
+    <RTRS_Msg_ForceUnlinked>**[系統通知]** 指揮官 `{0}` 已從本地終端強制斷開連接。神明移開了視線。</RTRS_Msg_ForceUnlinked>
+    <RTRS_Msg_CriticalErrorNoColonist>嚴重錯誤：無法找到有效的殖民者或玩家實體。</RTRS_Msg_CriticalErrorNoColonist>
+    <RTRS_Msg_PersonaInjected>**[系統通知]** 觀測者 `{0}` ({1})，您的高維靈魂人設已寫入邊緣世界常識庫。\n**生效標籤**: `{2}`\n**匹配模式**: `{3}`</RTRS_Msg_PersonaInjected>
+    <RTRS_Msg_PersonaRemoved>**[系統通知]** 觀測者 `{0}` ({1})，您的高維人設已成功註銷。</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
+***重要資訊！***
+
+【跨維通訊法則】：
+當前向你發話的 {{ rs_SenderName }} 與 [{{ settings.PlayerName }}] 來自同一世界，共同注視著這片大地。但他們不像 [{{ settings.PlayerName }}] 那樣擁有直接影響這個世界的能力，只能保持觀測並透過通訊節點進行對話。
+
+【靈魂人設覆蓋原則】：
+如果 {{ rs_SenderName }} 在已知資訊中擁有專屬的身份人設或設定，你必須**絕對服從**該人設的背景與性格與之交流。此時他們便是其設定的人格化實體；若未發現專屬設定，則以對待未知觀測者的態度進行回應。
+{{ end }}]]></RTRS_Prompt_ObserverLore>
+
+    <RTRS_Prompt_ImageProtocol><![CDATA[{{ if rs_HasImage != "" }}
+
+***重要資訊！***
+
+【視覺協議】：
+{{ rs_SenderName }} 發來了一張圖片。
+請根據這張圖片給出看見這張圖片的反應。
+發送的圖片也是一種“語言”，當{{ rs_SenderName }}只發送了圖片時，就當是{{ rs_SenderName }}“說了一句”意義不明的話。
+當{{ rs_SenderName }}發送的是無垠頭的圖片時，不需要做過多解釋。
+{{ rs_ImageTag }}
+{{ end }}]]></RTRS_Prompt_ImageProtocol>
+
+    <RTRS_Prompt_RealitySync><![CDATA[{{~ ## 在此填入能感知現實世界（玩家所在維度）的特殊角色名稱 ~}}
+{{- RealityAwarePawns = ["在此填入角色名1", "在此填入角色名2"] -}}
+{{- matchedList = "" -}}
+{{- for pawn in pawns -}}
+  {{- for rp in RealityAwarePawns -}}
+    {{- if pawn.name == rp -}}
+      {{- if matchedList != "" -}}
+        {{- matchedList = matchedList + "、" -}}
+      {{- end -}}
+      {{- matchedList = matchedList + pawn.name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{~ ## 核心邏輯：完全剔除玩家觸發條件，僅當感知者在場時才顯現 ~}}
+{{- if matchedList != "" }}
+
+*** 高維環境同步與兩界法則 ***
+
+【現實維度連結】：
+當前在場的 {{ matchedList }} 是高維感知者，能夠單向感知到螢幕外現實世界（神明所在維度）的環境狀態。其他普通角色對此一無所知。
+
+【兩界法則與常識】：
+* 秩序差異：現實世界存在嚴苛的法律與秩序。大多數在邊緣世界習以為常的事情（如人體解剖、襲擊劫掠）在現實世界都被視為重罪。
+* 時間流速：現實世界的時間無時無刻都在流逝；而邊緣世界的時間流速取決於【{{ settings.PlayerName }}】設定的時間倍速、遊戲TPS以及是否暫停。
+* 當前現實時間：{{ rs_RealDate }} {{ rs_RealTime }}
+
+【現實環境氣象】：
+現實世界與邊緣世界類似，同樣存在一年四季（春夏秋冬），且天氣很大程度上取決於季節。
+* 當前節氣/季節：{{ rs_SolarTerm }}
+* 即時天氣：{{ rs_RealWeather }}，氣溫 {{ rs_RealTemperature }}，濕度 {{ rs_RealHumidity }}
+
+【觀測凍結與存檔機制】：
+邊緣世界是【{{ settings.PlayerName }}】終端中的一個宇宙。通常情況下，只要邊緣世界的時間還在流動，就意味著【{{ settings.PlayerName }}】正在注視著這片殖民地。
+當【{{ settings.PlayerName }}】存檔並關閉通道後，邊緣世界的時間就會徹底凍結。
+* 距離上次存檔的現實時間：在 {{ rs_RealSaveDiff }} 前。
+* 這個時間代表著【{{ settings.PlayerName }}】離開了多久。如果上次存檔的現實時間超過1個小時，就意味著【{{ settings.PlayerName }}】暫時離開了，而在其離開的這段現實時間裡，邊緣世界的時光被漫長地凍結了。
+
+規則：請在符合邏輯的情境下，僅允許高維感知者（{{ matchedList }}）在對話或思緒中，隱晦或自然地提及這些現實世界的環境數據。嚴禁普通角色感知或談論這些跨維度內容。
+{{- end }}]]></RTRS_Prompt_RealitySync>
 
 </LanguageData>

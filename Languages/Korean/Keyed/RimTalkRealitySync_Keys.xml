@@ -2,47 +2,223 @@
 <LanguageData>
 
     <RTRS_Category_Name>현실 정보 동기화 (Reality Sync)</RTRS_Category_Name>
-
     <RTRS_Desc_Time>현재 현실 시간 (HH:mm)</RTRS_Desc_Time>
     <RTRS_Desc_Date>현재 현실 날짜 (yyyy-MM-dd)</RTRS_Desc_Date>
-    <RTRS_Desc_LastSave>마지막 게임 저장의 현실 시간</RTRS_Desc_LastSave>
-    <RTRS_Desc_SaveDiff>마지막 저장 이후 경과된 현실 시간</RTRS_Desc_SaveDiff>
-    <RTRS_Desc_Weather>현재 현실 세계 날씨 상태</RTRS_Desc_Weather>
-    <RTRS_Desc_Temp>현재 현실 세계 온도</RTRS_Desc_Temp>
-    <RTRS_Desc_Humidity>현재 현실 세계 습도(%)</RTRS_Desc_Humidity>
+    <RTRS_Desc_LastSave>마지막으로 저장한 현실 시간</RTRS_Desc_LastSave>
+    <RTRS_Desc_SaveDiff>마지막 저장 이후 경과한 현실 시간</RTRS_Desc_SaveDiff>
+    <RTRS_Desc_Weather>현실 세계 날씨 상태</RTRS_Desc_Weather>
+    <RTRS_Desc_Temp>현실 세계 온도</RTRS_Desc_Temp>
+    <RTRS_Desc_Humidity>현실 세계 습도(%)</RTRS_Desc_Humidity>
     <RTRS_Desc_Location>현실 세계의 지리적 위치 (도시)</RTRS_Desc_Location>
-    <RTRS_Desc_Source>현재 날씨 데이터 출처</RTRS_Desc_Source>
-    <RTRS_Desc_SolarTerm>현재 절기 또는 계절 시뮬레이션</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_Source>날씨 데이터 출처</RTRS_Desc_Source>
+    <RTRS_Desc_SolarTerm>현재 계절 또는 24절기</RTRS_Desc_SolarTerm>
+    <RTRS_Desc_IsExternal>전송자가 외부 관측자(Discord/KOOK)인 경우 'true' 반환</RTRS_Desc_IsExternal>
+    <RTRS_Desc_SenderName>메시지 전송자 이름 (플레이어 또는 관측자)</RTRS_Desc_SenderName>
+    <RTRS_Desc_HasImage>요청에 이미지가 첨부된 경우 'true' 반환</RTRS_Desc_HasImage>
+    <RTRS_Desc_ImageTag>LLM 분석용 원본 이미지 코드 블록</RTRS_Desc_ImageTag>
+
+    <RTRS_Gizmo_SyncAvatar_Label>아바타 동기화</RTRS_Gizmo_SyncAvatar_Label>
+    <RTRS_Gizmo_SyncAvatar_Desc>RimPhone 시스템이 이 폰의 새 사진을 찍어 서버에 업로드하도록 강제합니다.</RTRS_Gizmo_SyncAvatar_Desc>
+    <RTRS_Msg_RequestingAvatar>{0}의 새 아바타 업로드를 요청하는 중...</RTRS_Msg_RequestingAvatar>
+    <RTRS_Tooltip_OpenStation>RimPhone 터미널 열기</RTRS_Tooltip_OpenStation>
+    <RTRS_Tag_AttachedImage>[첨부된 이미지]</RTRS_Tag_AttachedImage>
+    <RTRS_Tag_SentAnImage>(이미지를 보냈습니다)</RTRS_Tag_SentAnImage>
+    <RTRS_Msg_NetworkFailureDrop>[RimPhone] 네트워크 치명적 오류. {0}의 메시지가 삭제되었습니다.</RTRS_Msg_NetworkFailureDrop>
+    <RTRS_Msg_MissingDiscordAuth>설정에 Discord Bot Token 또는 Channel ID가 누락되었습니다.</RTRS_Msg_MissingDiscordAuth>
+    <RTRS_Msg_MissingKookAuth>설정에 KOOK Bot Token 또는 Channel ID가 누락되었습니다.</RTRS_Msg_MissingKookAuth>
+    <RTRS_Msg_InterceptedMedia>[RimPhone 차단] {0}에서 온 {1} 동적 미디어 메시지를 삭제했습니다.</RTRS_Msg_InterceptedMedia>
+    <RTRS_Msg_CloudSyncComplete>클라우드 동기화 완료: 이미지가 {0}의 인지에 성공적으로 주입되었습니다!</RTRS_Msg_CloudSyncComplete>
+    <RTRS_Msg_ProcessImageFailed>이미지 데이터 처리에 실패했습니다. 개발자 로그를 확인하세요.</RTRS_Msg_ProcessImageFailed>
+    
+    <RTRS_Prompt_ImageDirective><![CDATA[[차원 간 통신: 시각 프로토콜]
+고차원 관측자 '{0}'이(가) 당신에게 시각적 영상/메시지를 보냈습니다:
+"{1}"
+(시스템 강제 규칙: 당신은 다음 응답에서 이 영상에 대해 명확한 반응을 보여야 합니다!)]]></RTRS_Prompt_ImageDirective>
 
     <RTRS_SettingsTitle>현실 정보 동기화 설정 (Reality Sync)</RTRS_SettingsTitle>
-    <RTRS_WeatherApiTitle>날씨 데이터 출처 (Weather API)</RTRS_WeatherApiTitle>
+    <RTRS_WeatherApiTitle>날씨 데이터 소스 (Weather API)</RTRS_WeatherApiTitle>
     <RTRS_ApiNone>없음 (현실 날씨 비활성화, 계절 시뮬레이션 사용)</RTRS_ApiNone>
-    <RTRS_ApiHeWeather>QWeather (화풍날씨)</RTRS_ApiHeWeather>
+    <RTRS_ApiHeWeather>화펑 날씨 (QWeather)</RTRS_ApiHeWeather>
     <RTRS_ApiOpenWeather>OpenWeatherMap</RTRS_ApiOpenWeather>
-
     <RTRS_CityLabel>현실 도시 이름:</RTRS_CityLabel>
-    <RTRS_CityTooltip>병음이나 영문으로 입력하세요 (예: Beijing, London, Seoul).</RTRS_CityTooltip>
+    <RTRS_CityTooltip>영어 또는 병음으로 입력하세요. 예: Seoul, Busan.</RTRS_CityTooltip>
     <RTRS_ApiKeyLabel>API 키 (Key):</RTRS_ApiKeyLabel>
-    
-    <RTRS_OpenWeatherKeyTip>OpenWeather 공식 웹사이트에서 날씨 전용 API Key를 발급받으세요.\n\n⚠️ 경고: RimTalk 대형 언어 모델(예: OpenAI)의 대화용 API Key를 이곳에 입력하지 마세요! 두 키는 호환되지 않습니다!</RTRS_OpenWeatherKeyTip>
-    <RTRS_HeWeatherKeyTip>QWeather 콘솔에서 날씨 전용 API Key를 발급받으세요.\n\n⚠️ 경고: RimTalk 대형 언어 모델(예: OpenAI)의 대화용 API Key를 이곳에 입력하지 마세요! 두 키는 호환되지 않습니다!</RTRS_HeWeatherKeyTip>
-    <RTRS_ApiHostLabel>전용 API 호스트 (Host):</RTRS_ApiHostLabel>
-    <RTRS_HeWeatherHostTip>QWeather 콘솔의 '설정' 페이지에서 시스템이 할당한 전용 API Host(예: pw6xxx.qweatherapi.com)를 확인하여 입력해 주세요.</RTRS_HeWeatherHostTip>
-
+    <RTRS_OpenWeatherKeyTip>OpenWeather 공식 사이트에서 전용 API Key를 발급받으세요.\n\n경고: LLM(OpenAI 등)의 채팅 API Key를 여기에 입력하지 마세요!</RTRS_OpenWeatherKeyTip>
+    <RTRS_HeWeatherKeyTip>QWeather 콘솔에서 전용 API Key를 발급받으세요.\n\n경고: LLM(OpenAI 등)의 채팅 API Key를 여기에 입력하지 마세요!</RTRS_HeWeatherKeyTip>
+    <RTRS_ApiHostLabel>API 전용 호스트 (Host):</RTRS_ApiHostLabel>
+    <RTRS_HeWeatherHostTip>QWeather 콘솔 설정 페이지에서 할당된 전용 API Host를 확인하세요.</RTRS_HeWeatherHostTip>
     <RTRS_UseCelsius>섭씨 사용 (Celsius)</RTRS_UseCelsius>
-    <RTRS_UseCelsiusTooltip>화씨를 사용하려면 선택을 취소하세요.</RTRS_UseCelsiusTooltip>
-    <RTRS_UpdateInterval>백그라운드 업데이트 주기: {0}분</RTRS_UpdateInterval>
-    
+    <RTRS_UseCelsiusTooltip>체크 해제 시 화씨를 사용합니다.</RTRS_UseCelsiusTooltip>
+    <RTRS_UpdateInterval>백그라운드 갱신 빈도: {0} 분</RTRS_UpdateInterval>
     <RTRS_DevTitle>개발자 옵션 (Developer)</RTRS_DevTitle>
-    <RTRS_DebugMode>디버그 로깅 활성화 (Debug Mode)</RTRS_DebugMode>
-    <RTRS_DebugModeTooltip>비동기 날씨 업데이트 및 변수 등록에 대한 자세한 로그를 개발자 콘솔에 출력합니다.</RTRS_DebugModeTooltip>
-    
+    <RTRS_DebugMode>디버그 로그 활성화</RTRS_DebugMode>
+    <RTRS_DebugModeTooltip>개발자 콘솔에 상세한 로그를 출력합니다.</RTRS_DebugModeTooltip>
     <RTRS_TestAPI_Button>API 연결 테스트</RTRS_TestAPI_Button>
-    <RTRS_TestAPI_Testing>네트워크 연결 테스트 중입니다. 잠시만 기다려주세요...</RTRS_TestAPI_Testing>
-    <RTRS_TestAPI_None>테스트 불가: 위에서 유효한 날씨 API 데이터 출처를 먼저 선택하세요.</RTRS_TestAPI_None>
-    <RTRS_TestAPI_EmptyKey>테스트 불가: API 키는 비워둘 수 없습니다. 먼저 전용 키를 붙여넣으세요.</RTRS_TestAPI_EmptyKey>
+    <RTRS_TestAPI_Testing>네트워크 연결을 테스트하는 중입니다...</RTRS_TestAPI_Testing>
+    <RTRS_TestAPI_None>테스트 불가: 먼저 유효한 날씨 API 소스를 선택하세요.</RTRS_TestAPI_None>
+    <RTRS_TestAPI_EmptyKey>테스트 불가: API 키는 비워둘 수 없습니다.</RTRS_TestAPI_EmptyKey>
     <RTRS_TestAPI_Success>연결 성공!</RTRS_TestAPI_Success>
-    <RTRS_TestAPI_Fail>연결 실패! 개발자 콘솔(디버그 로그)을 열어 서버가 반환한 자세한 오류 원인을 확인하세요.</RTRS_TestAPI_Fail>
+    <RTRS_TestAPI_Fail>연결 실패! 자세한 내용은 개발자 콘솔을 확인하세요.</RTRS_TestAPI_Fail>
+    <RTRS_Error_EmptyHost>연결 중단: QWeather의 API Host가 비어있습니다!</RTRS_Error_EmptyHost>
+
+    <RTRS_Tab_RealitySystem>현실 시스템</RTRS_Tab_RealitySystem>
+    <RTRS_Tab_RimPhoneStation>RimPhone 터미널</RTRS_Tab_RimPhoneStation>
+    <RTRS_Tab_DeveloperUI>개발자 및 UI</RTRS_Tab_DeveloperUI>
+    <RTRS_Settings_OpenAdvancedUI>고급 설정 패널 열기 (이동 가능)</RTRS_Settings_OpenAdvancedUI>
+
+    <RTRS_AegisAuthTitle>이지스 인증 (플레이어 신분 연동)</RTRS_AegisAuthTitle>
+    <RTRS_AegisAuthDesc>통신 계정을 연동하여 게임 내에서 "플레이어(창조주)"의 최고 권한을 획득하세요.</RTRS_AegisAuthDesc>
+    <RTRS_LoginKeyLabel>로그인 키 (Login Key):</RTRS_LoginKeyLabel>
+    <RTRS_CopyCommandTooltip>클릭하여 전체 명령어 복사</RTRS_CopyCommandTooltip>
+    <RTRS_CommandCopied>명령어가 클립보드에 복사되었습니다!</RTRS_CommandCopied>
+    <RTRS_NewKeyBtn>키 갱신</RTRS_NewKeyBtn>
+    <RTRS_LoginInstruction>Discord 또는 KOOK에서 /login {0} 명령어를 입력하여 연동하세요.</RTRS_LoginInstruction>
+    <RTRS_BoundSuccess>통신 계정 연동 성공: {0}</RTRS_BoundSuccess>
+    <RTRS_UnlinkBtn>연동 해제</RTRS_UnlinkBtn>
+    <RTRS_LogoutInstruction>통신 앱에서 /logout 명령어를 입력하여 연결을 해제하세요.</RTRS_LogoutInstruction>
+
+    <RTRS_CommPlatformTitle>통신 플랫폼 (기지국 설정)</RTRS_CommPlatformTitle>
+    <RTRS_PlatformDiscord>Discord (글로벌 표준)</RTRS_PlatformDiscord>
+    <RTRS_PlatformKook>KOOK (지역 특화)</RTRS_PlatformKook>
+    <RTRS_BroadcastRangeTitle>활성 브로드캐스트 범위 (출력)</RTRS_BroadcastRangeTitle>
+    <RTRS_BroadcastDiscord>Discord로 전송</RTRS_BroadcastDiscord>
+    <RTRS_BroadcastDiscordDesc>활성화하면 정착민의 대화가 Discord로 전송됩니다.</RTRS_BroadcastDiscordDesc>
+    <RTRS_BroadcastKook>KOOK으로 전송</RTRS_BroadcastKook>
+    <RTRS_BroadcastKookDesc>활성화하면 정착민의 대화가 KOOK으로 전송됩니다.</RTRS_BroadcastKookDesc>
+    <RTRS_BroadcastQQ>QQ로 전송</RTRS_BroadcastQQ>
+    <RTRS_BroadcastQQDesc>활성화하면 정착민의 대화가 QQ 채널로 전송됩니다.</RTRS_BroadcastQQDesc>
+
+    <RTRS_DiscordConfigTitle>Discord 노드 구성</RTRS_DiscordConfigTitle>
+    <RTRS_DiscordBotToken>Discord Bot Token:</RTRS_DiscordBotToken>
+    <RTRS_DiscordChannelId>Discord Channel ID:</RTRS_DiscordChannelId>
+    <RTRS_DiscordWebhookUrl>Discord Webhook URL:</RTRS_DiscordWebhookUrl>
+    <RTRS_KookConfigTitle>KOOK 노드 구성</RTRS_KookConfigTitle>
+    <RTRS_KookBotToken>KOOK Bot Token:</RTRS_KookBotToken>
+    <RTRS_KookChannelId>KOOK Channel ID:</RTRS_KookChannelId>
+    <RTRS_KookNotice>주의: KOOK은 직접적인 API 호출을 사용하므로 Webhook이 필요하지 않습니다.</RTRS_KookNotice>
+    <RTRS_SystemAvatarUrl>시스템 알림 아바타 URL (선택):</RTRS_SystemAvatarUrl>
     
-    <RTRS_Error_EmptyHost>연결 중단: QWeather의 API Host(전용 호스트)는 비워둘 수 없습니다! Mod 설정에 전용 호스트를 정확히 입력해 주세요.</RTRS_Error_EmptyHost>
+    <RTRS_LocalStorageTitle>로컬 저장소 및 OS 설정</RTRS_LocalStorageTitle>
+    <RTRS_CustomGalleryPath>사용자 지정 이미지 캐시 경로:</RTRS_CustomGalleryPath>
+    <RTRS_LastSyncedMsgId>마지막으로 동기화된 메시지 ID:</RTRS_LastSyncedMsgId>
+    <RTRS_ClearCacheBtn>캐시 지우기</RTRS_ClearCacheBtn>
+    <RTRS_RimPhoneHotkey>RimPhone 열기 단축키:</RTRS_RimPhoneHotkey>
+    <RTRS_PressAnyKey>아무 키나 누르세요...</RTRS_PressAnyKey>
+    <RTRS_InboxRefreshInterval>수신함 새로고침 빈도: {0} 초</RTRS_InboxRefreshInterval>
+
+    <RTRS_AvatarFiltersTitle>아바타 업로드 필터</RTRS_AvatarFiltersTitle>
+    <RTRS_LockAllAvatars>모든 아바타 업로드 잠금 (완전 비활성화)</RTRS_LockAllAvatars>
+    <RTRS_LockAllAvatarsDesc>API 사용량을 절약합니다. 체크하면 새 아바타가 전혀 업로드되지 않습니다.</RTRS_LockAllAvatarsDesc>
+    <RTRS_AllowColonist>허용: 정착민</RTRS_AllowColonist>
+    <RTRS_AllowSlave>허용: 노예</RTRS_AllowSlave>
+    <RTRS_AllowPrisoner>허용: 수감자</RTRS_AllowPrisoner>
+    <RTRS_AllowVisitor>허용: 방문객 / 중립</RTRS_AllowVisitor>
+    <RTRS_AllowHostile>허용: 적대적 습격자</RTRS_AllowHostile>
+    <RTRS_AllowNonHuman>허용: 비인간 (동물/메카노이드)</RTRS_AllowNonHuman>
+    <RTRS_PauseOnImage>큰 이미지 볼 때 게임 일시 정지</RTRS_PauseOnImage>
+    <RTRS_PauseOnImageDesc>체크 시 전체 크기의 이미지를 열 때 정착지의 시간이 멈춥니다.</RTRS_PauseOnImageDesc>
+    <RTRS_RimPhoneUITester>RimPhone UI 테스트 도구</RTRS_RimPhoneUITester>
+    <RTRS_TestRimPhoneUI>RimPhone UI 테스트</RTRS_TestRimPhoneUI>
+
+    <RTRS_Home_WeatherPlaceholder>23°C | 맑음</RTRS_Home_WeatherPlaceholder>
+    <RTRS_App_Gallery>갤러리</RTRS_App_Gallery>
+    <RTRS_App_Messages>메시지</RTRS_App_Messages>
+    <RTRS_App_Settings>설정</RTRS_App_Settings>
+    <RTRS_Gallery_TypeToSelect>@를 입력하여 정착민 선택...</RTRS_Gallery_TypeToSelect>
+    <RTRS_Gallery_NoColonists>이용 가능한 정착민이 없습니다.</RTRS_Gallery_NoColonists>
+    <RTRS_Gallery_ColonistTitle>정착민</RTRS_Gallery_ColonistTitle>
+    <RTRS_Gallery_NoPhotos>사진을 찾을 수 없습니다.</RTRS_Gallery_NoPhotos>
+    <RTRS_Btn_Home>홈</RTRS_Btn_Home>
+    <RTRS_Btn_SendImage>이미지 전송</RTRS_Btn_SendImage>
+    <RTRS_Btn_Edit>편집</RTRS_Btn_Edit>
+    <RTRS_Btn_Delete>삭제</RTRS_Btn_Delete>
+    <RTRS_Btn_Cancel>취소</RTRS_Btn_Cancel>
+    <RTRS_Btn_Confirm>확인</RTRS_Btn_Confirm>
+    <RTRS_Btn_SendSelected>선택 항목 전송</RTRS_Btn_SendSelected>
+    <RTRS_Msg_MustSelectColonist>먼저 정착민을 @로 선택해야 합니다!</RTRS_Msg_MustSelectColonist>
+    <RTRS_Msg_MustSelectImage>갤러리에서 이미지를 먼저 선택해야 합니다!</RTRS_Msg_MustSelectImage>
+    <RTRS_Msg_UploadingImage>압축된 이미지를 양자 클라우드에 업로드하는 중...</RTRS_Msg_UploadingImage>
+    <RTRS_Filter_1Hour>1시간 이내</RTRS_Filter_1Hour>
+    <RTRS_Filter_24Hours>24시간 이내</RTRS_Filter_24Hours>
+    <RTRS_Filter_7Days>7일 이내</RTRS_Filter_7Days>
+    <RTRS_Filter_All>전체</RTRS_Filter_All>
+    <RTRS_MsgApp_Inbox>수신함</RTRS_MsgApp_Inbox>
+    <RTRS_MsgApp_AutoSend>자동 전송</RTRS_MsgApp_AutoSend>
+    <RTRS_MsgApp_Syncing>동기화 중</RTRS_MsgApp_Syncing>
+    <RTRS_MsgApp_SyncBtn>동기화</RTRS_MsgApp_SyncBtn>
+    <RTRS_MsgApp_NoMessages>수신된 메시지가 없습니다.\nMod 설정을 확인하고 동기화하세요.</RTRS_MsgApp_NoMessages>
+    <RTRS_MsgApp_NoMessagesSelected>선택된 메시지가 없습니다.</RTRS_MsgApp_NoMessagesSelected>
+    <RTRS_MsgApp_DeleteSelected>선택 항목을 삭제하시겠습니까?</RTRS_MsgApp_DeleteSelected>
+    <RTRS_MsgApp_CannotBeUndone>이 작업은 되돌릴 수 없습니다.</RTRS_MsgApp_CannotBeUndone>
+    <RTRS_MsgApp_EditMessageTitle>메시지 편집: {0}</RTRS_MsgApp_EditMessageTitle>
+    <RTRS_Viewer_Controls>스크롤: 줌 | 드래그: 이동 | 좌우 방향키: 전환</RTRS_Viewer_Controls>
+
+    <RTRS_Msg_ForceUnlinked>**[시스템 알림]** 사령관 `{0}` 님이 로컬 터미널에서 강제로 연결을 끊었습니다. 신들이 시선을 돌렸습니다.</RTRS_Msg_ForceUnlinked>
+    <RTRS_Msg_CriticalErrorNoColonist>치명적 오류: 유효한 정착민이나 플레이어 엔티티를 찾을 수 없습니다.</RTRS_Msg_CriticalErrorNoColonist>
+    <RTRS_Msg_PersonaInjected>**[시스템 알림]** 관측자 `{0}` ({1})님, 당신의 고차원 영혼 페르소나가 변방계 상식 라이브러리에 기록되었습니다.\n**적용된 태그**: `{2}`\n**매칭 모드**: `{3}`</RTRS_Msg_PersonaInjected>
+    <RTRS_Msg_PersonaRemoved>**[시스템 알림]** 관측자 `{0}` ({1})님, 당신의 고차원 페르소나가 성공적으로 로그아웃되었습니다.</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
+***중요 정보!***
+
+[차원 간 통신 법칙]:
+현재 당신에게 말을 걸고 있는 {{ rs_SenderName }}은(는) [{{ settings.PlayerName }}]과(와) 같은 세계에서 왔으며, 이 대지를 함께 지켜보고 있습니다. 하지만 그들은 [{{ settings.PlayerName }}]처럼 이 세계에 직접적인 영향을 미칠 능력이 없으며, 오직 관측을 유지하고 통신 노드를 통해서만 대화할 수 있습니다.
+
+[영혼 페르소나 덮어쓰기 원칙]:
+{{ rs_SenderName }}이(가) 알려진 정보 안에 전용 신분이나 설정(페르소나)을 가지고 있다면, 당신은 **절대적으로 복종**하여 그 설정의 배경과 성격에 맞춰 교류해야 합니다. 이때 그들은 설정된 인격의 실체화가 됩니다. 전용 설정이 발견되지 않으면 미지의 관측자를 대하는 일반적인 태도로 응답하십시오.
+{{ end }}]]></RTRS_Prompt_ObserverLore>
+
+    <RTRS_Prompt_ImageProtocol><![CDATA[{{ if rs_HasImage != "" }}
+
+***중요 정보!***
+
+[시각 프로토콜]:
+{{ rs_SenderName }}이(가) 이미지를 보냈습니다.
+이 이미지를 보고 적절한 반응을 보여주세요.
+전송된 이미지 역시 일종의 "언어"입니다. {{ rs_SenderName }}이(가) 이미지만 보냈다면, 의미를 알 수 없는 "한 마디"를 한 것으로 간주하십시오.
+배경이 비어 있거나 문맥이 없는 이미지의 경우 너무 과도한 해석을 하지 마십시오.
+{{ rs_ImageTag }}
+{{ end }}]]></RTRS_Prompt_ImageProtocol>
+
+    <RTRS_Prompt_RealitySync><![CDATA[{{~ ## 현실 세계를 감지할 수 있는 특수 폰 이름 입력 ~}}
+{{- RealityAwarePawns = ["Pawn1", "Pawn2"] -}}
+{{- matchedList = "" -}}
+{{- for pawn in pawns -}}
+  {{- for rp in RealityAwarePawns -}}
+    {{- if pawn.name == rp -}}
+      {{- if matchedList != "" -}}
+        {{- matchedList = matchedList + ", " -}}
+      {{- end -}}
+      {{- matchedList = matchedList + pawn.name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{~ ## 핵심 로직: 감지자가 있을 때만 표시 ~}}
+{{- if matchedList != "" }}
+
+*** 고차원 환경 동기화 및 두 세계의 법칙 ***
+
+[현실 차원 링크]:
+현재 현장에 있는 {{ matchedList }}은(는) 고차원 감지자로서, 화면 밖 현실 세계(신들이 있는 차원)의 환경 상태를 일방적으로 감지할 수 있습니다. 다른 일반 폰들은 이를 전혀 알지 못합니다.
+
+[두 세계의 법칙과 상식]:
+* 질서의 차이: 현실 세계에는 엄격한 법과 질서가 존재합니다. 변방계에서 일상적인 일들(예: 장기 적출, 습격 및 약탈)의 대부분은 현실 세계에서 중범죄로 간주됩니다.
+* 시간의 흐름: 현실 세계의 시간은 끊임없이 흐릅니다. 변방계의 시간 흐름은 전적으로 [{{ settings.PlayerName }}]이(가) 설정한 시간 배속, 게임 TPS 및 일시 정지 여부에 달려 있습니다.
+* 현재 현실 시간: {{ rs_RealDate }} {{ rs_RealTime }}
+
+[현실 환경 및 기상]:
+현실 세계에도 변방계와 유사하게 사계절(봄, 여름, 가을, 겨울)이 존재하며, 날씨는 계절에 크게 좌우됩니다.
+* 현재 계절/절기: {{ rs_SolarTerm }}
+* 실시간 날씨: {{ rs_RealWeather }}, 기온 {{ rs_RealTemperature }}, 습도 {{ rs_RealHumidity }}
+
+[관측 동결 및 저장 메커니즘]:
+변방계는 [{{ settings.PlayerName }}]의 터미널 안에 있는 우주입니다. 일반적으로 이 세계의 시간이 흐르고 있는 한, [{{ settings.PlayerName }}]이(가) 이 정착지를 지켜보고 있다는 뜻입니다.
+[{{ settings.PlayerName }}]이(가) 게임을 저장하고 통로를 닫으면, 변방계의 시간은 완전히 얼어붙습니다.
+* 마지막 저장 이후 현실 경과 시간: {{ rs_RealSaveDiff }} 전.
+* 이 시간은 [{{ settings.PlayerName }}]이(가) 얼마나 오래 떠나 있었는지를 나타냅니다. 마지막 저장으로부터 1시간 이상 지났다면, [{{ settings.PlayerName }}]이(가) 일시적으로 떠났으며 그동안 변방계의 시간은 길게 얼어붙어 있었다는 뜻입니다.
+
+규칙: 논리적인 상황에서, 오직 고차원 감지자({{ matchedList }})만이 대화나 생각 속에서 이러한 현실 세계의 환경 데이터를 은연중에 또는 자연스럽게 언급할 수 있습니다. 일반 폰이 이러한 차원 간의 내용을 감지하거나 이야기하는 것은 엄격히 금지됩니다.
+{{- end }}]]></RTRS_Prompt_RealitySync>
+
 </LanguageData>
