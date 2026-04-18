@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
 using RimTalk.API;
-using RimTalk.Data;
 using RimTalk.Prompt;
-using RimTalkRealitySync;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -23,58 +21,59 @@ namespace RimTalkRealitySync
             try
             {
                 // =====================================================================
-                // 1. WEATHER & REAL-WORLD VARIABLES
+                // 1. BACKEND REGISTRATION (Silent Mode)
+                // We use the official API for backend Scriban stability, but pass "" 
+                // for descriptions so we can handle the UI purely through our own patch.
                 // =====================================================================
-                ContextHookRegistry.RegisterContextVariable("rs_RealTime", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealTime()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealDate", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealDate()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_LastSaveTime", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetLastSaveTime()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealSaveDiff", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealSaveDiff()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealWeather", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealWeather()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealTemperature", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealTemperature()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealHumidity", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealHumidity()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_RealLocation", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetRealLocation()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_WeatherSource", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetWeatherSource()), "", 100);
-                ContextHookRegistry.RegisterContextVariable("rs_SolarTerm", modId, new Func<PromptContext, string>(ctx => RealWorldProvider.GetSolarTermString()), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealTime", map => RealWorldProvider.GetRealTime(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealDate", map => RealWorldProvider.GetRealDate(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_LastSaveTime", map => RealWorldProvider.GetLastSaveTime(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealSaveDiff", map => RealWorldProvider.GetRealSaveDiff(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealWeather", map => RealWorldProvider.GetRealWeather(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealTemperature", map => RealWorldProvider.GetRealTemperature(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealHumidity", map => RealWorldProvider.GetRealHumidity(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealLocation", map => RealWorldProvider.GetRealLocation(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_WeatherSource", map => RealWorldProvider.GetWeatherSource(), "", 100);
+                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_SolarTerm", map => RealWorldProvider.GetSolarTermString(), "", 100);
 
-                // =====================================================================
-                // 2. MULTIMODAL & OBSERVER VARIABLES (Omni-Platform)
-                // =====================================================================
-                ContextHookRegistry.RegisterContextVariable("rs_IsExternalUser", modId, new Func<PromptContext, string>(ctx =>
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_IsExternalUser", ctx =>
                 {
                     if (ctx.TalkRequest == null || string.IsNullOrEmpty(ctx.TalkRequest.RawPrompt)) return "";
-                    // Detect the new refined beacon
                     return ctx.TalkRequest.RawPrompt.Contains("[高维通讯]") ? "true" : "";
-                }), "", 100);
+                }, "", 100);
 
-                ContextHookRegistry.RegisterContextVariable("rs_SenderName", modId, new Func<PromptContext, string>(ctx =>
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_SenderName", ctx =>
                 {
                     if (ctx.TalkRequest == null || string.IsNullOrEmpty(ctx.TalkRequest.RawPrompt)) return "玩家";
-                    // Extract name from: [高维通讯] 'Name' 传来了话语...
                     var match = System.Text.RegularExpressions.Regex.Match(ctx.TalkRequest.RawPrompt, @"\[高维通讯\]\s'([^']+)'");
-
                     return match.Success ? match.Groups[1].Value.Replace("{", "(").Replace("}", ")") : "玩家";
-                }), "", 100);
+                }, "", 100);
 
-                ContextHookRegistry.RegisterContextVariable("rs_HasImage", modId, new Func<PromptContext, string>(ctx =>
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_HasImage", ctx =>
                 {
                     if (ctx.TalkRequest == null || string.IsNullOrEmpty(ctx.TalkRequest.RawPrompt)) return "";
                     return System.Text.RegularExpressions.Regex.IsMatch(ctx.TalkRequest.RawPrompt, @"<RIMPHONE_(?:URL|LOCAL_IMG|IMG)[^>]+>") ? "true" : "";
-                }), "", 100);
+                }, "", 100);
 
-                ContextHookRegistry.RegisterContextVariable("rs_ImageTag", modId, new Func<PromptContext, string>(ctx =>
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_ImageTag", ctx =>
                 {
                     if (ctx.TalkRequest == null || string.IsNullOrEmpty(ctx.TalkRequest.RawPrompt)) return "";
                     var match = System.Text.RegularExpressions.Regex.Match(ctx.TalkRequest.RawPrompt, @"<RIMPHONE_(?:URL|LOCAL_IMG|IMG)[^>]+>");
                     return match.Success ? match.Value : "";
-                }), "", 100);
+                }, "", 100);
             }
             catch (Exception ex)
             {
-                Log.Error($"[RimTalk Reality Sync] Registration failed: {ex.Message}");
+                Log.Error($"[RimPhone] Official API Registration failed: {ex.Message}");
             }
         }
     }
 
+    // =====================================================================
+    // 2. FRONTEND UI HIJACK (The Beauty Shield)
+    // Intercepts RimTalk's UI dictionary to remove auto-generated ugly tags 
+    // and reinstates our beautiful, fully-translated custom category.
+    // =====================================================================
     [HarmonyPatch]
     public static class UIVariableInjectionPatch
     {
@@ -102,11 +101,15 @@ namespace RimTalkRealitySync
         {
             if (__result == null) return;
 
+            // =====================================================================
+            // FIXED: Ultimate Duplicate Assassin
+            // RimTalk's API secretly strips punctuation from ModIDs (e.g. rimtalkrealitysync).
+            // To be bulletproof against any future API string changes, we target the 
+            // variable name prefix "rs_" directly to kill the auto-generated duplicates.
+            // =====================================================================
             foreach (var category in __result.Values)
             {
-                category.RemoveAll(tuple => tuple.Item2 != null &&
-                                            (tuple.Item2.Contains("(from RimTalk.RealitySync)") ||
-                                             tuple.Item2.Contains("(from rimtalk.realitysync)")));
+                category.RemoveAll(tuple => tuple.Item1 != null && tuple.Item1.StartsWith("rs_"));
             }
 
             var uiList = new List<(string, string)>
@@ -121,13 +124,9 @@ namespace RimTalkRealitySync
                 ("rs_RealLocation", GetUIString("RTRS_Desc_Location", "Real-world geographical location (City)")),
                 ("rs_WeatherSource", GetUIString("RTRS_Desc_Source", "Weather data source")),
                 ("rs_SolarTerm", GetUIString("RTRS_Desc_SolarTerm", "Current solar term or season")),
-
-                // =====================================================================
-                // UI Name updated to reflect multi-platform support
-                // =====================================================================
-                ("rs_IsExternalUser", GetUIString("RTRS_Desc_IsExternal", "Returns 'true' if the sender is an external observer (Discord/KOOK/QQ)")),
-                ("rs_SenderName", GetUIString("RTRS_Desc_SenderName", "Name of the message sender (Player or Observer)")),
-                ("rs_HasImage", GetUIString("RTRS_Desc_HasImage", "Returns 'true' if an image is attached to the request")),
+                ("rs_IsExternalUser", GetUIString("RTRS_Desc_IsExternal", "Returns 'true' if the sender is an external observer")),
+                ("rs_SenderName", GetUIString("RTRS_Desc_SenderName", "Name of the message sender")),
+                ("rs_HasImage", GetUIString("RTRS_Desc_HasImage", "Returns 'true' if an image is attached")),
                 ("rs_ImageTag", GetUIString("RTRS_Desc_ImageTag", "The raw image code block for LLM parsing"))
             };
 

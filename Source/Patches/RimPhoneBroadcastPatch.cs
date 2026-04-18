@@ -1,10 +1,11 @@
 ﻿using HarmonyLib;
 using RimTalk.Data;
 using RimTalk.Service;
-using System.Collections.Generic;
-using Verse;
-using RimWorld;
 using RimTalkRealitySync.Platforms.Discord;
+using RimWorld;
+using System.Collections.Generic;
+using UnityEngine;
+using Verse;
 
 namespace RimTalkRealitySync.Patches
 {
@@ -97,7 +98,8 @@ namespace RimTalkRealitySync.Patches
                 yield return gizmo;
             }
 
-            if (RimTalkRealitySyncMod.Settings.LockAllAvatarUpdates || pawn == null)
+            // FIXED: Added condition to hide the Gizmo if ShowSyncAvatarGizmo is disabled in settings
+            if (RimTalkRealitySyncMod.Settings.LockAllAvatarUpdates || pawn == null || !RimTalkRealitySyncMod.Settings.ShowSyncAvatarGizmo)
             {
                 yield break;
             }
@@ -107,7 +109,13 @@ namespace RimTalkRealitySync.Patches
                 // TRANSLATION HOOKS
                 defaultLabel = "RTRS_Gizmo_SyncAvatar_Label".Translate(),
                 defaultDesc = "RTRS_Gizmo_SyncAvatar_Desc".Translate(),
-                icon = BaseContent.BadTex,
+
+                //placeholder
+                //icon = BaseContent.BadTex,
+
+                //picture
+                icon = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_SyncAvatar", true),
+
                 action = () =>
                 {
                     DiscordBroadcastService.ForceUpdateAvatar(pawn);

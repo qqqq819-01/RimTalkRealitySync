@@ -120,7 +120,6 @@
     <RTRS_RimPhoneUITester>RimPhone UI 테스트 도구</RTRS_RimPhoneUITester>
     <RTRS_TestRimPhoneUI>RimPhone UI 테스트</RTRS_TestRimPhoneUI>
 
-    <RTRS_Home_WeatherPlaceholder>23°C | 맑음</RTRS_Home_WeatherPlaceholder>
     <RTRS_App_Gallery>갤러리</RTRS_App_Gallery>
     <RTRS_App_Messages>메시지</RTRS_App_Messages>
     <RTRS_App_Settings>설정</RTRS_App_Settings>
@@ -157,6 +156,14 @@
     <RTRS_Msg_CriticalErrorNoColonist>치명적 오류: 유효한 정착민이나 플레이어 엔티티를 찾을 수 없습니다.</RTRS_Msg_CriticalErrorNoColonist>
     <RTRS_Msg_PersonaInjected>**[시스템 알림]** 관측자 `{0}` ({1})님, 당신의 고차원 영혼 페르소나가 변방계 상식 라이브러리에 기록되었습니다.\n**적용된 태그**: `{2}`\n**매칭 모드**: `{3}`</RTRS_Msg_PersonaInjected>
     <RTRS_Msg_PersonaRemoved>**[시스템 알림]** 관측자 `{0}` ({1})님, 당신의 고차원 페르소나가 성공적으로 로그아웃되었습니다.</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_KookSystemAvatarNotice>주의: KOOK 플랫폼은 동적 사용자 지정 시스템 아바타를 지원하지 않습니다.</RTRS_KookSystemAvatarNotice>
+
+    <RTRS_Msg_SuccessfullyLinked>RimPhone: {1} 노드를 통해 [{0}]에 성공적으로 연결되었습니다</RTRS_Msg_SuccessfullyLinked>
+    <RTRS_Msg_UserUnlinked>RimPhone: 사용자 [{0}]의 연결이 해제되었습니다.</RTRS_Msg_UserUnlinked>
+
+    <RTRS_ShowSyncAvatarGizmo>'아바타 동기화' 버튼 표시</RTRS_ShowSyncAvatarGizmo>
+    <RTRS_ShowSyncAvatarGizmoDesc>비활성화하면 전투 UI를 깔끔하게 유지하기 위해 폰의 명령 모음에서 수동 아바타 동기화 아이콘이 숨겨집니다. 백그라운드 자동 동기화는 계속 작동합니다.</RTRS_ShowSyncAvatarGizmoDesc>
 
     <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
 ***중요 정보!***

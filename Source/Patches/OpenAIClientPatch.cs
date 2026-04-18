@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using HarmonyLib;
 using RimTalk.Client.OpenAI;
 using RimTalk.Client.Player2;
-using RimTalk.Client.Gemini;
+//using RimTalk.Client.Gemini;
 using RimTalk.Service;
 using RimTalk.Source.Data;
 using Verse;
@@ -129,7 +129,7 @@ namespace RimTalkRealitySync.Patches
         }
     }
 
-    [HarmonyPatch(typeof(GeminiClient), "BuildRequestJson")]
+    //[HarmonyPatch(typeof(GeminiClient), "BuildRequestJson")]
     public static class GeminiClient_BuildRequestJson_Patch
     {
         private static readonly Regex ImgTagRegex = new Regex(

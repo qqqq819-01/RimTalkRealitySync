@@ -120,7 +120,6 @@
     <RTRS_RimPhoneUITester>RimPhone 介面測試工具</RTRS_RimPhoneUITester>
     <RTRS_TestRimPhoneUI>測試 RimPhone 介面</RTRS_TestRimPhoneUI>
 
-    <RTRS_Home_WeatherPlaceholder>23°C | 晴朗</RTRS_Home_WeatherPlaceholder>
     <RTRS_App_Gallery>相簿</RTRS_App_Gallery>
     <RTRS_App_Messages>訊息</RTRS_App_Messages>
     <RTRS_App_Settings>設定</RTRS_App_Settings>
@@ -157,6 +156,14 @@
     <RTRS_Msg_CriticalErrorNoColonist>嚴重錯誤：無法找到有效的殖民者或玩家實體。</RTRS_Msg_CriticalErrorNoColonist>
     <RTRS_Msg_PersonaInjected>**[系統通知]** 觀測者 `{0}` ({1})，您的高維靈魂人設已寫入邊緣世界常識庫。\n**生效標籤**: `{2}`\n**匹配模式**: `{3}`</RTRS_Msg_PersonaInjected>
     <RTRS_Msg_PersonaRemoved>**[系統通知]** 觀測者 `{0}` ({1})，您的高維人設已成功註銷。</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_KookSystemAvatarNotice>注意：KOOK 平台不支援動態自訂系統頭像。</RTRS_KookSystemAvatarNotice>
+
+    <RTRS_Msg_SuccessfullyLinked>RimPhone: 已成功透過 {1} 節點連接至 [{0}]</RTRS_Msg_SuccessfullyLinked>
+    <RTRS_Msg_UserUnlinked>RimPhone: 用戶 [{0}] 已斷開連接。</RTRS_Msg_UserUnlinked>
+
+    <RTRS_ShowSyncAvatarGizmo>顯示「同步頭像」快捷按鈕</RTRS_ShowSyncAvatarGizmo>
+    <RTRS_ShowSyncAvatarGizmoDesc>如果關閉，將隱藏角色底部操作欄中的同步頭像圖標，以保持戰鬥介面整潔。你依然可以在後台自動同步頭像。</RTRS_ShowSyncAvatarGizmoDesc>
 
     <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
 ***重要資訊！***

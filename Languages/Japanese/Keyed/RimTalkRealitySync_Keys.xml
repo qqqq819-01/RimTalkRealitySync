@@ -120,7 +120,6 @@
     <RTRS_RimPhoneUITester>RimPhone UIテストツール</RTRS_RimPhoneUITester>
     <RTRS_TestRimPhoneUI>RimPhone UIをテスト</RTRS_TestRimPhoneUI>
 
-    <RTRS_Home_WeatherPlaceholder>23°C | 晴れ</RTRS_Home_WeatherPlaceholder>
     <RTRS_App_Gallery>ギャラリー</RTRS_App_Gallery>
     <RTRS_App_Messages>メッセージ</RTRS_App_Messages>
     <RTRS_App_Settings>設定</RTRS_App_Settings>
@@ -157,6 +156,14 @@
     <RTRS_Msg_CriticalErrorNoColonist>致命的なエラー：有効な入植者またはプレイヤーエンティティが見つかりません。</RTRS_Msg_CriticalErrorNoColonist>
     <RTRS_Msg_PersonaInjected>**[システム通知]** 観測者 `{0}` ({1})、あなたの高次元の魂のペルソナがRimWorldの常識ライブラリに書き込まれました。\n**有効なタグ**: `{2}`\n**マッチモード**: `{3}`</RTRS_Msg_PersonaInjected>
     <RTRS_Msg_PersonaRemoved>**[システム通知]** 観測者 `{0}` ({1})、あなたの高次元ペルソナは正常にログアウトされました。</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_KookSystemAvatarNotice>注意：KOOKプラットフォームは動的なカスタムシステムアバターをサポートしていません。</RTRS_KookSystemAvatarNotice>
+
+    <RTRS_Msg_SuccessfullyLinked>RimPhone: {1} 経由で [{0}] に正常にリンクしました</RTRS_Msg_SuccessfullyLinked>
+    <RTRS_Msg_UserUnlinked>RimPhone: ユーザー [{0}] のリンクが解除されました。</RTRS_Msg_UserUnlinked>
+
+    <RTRS_ShowSyncAvatarGizmo>「アバター同期」ボタンを表示</RTRS_ShowSyncAvatarGizmo>
+    <RTRS_ShowSyncAvatarGizmoDesc>オフにすると、戦闘UIをすっきりさせるために、ポーンのコマンドバーから手動アバター同期アイコンが非表示になります。バックグラウンドでの自動同期は引き続き機能します。</RTRS_ShowSyncAvatarGizmoDesc>
 
     <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
 ***重要情報！***

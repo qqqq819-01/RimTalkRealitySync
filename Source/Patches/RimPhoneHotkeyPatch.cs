@@ -28,7 +28,14 @@ namespace RimTalkRealitySync.Patches
 
             // Using the vanilla 'Search' magnifying glass icon temporarily 
             // until you have a custom mobile phone icon asset.
-            if (row.ButtonIcon(TexButton.Search, "RTRS_Tooltip_OpenStation".Translate()))
+            //if (row.ButtonIcon(TexButton.Search, "RTRS_Tooltip_OpenStation".Translate()))
+            //{
+            //RimPhoneStateManager.ToggleWindow();
+            //}
+
+            //picture
+            Texture2D phoneIcon = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_RimPhoneOpen", true);
+            if (row.ButtonIcon(phoneIcon, "RTRS_Tooltip_OpenStation".Translate()))
             {
                 RimPhoneStateManager.ToggleWindow();
             }

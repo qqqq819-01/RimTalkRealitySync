@@ -72,9 +72,16 @@ namespace RimTalkRealitySync.UI.Apps
             if (_animProgress < 1f) RimWorld.SoundDefOf.Tick_High.PlayOneShotOnCamera();
 
             if (_roundedBackgroundTex == null) _roundedBackgroundTex = CreateRoundedTexture(380, 650, 20, new Color(0.08f, 0.12f, 0.18f, 1f));
-            if (_galleryIconTex == null) _galleryIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.95f, 0.95f, 0.95f));
-            if (_messagesIconTex == null) _messagesIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.2f, 0.8f, 0.4f));
-            if (_settingsIconTex == null) _settingsIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.4f, 0.4f, 0.4f));
+
+            //placeholder
+            //if (_galleryIconTex == null) _galleryIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.95f, 0.95f, 0.95f));
+            //if (_messagesIconTex == null) _messagesIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.2f, 0.8f, 0.4f));
+            //if (_settingsIconTex == null) _settingsIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.4f, 0.4f, 0.4f));
+
+            //picture
+            if (_galleryIconTex == null) _galleryIconTex = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_Gallery", true);
+            if (_messagesIconTex == null) _messagesIconTex = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_Messages", true);
+            if (_settingsIconTex == null) _settingsIconTex = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_Settings", true);
 
             if (_galleryBgTex == null) _galleryBgTex = CreateRoundedTexture(380, 650, 20, new Color(0.12f, 0.12f, 0.12f, 1f));
             if (_messagesBgTex == null) _messagesBgTex = CreateRoundedTexture(380, 650, 20, new Color(0.1f, 0.12f, 0.15f, 1f));
@@ -178,11 +185,22 @@ namespace RimTalkRealitySync.UI.Apps
             else if (_isReturning) { appBgAlpha = 1f - ease; iconsAlpha = ease; }
 
             GUI.color = new Color(1f, 1f, 1f, iconsAlpha);
-            // TRANSLATION HOOK
-            Widgets.Label(new Rect(20, 10, 200, 20), "<b><color=#00FFFF>" + "RTRS_Home_WeatherPlaceholder".Translate() + "</color></b>");
+
+            // FIXED: GUI State Leakage Shield
+            Text.Font = GameFont.Tiny;
+
+            // =====================================================================
+            // Fetch dynamic weather data from RealWorldProvider directly!
+            // =====================================================================
+            string currentTemp = RealWorldProvider.GetRealTemperature();
+            string currentCondition = RealWorldProvider.GetRealWeather();
+            Widgets.Label(new Rect(20, 10, 200, 20), $"<b><color=#00FFFF>{currentTemp} | {currentCondition}</color></b>");
+
             Text.Anchor = TextAnchor.UpperRight;
-            Widgets.Label(new Rect(inRect.width - 20, 10, 185, 20), "<b>" + DateTime.Now.ToString("HH:mm") + "</b>");
+            Widgets.Label(new Rect(inRect.width - 200, 10, 180, 20), "<b>" + DateTime.Now.ToString("HH:mm") + "</b>");
+
             Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
 
             Rect clockWidgetRect = new Rect(0, 60f, inRect.width, 80f);
             Text.Anchor = TextAnchor.MiddleCenter;
@@ -259,27 +277,31 @@ namespace RimTalkRealitySync.UI.Apps
 
         private void DrawAppIcon(string appName, Rect rect, float alpha)
         {
-            Texture2D iconTex = null; string letter = ""; Color letterColor = Color.white;
-            if (appName == "Gallery") { iconTex = _galleryIconTex; letter = "G"; letterColor = Color.black; }
-            else if (appName == "Messages") { iconTex = _messagesIconTex; letter = "M"; letterColor = Color.white; }
-            else if (appName == "Settings") { iconTex = _settingsIconTex; letter = "S"; letterColor = Color.white; }
+            // FIXED: Removed hardcoded letters (G, M, S) and font rendering logic.
+            // Now it only renders the clean Texture2D images.
+            Texture2D iconTex = null;
+            if (appName == "Gallery") iconTex = _galleryIconTex;
+            else if (appName == "Messages") iconTex = _messagesIconTex;
+            else if (appName == "Settings") iconTex = _settingsIconTex;
 
             GUI.color = new Color(1f, 1f, 1f, alpha);
             if (iconTex != null) GUI.DrawTexture(rect, iconTex);
-
-            GUI.color = new Color(letterColor.r, letterColor.g, letterColor.b, alpha);
-            Text.Anchor = TextAnchor.MiddleCenter; Text.Font = GameFont.Medium;
-            Widgets.Label(rect, letter);
-            Text.Font = GameFont.Small; Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
         }
 
         private void DrawAppLabel(string appName, Rect iconRect, float alpha)
         {
             GUI.color = new Color(1f, 1f, 1f, alpha);
-            Rect labelRect = new Rect(iconRect.x - 15f, iconRect.yMax + 5f, iconRect.width + 30f, 20f);
-            Text.Anchor = TextAnchor.UpperCenter; Widgets.Label(labelRect, $"<b>{appName}</b>");
-            Text.Anchor = TextAnchor.UpperLeft; GUI.color = Color.white;
+            Text.Font = GameFont.Tiny; // FIXED: Use Tiny font to prevent long text truncation
+
+            // FIXED: Widen the bounding box to ensure multi-language text fits
+            Rect labelRect = new Rect(iconRect.x - 25f, iconRect.yMax + 5f, iconRect.width + 50f, 24f);
+
+            Text.Anchor = TextAnchor.UpperCenter;
+            Widgets.Label(labelRect, appName);
+
+            Text.Anchor = TextAnchor.UpperLeft;
+            GUI.color = Color.white;
         }
 
         private Rect LerpRect(Rect a, Rect b, float t)

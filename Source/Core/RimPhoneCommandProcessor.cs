@@ -44,7 +44,11 @@ namespace RimTalkRealitySync
                         settings.Write();
 
                         OmniBroadcast("RimOS 系统", $"**[系统通知]** 身份验证通过。最高指挥官 `{m.SenderName}` (来自 {m.SourcePlatform} 节点)，欢迎重获边缘世界控制权！", settings);
-                        Verse.Messages.Message($"RimPhone: Successfully linked to [{m.SenderName}] via {m.SourcePlatform}", RimWorld.MessageTypeDefOf.PositiveEvent, false);
+
+                        // FIXED: Replaced hardcoded English with Translation key. 
+                        // Using string.Format to prevent RimWorld from auto-capitalizing the username.
+                        string linkMsg = string.Format("RTRS_Msg_SuccessfullyLinked".Translate().ToString(), m.SenderName, m.SourcePlatform);
+                        Verse.Messages.Message(linkMsg, RimWorld.MessageTypeDefOf.PositiveEvent, false);
                     }
                 }
                 else if (m.Content == "/logout")
@@ -58,7 +62,11 @@ namespace RimTalkRealitySync
                         settings.Write();
 
                         OmniBroadcast("RimOS 系统", $"**[系统通知]** 指挥官 `{m.SenderName}` ({m.SourcePlatform}) 已主动断开灵魂连接。神明移开了视线。", settings);
-                        Verse.Messages.Message($"RimPhone: User [{m.SenderName}] has unlinked.", RimWorld.MessageTypeDefOf.NeutralEvent, false);
+
+                        // FIXED: Replaced hardcoded English with Translation key.
+                        // Using string.Format to prevent RimWorld from auto-capitalizing the username.
+                        string unlinkMsg = string.Format("RTRS_Msg_UserUnlinked".Translate().ToString(), m.SenderName);
+                        Verse.Messages.Message(unlinkMsg, RimWorld.MessageTypeDefOf.NeutralEvent, false);
                     }
                 }
                 else if (m.Content.StartsWith("/人设 ") || m.Content.StartsWith("/persona "))
@@ -67,7 +75,6 @@ namespace RimTalkRealitySync
                     {
                         string cmdPrefix = m.Content.StartsWith("/人设 ") ? "/人设 " : "/persona ";
                         string input = m.Content.Substring(cmdPrefix.Length).Trim();
-                        // ... 解析逻辑保持不变 ...
                         string rawTags = ""; float importance = 1.0f; string matchMode = "Any";
                         bool canExtract = false; bool canMatch = false; string content = input;
 

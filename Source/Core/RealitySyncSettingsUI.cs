@@ -162,7 +162,11 @@ namespace RimTalkRealitySync
             }
             else
             {
-                l.Label("<color=#00FFAA>" + "RTRS_BoundSuccess".Translate($"<b>{settings.LinkedDiscordUsername}</b>") + "</color>");
+                // FIXED: RimWorld's .Translate(arg) automatically capitalizes the first letter of string arguments.
+                // We use standard string.Format to preserve the exact case of the user's account name (e.g. qqqq819_01).
+                string boundText = string.Format("RTRS_BoundSuccess".Translate().ToString(), $"<b>{settings.LinkedDiscordUsername}</b>");
+                l.Label("<color=#00FFAA>" + boundText + "</color>");
+
                 Rect unlinkRect = l.GetRect(24f);
                 if (Widgets.ButtonText(new Rect(unlinkRect.x, unlinkRect.y, 150f, 24f), "RTRS_UnlinkBtn".Translate()))
                 {
@@ -238,12 +242,19 @@ namespace RimTalkRealitySync
             }
 
             // =====================================================================
-            // NEW: Custom System Avatar URL Input (Shared across platforms)
+            // FIXED: System Avatar URL Input (Platform Specific Rendering)
             // =====================================================================
             l.Gap(5f);
-            Rect sysAvatarRect = l.GetRect(24f);
-            Widgets.Label(sysAvatarRect.LeftPart(0.3f), "RTRS_SystemAvatarUrl".Translate());
-            settings.SystemAvatarUrl = Widgets.TextField(sysAvatarRect.RightPart(0.7f), settings.SystemAvatarUrl);
+            if (settings.ActivePlatform == RealitySyncSettings.PlatformType.Discord)
+            {
+                Rect sysAvatarRect = l.GetRect(24f);
+                Widgets.Label(sysAvatarRect.LeftPart(0.3f), "RTRS_SystemAvatarUrl".Translate());
+                settings.SystemAvatarUrl = Widgets.TextField(sysAvatarRect.RightPart(0.7f), settings.SystemAvatarUrl);
+            }
+            else if (settings.ActivePlatform == RealitySyncSettings.PlatformType.Kook)
+            {
+                l.Label("<color=#888888><i>" + "RTRS_KookSystemAvatarNotice".Translate() + "</i></color>");
+            }
 
             l.Gap(15f);
             l.Label("<b><color=#FFCC00>" + "RTRS_LocalStorageTitle".Translate() + "</color></b>");
@@ -311,6 +322,10 @@ namespace RimTalkRealitySync
 
             l.Gap(10f);
             l.CheckboxLabeled("RTRS_PauseOnImage".Translate(), ref settings.ImageViewerPausesGame, "RTRS_PauseOnImageDesc".Translate());
+
+            // FIXED: Added checkbox for Sync Avatar Gizmo visibility
+            l.Gap(10f);
+            l.CheckboxLabeled("RTRS_ShowSyncAvatarGizmo".Translate(), ref settings.ShowSyncAvatarGizmo, "RTRS_ShowSyncAvatarGizmoDesc".Translate());
 
             l.Gap(20f);
 

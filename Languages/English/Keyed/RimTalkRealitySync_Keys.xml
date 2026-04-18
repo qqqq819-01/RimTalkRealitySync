@@ -132,7 +132,6 @@ The high-dimensional observer '{0}' sent an image/message directly to you:
 
     <RTRS_Msg_ForceUnlinked>**[System Notice]** Commander `{0}` has forcibly disconnected from the local terminal. The Gods have averted their gaze.</RTRS_Msg_ForceUnlinked>
 
-    <RTRS_Home_WeatherPlaceholder>23°C | Sunny</RTRS_Home_WeatherPlaceholder>
     <RTRS_App_Gallery>Gallery</RTRS_App_Gallery>
     <RTRS_App_Messages>Messages</RTRS_App_Messages>
     <RTRS_App_Settings>Settings</RTRS_App_Settings>
@@ -174,6 +173,14 @@ The high-dimensional observer '{0}' sent an image/message directly to you:
     <RTRS_Msg_CriticalErrorNoColonist>Critical Error: Unable to locate a valid colonist or Player entity.</RTRS_Msg_CriticalErrorNoColonist>
     <RTRS_Msg_PersonaInjected>**[System Notice]** Observer `{0}` ({1}), your high-dimensional soul persona has been injected into the RimWorld knowledge base.\n**Active Tags**: `{2}`\n**Match Mode**: `{3}`</RTRS_Msg_PersonaInjected>
     <RTRS_Msg_PersonaRemoved>**[System Notice]** Observer `{0}` ({1}), your high-dimensional persona has been successfully logged out.</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_KookSystemAvatarNotice>Notice: The KOOK platform does not support dynamic custom system avatars.</RTRS_KookSystemAvatarNotice>
+
+    <RTRS_Msg_SuccessfullyLinked>RimPhone: Successfully linked to [{0}] via {1}</RTRS_Msg_SuccessfullyLinked>
+    <RTRS_Msg_UserUnlinked>RimPhone: User [{0}] has unlinked.</RTRS_Msg_UserUnlinked>
+
+    <RTRS_ShowSyncAvatarGizmo>Show 'Sync Avatar' Gizmo Button</RTRS_ShowSyncAvatarGizmo>
+    <RTRS_ShowSyncAvatarGizmoDesc>If disabled, the manual sync avatar icon will be hidden from the pawn's command bar to keep the combat UI clean. Automatic background sync will still function.</RTRS_ShowSyncAvatarGizmoDesc>
 
     <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
 ***CRITICAL DIRECTIVE!***

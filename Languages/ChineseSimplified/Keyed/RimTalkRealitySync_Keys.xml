@@ -33,6 +33,8 @@
     <RTRS_Msg_CriticalErrorNoColonist>严重错误：无法找到有效的殖民者或玩家实体。</RTRS_Msg_CriticalErrorNoColonist>
     <RTRS_Msg_PersonaInjected>**[系统通知]** 观测者 `{0}` ({1})，您的高维灵魂人设已写入边缘世界常识库。\n**生效标签**: `{2}`\n**匹配模式**: `{3}`</RTRS_Msg_PersonaInjected>
     <RTRS_Msg_PersonaRemoved>**[系统通知]** 观测者 `{0}` ({1})，您的高维人设已成功注销。</RTRS_Msg_PersonaRemoved>
+
+    <RTRS_KookSystemAvatarNotice>注意：KOOK 平台不支持动态自定义系统头像。</RTRS_KookSystemAvatarNotice>
     
     <RTRS_Prompt_ImageDirective><![CDATA[[跨维通讯：视觉协议]
 高维观测者 '{0}' 向你发送了一份视觉影像/信息：
@@ -136,7 +138,6 @@
 
     <RTRS_Msg_ForceUnlinked>**[系统通知]** 指挥官 `{0}` 已从本地终端强制断开连接。神明移开了视线。</RTRS_Msg_ForceUnlinked>
 
-    <RTRS_Home_WeatherPlaceholder>23°C | 晴朗</RTRS_Home_WeatherPlaceholder>
     <RTRS_App_Gallery>相册</RTRS_App_Gallery>
     <RTRS_App_Messages>消息</RTRS_App_Messages>
     <RTRS_App_Settings>设置</RTRS_App_Settings>
@@ -174,6 +175,12 @@
     <RTRS_MsgApp_EditMessageTitle>编辑消息: {0}</RTRS_MsgApp_EditMessageTitle>
 
     <RTRS_Viewer_Controls>滚轮: 缩放 | 拖拽: 平移 | 左右方向键: 切换</RTRS_Viewer_Controls>
+
+    <RTRS_Msg_SuccessfullyLinked>RimPhone: 已成功通过 {1} 节点连接至 [{0}]</RTRS_Msg_SuccessfullyLinked>
+    <RTRS_Msg_UserUnlinked>RimPhone: 用户 [{0}] 已断开连接。</RTRS_Msg_UserUnlinked>
+
+    <RTRS_ShowSyncAvatarGizmo>显示“同步头像”快捷按钮</RTRS_ShowSyncAvatarGizmo>
+    <RTRS_ShowSyncAvatarGizmoDesc>如果关闭，将隐藏角色底部操作栏中的同步头像图标，以保持战斗界面整洁。你依然可以在后台自动同步头像。</RTRS_ShowSyncAvatarGizmoDesc>
 
     <RTRS_Prompt_ObserverLore><![CDATA[{{ if rs_IsExternalUser != "" }}
 ***重要信息！***

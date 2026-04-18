@@ -63,6 +63,9 @@ namespace RimTalkRealitySync
         public KeyCode RimPhoneHotkey = KeyCode.P;
         public int InboxRefreshIntervalSeconds = 10;
 
+        // FIXED: Added toggle for the Sync Avatar Gizmo
+        public bool ShowSyncAvatarGizmo = true;
+
         public bool LockAllAvatarUpdates = false;
         public bool AllowAvatar_Colonist = true;
         public bool AllowAvatar_Slave = false;
@@ -108,6 +111,9 @@ namespace RimTalkRealitySync
             Scribe_Values.Look(ref ImageViewerPausesGame, "imageViewerPausesGame", false);
             Scribe_Values.Look(ref RimPhoneHotkey, "rimPhoneHotkey", KeyCode.P);
             Scribe_Values.Look(ref InboxRefreshIntervalSeconds, "inboxRefreshIntervalSeconds", 10);
+
+            // FIXED: Save the toggle state
+            Scribe_Values.Look(ref ShowSyncAvatarGizmo, "showSyncAvatarGizmo", true);
 
             Scribe_Values.Look(ref LockAllAvatarUpdates, "lockAllAvatarUpdates", false);
             Scribe_Values.Look(ref AllowAvatar_Colonist, "allowAvatar_Colonist", true);
