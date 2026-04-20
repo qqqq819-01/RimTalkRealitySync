@@ -25,16 +25,23 @@ namespace RimTalkRealitySync
                 // We use the official API for backend Scriban stability, but pass "" 
                 // for descriptions so we can handle the UI purely through our own patch.
                 // =====================================================================
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealTime", map => RealWorldProvider.GetRealTime(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealDate", map => RealWorldProvider.GetRealDate(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_LastSaveTime", map => RealWorldProvider.GetLastSaveTime(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealSaveDiff", map => RealWorldProvider.GetRealSaveDiff(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealWeather", map => RealWorldProvider.GetRealWeather(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealTemperature", map => RealWorldProvider.GetRealTemperature(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealHumidity", map => RealWorldProvider.GetRealHumidity(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_RealLocation", map => RealWorldProvider.GetRealLocation(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_WeatherSource", map => RealWorldProvider.GetWeatherSource(), "", 100);
-                RimTalkPromptAPI.RegisterEnvironmentVariable(modId, "rs_SolarTerm", map => RealWorldProvider.GetSolarTermString(), "", 100);
+
+                // =====================================================================
+                // FIXED: Evade the "Null Map" Silencer
+                // Changed from RegisterEnvironmentVariable to RegisterContextVariable.
+                // ContextVariables bypass RimTalk's strict requirement for a valid "Map", 
+                // ensuring weather/time data renders even for external Discord observers!
+                // =====================================================================
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealTime", ctx => RealWorldProvider.GetRealTime(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealDate", ctx => RealWorldProvider.GetRealDate(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_LastSaveTime", ctx => RealWorldProvider.GetLastSaveTime(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealSaveDiff", ctx => RealWorldProvider.GetRealSaveDiff(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealWeather", ctx => RealWorldProvider.GetRealWeather(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealTemperature", ctx => RealWorldProvider.GetRealTemperature(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealHumidity", ctx => RealWorldProvider.GetRealHumidity(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_RealLocation", ctx => RealWorldProvider.GetRealLocation(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_WeatherSource", ctx => RealWorldProvider.GetWeatherSource(), "", 100);
+                RimTalkPromptAPI.RegisterContextVariable(modId, "rs_SolarTerm", ctx => RealWorldProvider.GetSolarTermString(), "", 100);
 
                 RimTalkPromptAPI.RegisterContextVariable(modId, "rs_IsExternalUser", ctx =>
                 {

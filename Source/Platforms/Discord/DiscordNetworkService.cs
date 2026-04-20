@@ -177,7 +177,14 @@ namespace RimTalkRealitySync.Platforms.Discord
                                         if (lastUserIdx >= 0)
                                         {
                                             string content = req.PromptMessages[lastUserIdx].content;
-                                            string powerfulPrompt = "RTRS_Prompt_ImageDirective".Translate(senderNameToUse, finalPrompt);
+
+                                            // =====================================================================
+                                            // FIXED: Bypass RimWorld Translate() Tag Stripping
+                                            // Translate() violently removes unknown tags like <RIMPHONE_URL...>. 
+                                            // We pass a safe placeholder first, then inject the raw payload afterwards!
+                                            // =====================================================================
+                                            string powerfulPrompt = "RTRS_Prompt_ImageDirective".Translate(senderNameToUse, "[IMAGE_PAYLOAD]").ToString();
+                                            powerfulPrompt = powerfulPrompt.Replace("[IMAGE_PAYLOAD]", finalPrompt);
 
                                             if (content.Contains(imageTag))
                                             {
