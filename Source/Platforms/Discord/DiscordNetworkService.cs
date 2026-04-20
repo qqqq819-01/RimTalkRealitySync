@@ -165,14 +165,33 @@ namespace RimTalkRealitySync.Platforms.Discord
 
                                     req.PromptMessages = RimTalk.Prompt.PromptManager.Instance.BuildMessages(req, pawns, pawnState.LastStatus);
 
-                                    // Surgical Override for images
+                                    // =====================================================================
+                                    // FIXED: Precise Image Directive Injection
+                                    // Instead of overwriting the entire User block (which destroys JSON format rules),
+                                    // we locate the exact rendered {{ rs_ImageTag }} (e.g., <RIMPHONE_URL:...>) 
+                                    // and replace it with the full directive containing the image.
+                                    // =====================================================================
                                     if (req.PromptMessages != null && req.PromptMessages.Count > 0)
                                     {
                                         int lastUserIdx = req.PromptMessages.FindLastIndex(m => m.role == Role.User);
                                         if (lastUserIdx >= 0)
                                         {
+                                            string content = req.PromptMessages[lastUserIdx].content;
                                             string powerfulPrompt = "RTRS_Prompt_ImageDirective".Translate(senderNameToUse, finalPrompt);
-                                            req.PromptMessages[lastUserIdx] = (Role.User, powerfulPrompt);
+
+                                            if (content.Contains(imageTag))
+                                            {
+                                                // Safely replace the tag with the full directive payload
+                                                content = content.Replace(imageTag, powerfulPrompt);
+                                            }
+                                            else
+                                            {
+                                                // Fallback: If the user didn't use {{ rs_ImageTag }} in their template,
+                                                // prepend it to avoid destroying the JSON output rules at the bottom.
+                                                content = powerfulPrompt + "\n\n" + content;
+                                            }
+
+                                            req.PromptMessages[lastUserIdx] = (Role.User, content);
                                         }
                                     }
 
