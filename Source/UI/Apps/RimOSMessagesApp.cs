@@ -99,7 +99,9 @@ namespace RimTalkRealitySync.UI.Apps
             if (_animProgress < 1f) RimWorld.SoundDefOf.Tick_High.PlayOneShotOnCamera();
 
             if (_roundedBackgroundTex == null) _roundedBackgroundTex = CreateRoundedTexture(380, 650, 20, new Color(0.1f, 0.12f, 0.15f, 1f));
-            if (_messagesIconTex == null) _messagesIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.2f, 0.8f, 0.4f));
+
+            // FIXED: Load the real HD texture instead of creating a placeholder block
+            if (_messagesIconTex == null) _messagesIconTex = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_Messages", true);
         }
 
         protected override void SetInitialSizeAndPosition()
@@ -254,20 +256,14 @@ namespace RimTalkRealitySync.UI.Apps
             float overlayAlpha = Mathf.Max(_splashFadeProgress, _returnFadeProgress);
             if (overlayAlpha > 0.01f)
             {
-                GUI.color = new Color(1f, 1f, 1f, overlayAlpha);
-                GUI.DrawTexture(inRect, _roundedBackgroundTex, ScaleMode.StretchToFill, true);
-
+                // FIXED: Re-added centerIconRect definition to resolve CS0103 error
                 float centerIconSize = 110f;
                 Rect centerIconRect = new Rect(inRect.center.x - centerIconSize / 2f, inRect.center.y - centerIconSize / 2f, centerIconSize, centerIconSize);
 
                 GUI.color = new Color(1f, 1f, 1f, overlayAlpha);
                 if (_messagesIconTex != null) GUI.DrawTexture(centerIconRect, _messagesIconTex);
 
-                GUI.color = new Color(1f, 1f, 1f, overlayAlpha);
-                Text.Anchor = TextAnchor.MiddleCenter; Text.Font = GameFont.Medium;
-                Widgets.Label(centerIconRect, "M");
-                Text.Font = GameFont.Small; Text.Anchor = TextAnchor.UpperLeft;
-
+                // FIXED: Removed the hardcoded 'M' letter rendering
                 GUI.color = Color.white;
             }
         }

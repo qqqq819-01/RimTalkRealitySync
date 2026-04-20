@@ -19,6 +19,10 @@ namespace RimTalkRealitySync.Platforms.Kook
     {
         public static bool IsFetching = false;
 
+        // NEW: KOOK Image Cache Pool
+        // Holds standalone images until the user sends their next text command.
+        public static Dictionary<string, string> PendingImages = new Dictionary<string, string>();
+
         public static void SyncKookMessagesAsync(bool isManual = false)
         {
             if (IsFetching) return;
@@ -98,200 +102,213 @@ namespace RimTalkRealitySync.Platforms.Kook
                                 {
                                     List<DiscordMessage> newMessages = new List<DiscordMessage>();
 
-                                    string newestMsgIdToSave = "";
-                                    List<string> newChunks = new List<string>();
-                                    bool foundAnchor = false;
-
                                     // =====================================================================
-                                    // FIXED: The KOOK Array Reversal Bug
-                                    // Unlike Discord (which returns Newest->Oldest), KOOK returns Oldest->Newest.
-                                    // We MUST iterate backwards to find the newest message first, then 
-                                    // stop when we hit the anchor.
+                                    // FIXED: Absolute Time-based Sync (UUID independent)
+                                    // We reuse LastKookMessageId to store the unix timestamp instead of UUID. 
+                                    // If it's a legacy UUID, TryParse fails, defaults to 0, and self-heals!
                                     // =====================================================================
-                                    for (int i = chunks.Count - 1; i >= 0; i--)
+                                    long lastSyncTime = 0;
+                                    if (!string.IsNullOrWhiteSpace(settings.LastKookMessageId))
                                     {
-                                        string chunk = chunks[i];
-                                        var idMatch = Regex.Match(chunk, @"\""id\""\s*:\s*\""([^\""]+)\""");
-                                        if (!idMatch.Success) continue;
+                                        long.TryParse(settings.LastKookMessageId, out lastSyncTime);
+                                    }
 
+                                    long maxFetchTime = lastSyncTime;
+                                    List<string> validChunks = new List<string>();
+
+                                    foreach (string chunk in chunks)
+                                    {
+                                        var timeMatch = Regex.Match(chunk, @"\""create_at\""\s*:\s*(\d+)");
+                                        if (timeMatch.Success && long.TryParse(timeMatch.Groups[1].Value, out long unixMs))
+                                        {
+                                            if (unixMs > lastSyncTime)
+                                            {
+                                                validChunks.Add(chunk);
+                                            }
+                                            if (unixMs > maxFetchTime)
+                                            {
+                                                maxFetchTime = unixMs; // Track the newest time
+                                            }
+                                        }
+                                    }
+
+                                    // Sort chronologically (Oldest -> Newest) to guarantee correct story flow
+                                    validChunks.Sort((a, b) => {
+                                        long timeA = 0, timeB = 0;
+                                        var ma = Regex.Match(a, @"\""create_at\""\s*:\s*(\d+)");
+                                        var mb = Regex.Match(b, @"\""create_at\""\s*:\s*(\d+)");
+                                        if (ma.Success) long.TryParse(ma.Groups[1].Value, out timeA);
+                                        if (mb.Success) long.TryParse(mb.Groups[1].Value, out timeB);
+                                        return timeA.CompareTo(timeB);
+                                    });
+
+                                    foreach (string chunk in validChunks)
+                                    {
+                                        var idMatch = Regex.Match(chunk, @"\""id\""\s*:\s*\""([^\""]+)\""");
                                         string msgId = idMatch.Groups[1].Value;
 
-                                        if (string.IsNullOrEmpty(newestMsgIdToSave)) newestMsgIdToSave = msgId;
+                                        var contentMatch = Regex.Match(chunk, @"\""content\""\s*:\s*\""((?:\\.|[^\""\\])*)\""");
+                                        string rawContent = contentMatch.Success ? contentMatch.Groups[1].Value : "";
+                                        string cleanContent = DecodeJsonString(rawContent);
 
-                                        if (!string.IsNullOrWhiteSpace(settings.LastKookMessageId) && msgId == settings.LastKookMessageId)
+                                        // Ignore system messages or bots
+                                        if (chunk.Contains("\"bot\":true") || chunk.Contains("\"bot\": true")) continue;
+
+                                        var userMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""username\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
+                                        string username = userMatch.Success ? DecodeJsonString(userMatch.Groups[1].Value).TrimEnd('.', ',', ' ', '!') : "Unknown";
+
+                                        var userIdMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""id\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
+                                        string senderId = userIdMatch.Success ? userIdMatch.Groups[1].Value : "";
+
+                                        var avatarMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""avatar\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
+                                        string senderAvatarUrl = avatarMatch.Success ? avatarMatch.Groups[1].Value.Replace("\\/", "/") : "";
+
+                                        // Extract Timestamp (KOOK uses unix milliseconds 'create_at')
+                                        DateTime timestamp = DateTime.Now;
+                                        var timeMatch = Regex.Match(chunk, @"\""create_at\""\s*:\s*(\d+)");
+                                        if (timeMatch.Success && long.TryParse(timeMatch.Groups[1].Value, out long unixMs))
                                         {
-                                            foundAnchor = true;
-                                            break;
+                                            timestamp = DateTimeOffset.FromUnixTimeMilliseconds(unixMs).LocalDateTime;
                                         }
-                                        newChunks.Add(chunk);
-                                    }
 
-                                    // =====================================================================
-                                    // FIXED: KOOK API Cache Time-Travel Protection
-                                    // If the saved anchor was not found, it means the API either returned 
-                                    // heavily outdated cached data or we missed 20+ messages.
-                                    // We clear the chunks to prevent infinite looping of old messages,
-                                    // and only update the anchor to the newest ID.
-                                    // =====================================================================
-                                    if (!string.IsNullOrWhiteSpace(settings.LastKookMessageId) && !foundAnchor)
-                                    {
-                                        newChunks.Clear();
-                                        if (settings.DebugMode)
-                                            RimPhoneEngine.EnqueueMainThreadAction(() => Log.Warning("[RimPhone KOOK] Anchor missing due to API cache. Resetting sync marker to prevent loop."));
-                                    }
+                                        // =====================================================================
+                                        // KOOK MEDIA & QUOTE PARSER (Phase 3: Deep Extraction)
+                                        // Operates on unescaped cleanContent to easily bypass Type 10 Card wrappers.
+                                        // =====================================================================
+                                        int msgType = 9; // Default to Text/KMarkdown
+                                        var typeMatch = Regex.Match(chunk, @"\""type\""\s*:\s*(\d+)");
+                                        if (typeMatch.Success) int.TryParse(typeMatch.Groups[1].Value, out msgType);
 
-                                    // 2. Reverse array to process from oldest to newest
-                                    newChunks.Reverse();
+                                        string imageUrl = "";
 
-                                foreach (string chunk in newChunks)
-                                {
-                                    var idMatch = Regex.Match(chunk, @"\""id\""\s*:\s*\""([^\""]+)\""");
-                                    string msgId = idMatch.Groups[1].Value;
-
-                                    var contentMatch = Regex.Match(chunk, @"\""content\""\s*:\s*\""((?:\\.|[^\""\\])*)\""");
-                                    string rawContent = contentMatch.Success ? contentMatch.Groups[1].Value : "";
-                                    string cleanContent = DecodeJsonString(rawContent);
-
-                                    // Ignore system messages or bots
-                                    if (chunk.Contains("\"bot\":true") || chunk.Contains("\"bot\": true")) continue;
-
-                                    var userMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""username\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
-                                    string username = userMatch.Success ? DecodeJsonString(userMatch.Groups[1].Value).TrimEnd('.', ',', ' ', '!') : "Unknown";
-
-                                    var userIdMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""id\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
-                                    string senderId = userIdMatch.Success ? userIdMatch.Groups[1].Value : "";
-
-                                    var avatarMatch = Regex.Match(chunk, @"\""author\""\s*:\s*\{.*?\""avatar\""\s*:\s*\""([^\""]+)\""", RegexOptions.Singleline);
-                                    string senderAvatarUrl = avatarMatch.Success ? avatarMatch.Groups[1].Value.Replace("\\/", "/") : "";
-
-                                    // Extract Timestamp (KOOK uses unix milliseconds 'create_at')
-                                    DateTime timestamp = DateTime.Now;
-                                    var timeMatch = Regex.Match(chunk, @"\""create_at\""\s*:\s*(\d+)");
-                                    if (timeMatch.Success && long.TryParse(timeMatch.Groups[1].Value, out long unixMs))
-                                    {
-                                        timestamp = DateTimeOffset.FromUnixTimeMilliseconds(unixMs).LocalDateTime;
-                                    }
-
-                                    // =====================================================================
-                                    // KOOK MEDIA & QUOTE PARSER (Phase 3: Deep Extraction)
-                                    // Operates on unescaped cleanContent to easily bypass Type 10 Card wrappers.
-                                    // =====================================================================
-                                    int msgType = 9; // Default to Text/KMarkdown
-                                    var typeMatch = Regex.Match(chunk, @"\""type\""\s*:\s*(\d+)");
-                                    if (typeMatch.Success) int.TryParse(typeMatch.Groups[1].Value, out msgType);
-
-                                    string imageUrl = "";
-
-                                    if (msgType == 2) // Direct Image
-                                    {
-                                        imageUrl = cleanContent;
-                                        cleanContent = ""; // Clear URL from text payload
-                                    }
-                                    else if (msgType == 10) // Card Image
-                                    {
-                                        // FIXED: Execute Regex on cleanContent to avoid nested \/ escaping chaos
-                                        var srcMatch = Regex.Match(cleanContent, @"\""src\""\s*:\s*\""(https?://[^\""]+)\""");
-                                        if (srcMatch.Success) imageUrl = srcMatch.Groups[1].Value;
-                                        cleanContent = "";
-                                    }
-                                    else if (msgType == 9 && (chunk.Contains("\"has_quote\":true") || chunk.Contains("\"has_quote\": true")))
-                                    {
-                                        // Deep extract the quoted payload and decode it first
-                                        var quoteContentMatch = Regex.Match(chunk, @"\""quote\""\s*:\s*\{.*?\""content\""\s*:\s*\""((?:\\.|[^\""\\])*)\""", RegexOptions.Singleline);
-                                        if (quoteContentMatch.Success)
+                                        if (msgType == 2) // Direct Image
                                         {
-                                            string quoteRaw = quoteContentMatch.Groups[1].Value;
-                                            string quoteClean = DecodeJsonString(quoteRaw);
-                                            
-                                            var quoteTypeMatch = Regex.Match(chunk, @"\""quote\""\s*:\s*\{.*?\""type\""\s*:\s*(\d+)");
-                                            int qType = 0;
-                                            if (quoteTypeMatch.Success) int.TryParse(quoteTypeMatch.Groups[1].Value, out qType);
+                                            imageUrl = cleanContent;
+                                            cleanContent = ""; // Clear URL from text payload
+                                        }
+                                        else if (msgType == 10) // Card Image
+                                        {
+                                            // FIXED: Execute Regex on cleanContent to avoid nested \/ escaping chaos
+                                            var srcMatch = Regex.Match(cleanContent, @"\""src\""\s*:\s*\""(https?://[^\""]+)\""");
+                                            if (srcMatch.Success) imageUrl = srcMatch.Groups[1].Value;
+                                            cleanContent = "";
+                                        }
+                                        else if (msgType == 9 && (chunk.Contains("\"has_quote\":true") || chunk.Contains("\"has_quote\": true")))
+                                        {
+                                            // Deep extract the quoted payload and decode it first
+                                            var quoteContentMatch = Regex.Match(chunk, @"\""quote\""\s*:\s*\{.*?\""content\""\s*:\s*\""((?:\\.|[^\""\\])*)\""", RegexOptions.Singleline);
+                                            if (quoteContentMatch.Success)
+                                            {
+                                                string quoteRaw = quoteContentMatch.Groups[1].Value;
+                                                string quoteClean = DecodeJsonString(quoteRaw);
 
-                                            if (qType == 2) 
-                                            {
-                                                imageUrl = quoteClean; // Plain URL
-                                            }
-                                            else if (qType == 10)
-                                            {
-                                                // Extract from decoded Card
-                                                var srcMatch = Regex.Match(quoteClean, @"\""src\""\s*:\s*\""(https?://[^\""]+)\""");
-                                                if (srcMatch.Success) imageUrl = srcMatch.Groups[1].Value;
+                                                var quoteTypeMatch = Regex.Match(chunk, @"\""quote\""\s*:\s*\{.*?\""type\""\s*:\s*(\d+)");
+                                                int qType = 0;
+                                                if (quoteTypeMatch.Success) int.TryParse(quoteTypeMatch.Groups[1].Value, out qType);
+
+                                                if (qType == 2)
+                                                {
+                                                    imageUrl = quoteClean; // Plain URL
+                                                }
+                                                else if (qType == 10)
+                                                {
+                                                    // Extract from decoded Card
+                                                    var srcMatch = Regex.Match(quoteClean, @"\""src\""\s*:\s*\""(https?://[^\""]+)\""");
+                                                    if (srcMatch.Success) imageUrl = srcMatch.Groups[1].Value;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    // =====================================================================
-                                    // FIXED: Dynamic Media Interception
-                                    // Scans the file extension and safely drops unsupported formats 
-                                    // (like GIF or MP4) to prevent gallery loading crashes.
-                                    // =====================================================================
-                                    bool dropEntireMessage = false;
-                                    string interceptedExt = "";
+                                        // =====================================================================
+                                        // FIXED: Dynamic Media Interception
+                                        // Scans the file extension and safely drops unsupported formats 
+                                        // (like GIF or MP4) to prevent gallery loading crashes.
+                                        // =====================================================================
+                                        bool dropEntireMessage = false;
+                                        string interceptedExt = "";
 
-                                    // Process Extracted Image
-                                    if (!string.IsNullOrEmpty(imageUrl))
-                                    {
-                                        string safeFileName = Regex.Replace(Path.GetFileName(new Uri(imageUrl).LocalPath), @"[^a-zA-Z0-9\.\-_]", "");
-                                        string ext = Path.GetExtension(safeFileName).ToLower();
-
-                                        if (ext == ".gif" || ext == ".mp4" || ext == ".webm" || ext == ".webp")
+                                        // Process Extracted Image
+                                        if (!string.IsNullOrEmpty(imageUrl))
                                         {
-                                            dropEntireMessage = true;
-                                            interceptedExt = ext.ToUpper();
-                                        }
-                                        else
-                                        {
-                                            RimPhoneCore.DownloadImageSafely(imageUrl, safeFileName, settings.DebugMode);
-                                            string localFilePath = Path.Combine(RimPhoneCore.GalleryPath, safeFileName);
-                                            string imgTag = $"<RIMPHONE_LOCAL_IMG:{localFilePath}>";
-                                            cleanContent = string.IsNullOrWhiteSpace(cleanContent) ? imgTag : $"{cleanContent}\n{imgTag}";
-                                        }
-                                    }
+                                            string safeFileName = Regex.Replace(Path.GetFileName(new Uri(imageUrl).LocalPath), @"[^a-zA-Z0-9\.\-_]", "");
+                                            string ext = Path.GetExtension(safeFileName).ToLower();
 
-                                    if (dropEntireMessage)
-                                    {
+                                            if (ext == ".gif" || ext == ".mp4" || ext == ".webm" || ext == ".webp")
+                                            {
+                                                dropEntireMessage = true;
+                                                interceptedExt = ext.ToUpper();
+                                            }
+                                            else
+                                            {
+                                                RimPhoneCore.DownloadImageSafely(imageUrl, safeFileName, settings.DebugMode);
+                                                string localFilePath = Path.Combine(RimPhoneCore.GalleryPath, safeFileName);
+                                                string imgTag = $"<RIMPHONE_LOCAL_IMG:{localFilePath}>";
+
+                                                // NEW: KOOK Image Cache System
+                                                // Standalone images are cached until the user's next text command
+                                                if (string.IsNullOrWhiteSpace(cleanContent))
+                                                {
+                                                    PendingImages[senderId] = imgTag;
+                                                    continue; // Pause execution, wait for their next text message
+                                                }
+                                                else
+                                                {
+                                                    cleanContent = $"{cleanContent}\n{imgTag}";
+                                                }
+                                            }
+                                        }
+
+                                        if (dropEntireMessage)
+                                        {
                                             RimPhoneEngine.EnqueueMainThreadAction(() => {
                                                 Verse.Messages.Message("RTRS_Msg_InterceptedMedia".Translate("KOOK", interceptedExt), RimWorld.MessageTypeDefOf.RejectInput, false);
                                             });
                                             continue;
-                                    }
+                                        }
 
-                                    string trimmedCmd = cleanContent.Trim();
-
-                                    // =====================================================================
-                                    // SYSTEM COMMAND INTERCEPTOR
-                                    // =====================================================================
-                                    bool isSystemCommand = false;
-                                    string standardizedCmd = trimmedCmd;
-
-                                    var cmdMatch = Regex.Match(trimmedCmd, @"^[/\\.,。，~-]\s*(login|logout|人设|persona|移除人设|clearpersona)(?:\s+(.*))?$", RegexOptions.IgnoreCase);
-                                    if (cmdMatch.Success)
-                                    {
-                                        isSystemCommand = true;
-                                        string commandWord = cmdMatch.Groups[1].Value.ToLower();
-                                        string args = cmdMatch.Groups[2].Success ? cmdMatch.Groups[2].Value : "";
-
-                                        if (commandWord == "人设" || commandWord == "persona" || commandWord == "login")
-                                            standardizedCmd = $"/{commandWord} {args}".Trim();
-                                        else
-                                            standardizedCmd = $"/{commandWord}";
-                                    }
-
-                                    if (isSystemCommand)
-                                    {
-                                        newMessages.Add(new DiscordMessage
+                                        // NEW: Retrieve pending image if the user sends text
+                                        if (PendingImages.TryGetValue(senderId, out string pendingImg))
                                         {
-                                            Id = msgId,
-                                            SenderName = username,
-                                            SenderId = senderId,
-                                            SenderAvatarUrl = senderAvatarUrl,
-                                            TargetPawn = "System",
-                                            Content = standardizedCmd,
-                                            Timestamp = timestamp,
-                                            SourcePlatform = "KOOK",
-                                        });
-                                        continue;
-                                    }
+                                            cleanContent = string.IsNullOrWhiteSpace(cleanContent) ? pendingImg : $"{cleanContent}\n{pendingImg}";
+                                            PendingImages.Remove(senderId);
+                                        }
+
+                                        string trimmedCmd = cleanContent.Trim();
+
+                                        // =====================================================================
+                                        // SYSTEM COMMAND INTERCEPTOR
+                                        // =====================================================================
+                                        bool isSystemCommand = false;
+                                        string standardizedCmd = trimmedCmd;
+
+                                        var cmdMatch = Regex.Match(trimmedCmd, @"^[/\\.,。，~-]\s*(login|logout|人设|persona|移除人设|clearpersona)(?:\s+(.*))?$", RegexOptions.IgnoreCase);
+                                        if (cmdMatch.Success)
+                                        {
+                                            isSystemCommand = true;
+                                            string commandWord = cmdMatch.Groups[1].Value.ToLower();
+                                            string args = cmdMatch.Groups[2].Success ? cmdMatch.Groups[2].Value : "";
+
+                                            if (commandWord == "人设" || commandWord == "persona" || commandWord == "login")
+                                                standardizedCmd = $"/{commandWord} {args}".Trim();
+                                            else
+                                                standardizedCmd = $"/{commandWord}";
+                                        }
+
+                                        if (isSystemCommand)
+                                        {
+                                            newMessages.Add(new DiscordMessage
+                                            {
+                                                Id = msgId,
+                                                SenderName = username,
+                                                SenderId = senderId,
+                                                SenderAvatarUrl = senderAvatarUrl,
+                                                TargetPawn = "System",
+                                                Content = standardizedCmd,
+                                                Timestamp = timestamp,
+                                                SourcePlatform = "KOOK",
+                                            });
+                                            continue;
+                                        }
 
                                         // =====================================================================
                                         // PAWN TARGET ROUTING
@@ -349,37 +366,37 @@ namespace RimTalkRealitySync.Platforms.Kook
                                         // DISCARD LOGIC: If it's a standalone image with no @ target, it drops here safely.
                                         if (targetPawn == "All") continue;
 
-                                    newMessages.Add(new DiscordMessage
+                                        newMessages.Add(new DiscordMessage
+                                        {
+                                            Id = msgId,
+                                            SenderName = username,
+                                            SenderId = senderId,
+                                            SenderAvatarUrl = senderAvatarUrl,
+                                            TargetPawn = targetPawn,
+                                            Content = cleanContent,
+                                            Timestamp = timestamp,
+                                            SourcePlatform = "KOOK",
+                                        });
+                                    }
+
+                                    RimPhoneEngine.EnqueueMainThreadAction(() =>
                                     {
-                                        Id = msgId,
-                                        SenderName = username,
-                                        SenderId = senderId,
-                                        SenderAvatarUrl = senderAvatarUrl,
-                                        TargetPawn = targetPawn,
-                                        Content = cleanContent,
-                                        Timestamp = timestamp,
-                                        SourcePlatform = "KOOK",
+                                        if (newMessages.Count > 0)
+                                        {
+                                            RimPhoneCommandProcessor.ProcessSystemCommands(newMessages, settings);
+                                        }
+
+                                        // Update the sync marker using the exact timestamp!
+                                        if (maxFetchTime > lastSyncTime)
+                                        {
+                                            settings.LastKookMessageId = maxFetchTime.ToString();
+                                            settings.Write();
+                                        }
                                     });
                                 }
-
-                                RimPhoneEngine.EnqueueMainThreadAction(() =>
-                                {
-                                    if (newMessages.Count > 0)
-                                    {
-                                        RimPhoneCommandProcessor.ProcessSystemCommands(newMessages, settings);
-                                    }
-
-                                    // Update the sync marker if we found new messages
-                                    if (!string.IsNullOrEmpty(newestMsgIdToSave) && newestMsgIdToSave != settings.LastKookMessageId)
-                                    {
-                                        settings.LastKookMessageId = newestMsgIdToSave;
-                                        settings.Write();
-                                    }
-                                });
                             }
                         }
                     }
-                }
                 }
                 catch (Exception ex)
                 {

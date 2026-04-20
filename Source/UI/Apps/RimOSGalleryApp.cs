@@ -116,7 +116,9 @@ namespace RimTalkRealitySync.UI.Apps
             if (_animProgress < 1f) SoundDefOf.Tick_High.PlayOneShotOnCamera();
 
             if (_roundedBackgroundTex == null) _roundedBackgroundTex = CreateRoundedTexture(380, 650, 20, new Color(0.12f, 0.12f, 0.12f, 1f));
-            if (_galleryIconTex == null) _galleryIconTex = CreateRoundedTexture(100, 100, 22, new Color(0.95f, 0.95f, 0.95f));
+
+            // FIXED: Load the real HD texture instead of creating a placeholder block
+            if (_galleryIconTex == null) _galleryIconTex = ContentFinder<Texture2D>.Get("UI/RimPhone/Icon_Gallery", true);
         }
 
         protected override void SetInitialSizeAndPosition()
@@ -340,20 +342,14 @@ namespace RimTalkRealitySync.UI.Apps
             float overlayAlpha = Mathf.Max(_splashFadeProgress, _returnFadeProgress);
             if (overlayAlpha > 0.01f)
             {
-                GUI.color = new Color(1f, 1f, 1f, overlayAlpha);
-                GUI.DrawTexture(inRect, _roundedBackgroundTex, ScaleMode.StretchToFill, true);
-
+                // FIXED: Re-added centerIconRect definition to resolve CS0103 error
                 float centerIconSize = 110f;
                 Rect centerIconRect = new Rect(inRect.center.x - centerIconSize / 2f, inRect.center.y - centerIconSize / 2f, centerIconSize, centerIconSize);
 
                 GUI.color = new Color(1f, 1f, 1f, overlayAlpha);
                 if (_galleryIconTex != null) GUI.DrawTexture(centerIconRect, _galleryIconTex);
 
-                GUI.color = new Color(0f, 0f, 0f, overlayAlpha);
-                Text.Anchor = TextAnchor.MiddleCenter; Text.Font = GameFont.Medium;
-                Widgets.Label(centerIconRect, "G");
-                Text.Font = GameFont.Small; Text.Anchor = TextAnchor.UpperLeft;
-
+                // FIXED: Removed the hardcoded 'G' letter rendering
                 GUI.color = Color.white;
             }
         }
